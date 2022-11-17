@@ -22,7 +22,6 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
     
         view.backgroundColor = .cyan
-//      setupUI()
         setupConstraints()
         titleLabel.text = titleView.title
         
@@ -30,11 +29,6 @@ class PostViewController: UIViewController {
         navigationItem.rightBarButtonItems = [add]
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddTapped))
     }
-    
-//    func setupUI() {
-//        setupConstraints()
-//        titleLabel.text = titleView.title
-//    }
     
     func setupConstraints() {
         view.addSubview(titleLabel)

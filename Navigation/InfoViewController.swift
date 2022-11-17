@@ -18,9 +18,10 @@ class InfoViewController: UIViewController {
         return button
     }()
     
+    let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .yellow
         
         addTargets()
@@ -40,8 +41,6 @@ class InfoViewController: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
-    let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
     func setupAlertController() {
         alertController.addAction(UIAlertAction(title: "red", style: .default, handler: { _ in

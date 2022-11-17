@@ -26,37 +26,26 @@ class FeedViewController: UIViewController {
         return button
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupUI()
         
         view.backgroundColor = .green
         setupConstraints()
         addTarget()
     }
     
-    
-//    func setupUI() {
-//        setupConstraints()
-//        addTarget()
-//    }
-    
     func addTarget () {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
     }
     
     func setupConstraints(){
-        
         view.addSubview(label)
         view.addSubview(button)
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
