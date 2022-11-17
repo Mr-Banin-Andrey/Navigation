@@ -9,26 +9,29 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
+    //MARK: - 1. Properties
     private let button: UIButton = {
         let button = UIButton()
         button.setTitle("click", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.backgroundColor = .purple
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
+    //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         addTargets()
         setupConstraints()
         setupAlertController()
     }
     
+    //MARK: - 3. Methods
     func addTargets() {
         button.addTarget(self, action: #selector(addTarget), for: .touchUpInside)
     }

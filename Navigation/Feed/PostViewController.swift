@@ -9,6 +9,7 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+    //MARK: - 1. Properties
     var titleView = Post(title: "Заголовок 2")
     
     private let titleLabel: UILabel = {
@@ -18,6 +19,7 @@ class PostViewController: UIViewController {
         return titleLabel
     }()
     
+    //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -30,6 +32,7 @@ class PostViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddTapped))
     }
     
+    //MARK: - 3. Methods
     func setupConstraints() {
         view.addSubview(titleLabel)
         

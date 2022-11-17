@@ -8,7 +8,8 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
+   
+    //MARK: - 1. Properties
     private let label: UILabel = {
         let label = UILabel()
         label.text = "Заголовок 1"
@@ -20,20 +21,22 @@ class FeedViewController: UIViewController {
     private let button: UIButton = {
         let button = UIButton()
         button.setTitle("Just DO IT", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.backgroundColor = .orange
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .green
+        view.backgroundColor = .lightGray
         setupConstraints()
         addTarget()
     }
     
+    //MARK: - 3. Methods
     func addTarget () {
         button.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
     }
