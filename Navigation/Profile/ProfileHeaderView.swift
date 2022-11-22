@@ -55,7 +55,7 @@ class ProfileHeaderView: UIView {
     private let textStatusOfButton: UITextField = {
         let textStatus = UITextField()
         textStatus.frame = CGRect(x: 140, y: 205, width: 227, height: 30)
-        textStatus.text = "..."
+        textStatus.placeholder = "..."
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textStatus.backgroundColor = .white
         return textStatus
@@ -106,6 +106,8 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func statusTextChanged () {
-        statusText = textStatusOfButton.text!
+        if textStatusOfButton.text != nil {
+            statusText = textStatusOfButton.text!
+        }
     }
 }
