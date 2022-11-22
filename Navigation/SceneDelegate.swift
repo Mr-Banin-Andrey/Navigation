@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-// ------------1. навигационные контроллеры------------
+    //MARK: - 1. навигационные контроллеры
     
     var feedTabNavigationController: UIViewController!
     var profileTabNavigationController: UIViewController!
@@ -22,35 +22,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-// ------------2. инициализация TabBar------------
+        //MARK: - 2. Инициализируем таббар контроллер
         
         let tabBarController = UITabBarController()
         
-// ------------3. создаем навигационные контроллеры ------------
+        //MARK: - 3. напрямую создаем навигационные контроллеры
         
         feedTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
         profileTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
         
-// ------------4. заполняем контейнер  контроллерами таббара нашими навигационными контролеррами ------------
+        //MARK: - 4. Заполняем контейнер с контроллерами таббара нашими навигационными контроллерами
         
         tabBarController.viewControllers = [feedTabNavigationController, profileTabNavigationController]
         
-// ------------5. создание кнопок ------------
+        //MARK: - 5. создание кнопок
         
         let userFeed = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
         let userProfile = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         
-//------------6. кастомизация кнопок ------------
+        //MARK: - 6. кастамизация кнопок
         
-        UITabBar.appearance().tintColor = .yellow
-        UITabBar.appearance().backgroundColor = .gray
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
+        UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
-//------------7. закрепляет кнопки ------------
+        //MARK: - 7. закрепляет кнопки
         
         feedTabNavigationController.tabBarItem = userFeed
         profileTabNavigationController.tabBarItem = userProfile
         
-//------------8. делает видимыми контроллер ------------
+        //MARK: - 8. делает видимым экран, т к начальный сториборд удален
         
         let window = UIWindow(windowScene: windowScene)  //в строчке 23 даём название вместо _
         window.rootViewController = tabBarController
