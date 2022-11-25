@@ -14,16 +14,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        view.addSubview(profileHeaderView)
-        
-        profileHeaderView.frame = CGRect(origin: .zero, size: view.bounds.size)
+        viewSetupConstraints()
         
         self.navigationItem.title = "Profile"
         let appearance = UINavigationBarAppearance()
@@ -31,4 +22,16 @@ class ProfileViewController: UIViewController {
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
+    
+    private func viewSetupConstraints() {
+        view.addSubview(profileHeaderView)
+        
+        NSLayoutConstraint.activate([
+            profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
+            profileHeaderView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+    }
+    
 }
