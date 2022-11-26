@@ -73,15 +73,6 @@ class ProfileHeaderView: UIView {
     
     private var statusText: String = ""
     
-    private let newButton: UIButton = {
-        let newButton = UIButton()
-        newButton.setTitle("какая-то кнопка", for: .normal)
-        newButton.setTitleColor(UIColor.white, for: .normal)
-        newButton.backgroundColor = #colorLiteral(red: 0, green: 0.4780646563, blue: 0.9985368848, alpha: 1)
-        newButton.translatesAutoresizingMaskIntoConstraints = false
-        return newButton
-    }()
-    
     //MARK: - 2. Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,7 +98,6 @@ class ProfileHeaderView: UIView {
         addSubview(showStatusButton)
         addSubview(viewTextStatus)
         addSubview(textStatusOfButton)
-        addSubview(newButton)
         
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 100),
@@ -135,11 +125,7 @@ class ProfileHeaderView: UIView {
             showStatusButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             showStatusButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             showStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            newButton.heightAnchor.constraint(equalToConstant: 30),
-            newButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            newButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+            showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
     
