@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //MARK: - 3. напрямую создаем навигационные контроллеры
         
         feedTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
-        profileTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
+        profileTabNavigationController = UINavigationController.init(rootViewController: LogInViewController())
         
         //MARK: - 4. Заполняем контейнер с контроллерами таббара нашими навигационными контроллерами
         
