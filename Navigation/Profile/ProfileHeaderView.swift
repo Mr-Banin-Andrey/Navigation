@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
     
     //MARK: - 1. Properties
-    private let nameProfileLabel: UILabel = {
+    private lazy var nameProfileLabel: UILabel = {
         let label = UILabel()
         label.text = "Tурецкая чайка"
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -19,7 +19,7 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "чайка")
         imageView.clipsToBounds = true
@@ -30,7 +30,7 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    private let statusLabel: UILabel = {
+    private lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.text = "Здесь появятся мысли чайки"
         label.textColor = .gray
@@ -38,7 +38,7 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
-    private let showStatusButton: UIButton = {
+    private lazy var showStatusButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
         button.setTitle("Показать мысли чайки", for: .normal)
@@ -52,7 +52,7 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    private let textStatusOfButton: UITextField = {
+    private lazy var textStatusOfButton: UITextField = {
         let textStatus = UITextField()
         textStatus.placeholder = "..."
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -61,7 +61,7 @@ class ProfileHeaderView: UIView {
         return textStatus
     }()
     
-    private let viewTextStatus: UIView = {
+    private lazy var viewTextStatus: UIView = {
         let viewText = UIView()
         viewText.layer.borderWidth = 1
         viewText.layer.borderColor = UIColor.black.cgColor
@@ -74,15 +74,13 @@ class ProfileHeaderView: UIView {
     private var statusText: String = ""
     
     //MARK: - 2. Life cycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+                
         addTarget()
         addTargets()
         setupConstraints()
         
-        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
@@ -92,40 +90,42 @@ class ProfileHeaderView: UIView {
     //MARK: - 3. Methods
     
     func setupConstraints() {
-        addSubview(nameProfileLabel)
-        addSubview(imageView)
-        addSubview(statusLabel)
-        addSubview(showStatusButton)
-        addSubview(viewTextStatus)
-        addSubview(textStatusOfButton)
+        
+        self.addSubview(self.nameProfileLabel)
+        self.addSubview(self.imageView)
+        self.addSubview(self.statusLabel)
+        self.addSubview(self.showStatusButton)
+        self.addSubview(self.viewTextStatus)
+        self.addSubview(self.textStatusOfButton)
         
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 100),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
-            imageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            nameProfileLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 14),
-            nameProfileLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
+            self.imageView.widthAnchor.constraint(equalToConstant: 100),
+            self.imageView.heightAnchor.constraint(equalToConstant: 100),
+            self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             
-            statusLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 14),
-            statusLabel.topAnchor.constraint(equalTo: nameProfileLabel.bottomAnchor, constant: 20),
+            self.nameProfileLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
+            self.nameProfileLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
             
-            viewTextStatus.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 14),
-            viewTextStatus.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            viewTextStatus.topAnchor.constraint(equalTo: nameProfileLabel.bottomAnchor, constant: 50),
-            viewTextStatus.heightAnchor.constraint(equalToConstant: 40),
+            self.statusLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
+            self.statusLabel.topAnchor.constraint(equalTo: self.nameProfileLabel.bottomAnchor, constant: 20),
             
-            textStatusOfButton.leadingAnchor.constraint(equalTo: viewTextStatus.leadingAnchor, constant: 10),
-            textStatusOfButton.trailingAnchor.constraint(equalTo: viewTextStatus.trailingAnchor, constant: -10),
-            textStatusOfButton.topAnchor.constraint(equalTo: viewTextStatus.topAnchor, constant: 5),
-            textStatusOfButton.bottomAnchor.constraint(equalTo: viewTextStatus.bottomAnchor, constant: -5),
+            self.viewTextStatus.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
+            self.viewTextStatus.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            self.viewTextStatus.topAnchor.constraint(equalTo: self.nameProfileLabel.bottomAnchor, constant: 50),
+            self.viewTextStatus.heightAnchor.constraint(equalToConstant: 40),
             
-            showStatusButton.topAnchor.constraint(equalTo: viewTextStatus.bottomAnchor, constant: 15),
-            showStatusButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            showStatusButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            showStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            self.textStatusOfButton.leadingAnchor.constraint(equalTo: self.viewTextStatus.leadingAnchor, constant: 10),
+            self.textStatusOfButton.trailingAnchor.constraint(equalTo: self.viewTextStatus.trailingAnchor, constant: -10),
+            self.textStatusOfButton.topAnchor.constraint(equalTo: self.viewTextStatus.topAnchor, constant: 5),
+            self.textStatusOfButton.bottomAnchor.constraint(equalTo: self.viewTextStatus.bottomAnchor, constant: -5),
+        
+            self.showStatusButton.topAnchor.constraint(equalTo: self.viewTextStatus.bottomAnchor, constant: 15),
+            self.showStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            self.showStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            self.showStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            self.showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
         ])
     }
     

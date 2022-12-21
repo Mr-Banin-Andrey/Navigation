@@ -10,47 +10,70 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     //MARK: - 1. Properties
-    private let profileHeaderView: ProfileHeaderView = ProfileHeaderView()
     
-    private let newButton: UIButton = {
-        let newButton = UIButton()
-        newButton.setTitle("какая-то кнопка", for: .normal)
-        newButton.setTitleColor(UIColor.white, for: .normal)
-        newButton.backgroundColor = #colorLiteral(red: 0, green: 0.4780646563, blue: 0.9985368848, alpha: 1)
-        newButton.translatesAutoresizingMaskIntoConstraints = false
-        return newButton
+    private var posts: [PostCustomTableViewCell.ViewModel] = [
+        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "задумалась", image: UIImage(named: "задумалась"), likes: 1, views: 456),
+        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "моя авка", image: UIImage(named: "моя авка"), likes: 123, views: 599000),
+        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "Обо мне: Ча́йки — наиболее многочисленный род птиц семейства чайковых, обитающих как на морских просторах, так и на внутренних водоёмах. Многие виды считаются синантропными — они живут вблизи человека и получают от этого выгоду.", image: UIImage(named: "я во всей красе"), likes: 2, views: 102),
+        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "я с каким-то голубем", image: UIImage(named: "я с каким-то голубем"), likes: 55, views: 240)
+    ]
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "headerId")
+        tableView.register(PostCustomTableViewCell.self, forCellReuseIdentifier: "tableId")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultId")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         viewSetupConstraints()
-        
-        self.navigationItem.title = "Profile"
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     //MARK: - 3. Methods
     private func viewSetupConstraints() {
         
-        view.addSubview(profileHeaderView)
-        view.addSubview(newButton)
+        self.view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            
-            newButton.heightAnchor.constraint(equalToConstant: 30),
-            newButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
     
+}
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            guard tableView.dequeueReusableHeaderFooterView(withIdentifier: "headerId") is ProfileHeaderView else { return nil }
+            return ProfileHeaderView()
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "tableId", for: indexPath) as? PostCustomTableViewCell else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
+            return cell
+        }
+        
+        let post = self.posts[indexPath.row]
+        cell.setup(with: post)
+        return cell
+    }
 }
