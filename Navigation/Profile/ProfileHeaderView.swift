@@ -100,23 +100,19 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
         NSLayoutConstraint.activate([
             
-            self.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            self.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            
             self.imageView.widthAnchor.constraint(equalToConstant: 100),
             self.imageView.heightAnchor.constraint(equalToConstant: 100),
-            self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
-            self.imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             
             self.nameProfileLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
-            self.nameProfileLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 27),
+            self.nameProfileLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
             
             self.statusLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
             self.statusLabel.topAnchor.constraint(equalTo: self.nameProfileLabel.bottomAnchor, constant: 20),
             
             self.viewTextStatus.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
-            self.viewTextStatus.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            self.viewTextStatus.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             self.viewTextStatus.topAnchor.constraint(equalTo: self.nameProfileLabel.bottomAnchor, constant: 50),
             self.viewTextStatus.heightAnchor.constraint(equalToConstant: 40),
             
@@ -124,12 +120,12 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             self.textStatusOfButton.trailingAnchor.constraint(equalTo: self.viewTextStatus.trailingAnchor, constant: -10),
             self.textStatusOfButton.topAnchor.constraint(equalTo: self.viewTextStatus.topAnchor, constant: 5),
             self.textStatusOfButton.bottomAnchor.constraint(equalTo: self.viewTextStatus.bottomAnchor, constant: -5),
-            
+        
             self.showStatusButton.topAnchor.constraint(equalTo: self.viewTextStatus.bottomAnchor, constant: 15),
-            self.showStatusButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            self.showStatusButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            self.showStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            self.showStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             self.showStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            self.showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            self.showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
         ])
     }
     
