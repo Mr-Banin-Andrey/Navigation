@@ -18,12 +18,21 @@ class ProfileViewController: UIViewController {
         PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "я с каким-то голубем", image: UIImage(named: "я с каким-то голубем"), likes: 55, views: 240)
     ]
     
+    private var photoBooks: [PhotosTableViewCell.ViewModel] = [
+        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "1"), imageTwo: UIImage(named: "2"), imageThree: UIImage(named: "3"), imageFour: UIImage(named: "4")),
+        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "5"), imageTwo: UIImage(named: "6"), imageThree: UIImage(named: "7"), imageFour: UIImage(named: "8")),
+        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "9"), imageTwo: UIImage(named: "10"), imageThree: UIImage(named: "11"), imageFour: UIImage(named: "12")),
+        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "13"), imageTwo: UIImage(named: "14"), imageThree: UIImage(named: "15"), imageFour: UIImage(named: "16")),
+        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "17"), imageTwo: UIImage(named: "18"), imageThree: UIImage(named: "19"), imageFour: UIImage(named: "20"))
+    ]
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "headerId")
         tableView.register(PostCustomTableViewCell.self, forCellReuseIdentifier: "tableId")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosId")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultId")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -50,6 +59,10 @@ class ProfileViewController: UIViewController {
         ])
     }
     
+    @objc func showPhotosViewController() {
+        let showPhotosViewController = PhotosViewController()
+        navigationController?.pushViewController(showPhotosViewController, animated: true)
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -62,18 +75,56 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return nil
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.posts.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       if section == 0 {
+           return 1
+        }
+        
+        if section == 1 {
+            let postsArrive = (self.posts.count)
+            return postsArrive
+        }
+
+        return 0
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "tableId", for: indexPath) as? PostCustomTableViewCell else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
+        
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "photosId", for: indexPath) as? PhotosTableViewCell else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
+                return cell
+            }
+
+            let photo = self.photoBooks[indexPath.row]
+            cell.setup(with: photo)
+            return cell
+        }
+
+        if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "tableId", for: indexPath) as? PostCustomTableViewCell else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
+                return cell
+            }
+            
+            let post = self.posts[indexPath.row]
+            cell.setup(with: post)
             return cell
         }
         
-        let post = self.posts[indexPath.row]
-        cell.setup(with: post)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            showPhotosViewController()
+        }
     }
 }
