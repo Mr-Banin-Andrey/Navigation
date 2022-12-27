@@ -12,18 +12,14 @@ class ProfileViewController: UIViewController {
     //MARK: - 1. Properties
     
     private var posts: [PostCustomTableViewCell.ViewModel] = [
-        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "задумалась", image: UIImage(named: "задумалась"), likes: 1, views: 456),
-        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "моя авка", image: UIImage(named: "моя авка"), likes: 123, views: 599000),
-        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "Обо мне: Ча́йки — наиболее многочисленный род птиц семейства чайковых, обитающих как на морских просторах, так и на внутренних водоёмах. Многие виды считаются синантропными — они живут вблизи человека и получают от этого выгоду.", image: UIImage(named: "я во всей красе"), likes: 2, views: 102),
-        PostCustomTableViewCell.ViewModel(author: "кожанный бастард", description: "я с каким-то голубем", image: UIImage(named: "я с каким-то голубем"), likes: 55, views: 240)
+        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "задумалась", image: UIImage(named: "задумалась"), likes: 1, views: 456),
+        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "моя авка", image: UIImage(named: "моя авка"), likes: 123, views: 599000),
+        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "Обо мне: Ча́йки — наиболее многочисленный род птиц семейства чайковых, обитающих как на морских просторах, так и на внутренних водоёмах. Многие виды считаются синантропными — они живут вблизи человека и получают от этого выгоду.", image: UIImage(named: "я во всей красе"), likes: 2, views: 102),
+        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "я с каким-то голубем", image: UIImage(named: "я с каким-то голубем"), likes: 55, views: 240)
     ]
     
     private var photoBooks: [PhotosTableViewCell.ViewModel] = [
-        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "1"), imageTwo: UIImage(named: "2"), imageThree: UIImage(named: "3"), imageFour: UIImage(named: "4")),
-        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "5"), imageTwo: UIImage(named: "6"), imageThree: UIImage(named: "7"), imageFour: UIImage(named: "8")),
-        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "9"), imageTwo: UIImage(named: "10"), imageThree: UIImage(named: "11"), imageFour: UIImage(named: "12")),
-        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "13"), imageTwo: UIImage(named: "14"), imageThree: UIImage(named: "15"), imageFour: UIImage(named: "16")),
-        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "17"), imageTwo: UIImage(named: "18"), imageThree: UIImage(named: "19"), imageFour: UIImage(named: "20"))
+        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "1"), imageTwo: UIImage(named: "2"), imageThree: UIImage(named: "3"), imageFour: UIImage(named: "4"))
     ]
     
     private lazy var tableView: UITableView = {
@@ -43,7 +39,13 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
-        viewSetupConstraints()
+        self.viewSetupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     //MARK: - 3. Methods
@@ -101,6 +103,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
 
+            cell.selectionStyle = .none
             let photo = self.photoBooks[indexPath.row]
             cell.setup(with: photo)
             return cell
@@ -112,6 +115,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             
+            cell.selectionStyle = .none
             let post = self.posts[indexPath.row]
             cell.setup(with: post)
             return cell
@@ -125,6 +129,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             showPhotosViewController()
+            
         }
     }
 }
