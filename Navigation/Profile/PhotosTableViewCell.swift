@@ -86,7 +86,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         
-        let wigthFrame = (self.contentView.frame.width - 48 ) / 3.25
+        let wigthFrame = (UIScreen.main.bounds.size.width - 48 ) / 4
         
         self.contentView.addSubview(self.photosLabel)
         self.contentView.addSubview(self.arrowLabel)
