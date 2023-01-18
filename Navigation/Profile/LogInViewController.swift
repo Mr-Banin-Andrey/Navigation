@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LogInViewController: ViewController {
+class LogInViewController: UIViewController {
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {

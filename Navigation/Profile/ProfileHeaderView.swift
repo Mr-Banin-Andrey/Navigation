@@ -19,7 +19,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    private lazy var imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "чайка")
         imageView.clipsToBounds = true
@@ -27,6 +27,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+//        imageView.frame = CGRect(x: 16, y: 16, width: 100, height: 100)
         return imageView
     }()
     
@@ -77,10 +79,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
                 
-        addTarget()
-        addTargets()
-        setupConstraints()
-        
+        self.addTarget()
+        self.addTargets()
+        self.setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -129,21 +130,22 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    func addTarget () {
+    private func addTarget () {
         showStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
-    func addTargets () {
+    private func addTargets () {
         textStatusOfButton.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
     }
     
-    @objc func buttonPressed () {
+    @objc private func buttonPressed () {
         statusLabel.text = statusText
     }
     
-    @objc func statusTextChanged () {
+    @objc private func statusTextChanged () {
         if textStatusOfButton.text != nil {
             statusText = textStatusOfButton.text!
         }
     }
+    
 }
