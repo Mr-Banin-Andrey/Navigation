@@ -11,14 +11,55 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    //MARK: - 1. навигационные контроллеры
+    
+    var feedTabNavigationController: UIViewController!
+    var profileTabNavigationController: UIViewController!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
 
+        //MARK: - 2. Инициализируем таббар контроллер
+        
+        let tabBarController = UITabBarController()
+        
+        //MARK: - 3. напрямую создаем навигационные контроллеры
+        
+        feedTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
+        profileTabNavigationController = UINavigationController.init(rootViewController: LogInViewController())
+        
+        //MARK: - 4. Заполняем контейнер с контроллерами таббара нашими навигационными контроллерами
+        
+        tabBarController.viewControllers = [feedTabNavigationController, profileTabNavigationController]
+        
+        //MARK: - 5. создание кнопок
+        
+        let userFeed = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
+        let userProfile = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
+        
+        //MARK: - 6. кастамизация кнопок
+        
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
+        UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        //MARK: - 7. закрепляет кнопки
+        
+        feedTabNavigationController.tabBarItem = userFeed
+        profileTabNavigationController.tabBarItem = userProfile
+        
+        //MARK: - 8. делает видимым экран, т к начальный сториборд удален
+        
+        let window = UIWindow(windowScene: windowScene)  //в строчке 23 даём название вместо _
+        window.rootViewController = tabBarController
+        window.makeKeyAndVisible()
+        self.window = window
+        
+        
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
