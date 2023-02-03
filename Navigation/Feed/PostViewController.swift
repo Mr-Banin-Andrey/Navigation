@@ -5,12 +5,14 @@
 //  Created by Андрей Банин on 18.10.22..
 //
 
+import StorageService
 import UIKit
+
 
 class PostViewController: UIViewController {
     
     //MARK: - 1. Properties
-    var titleView = Post(title: "Заголовок 2")
+    var titleView = Post(title: "Заголовок 2")// Post(title: "Заголовок 2")
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
