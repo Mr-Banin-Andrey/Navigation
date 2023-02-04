@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
@@ -28,7 +29,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
-//        imageView.frame = CGRect(x: 16, y: 16, width: 100, height: 100)
         return imageView
     }()
     
@@ -82,6 +82,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.addTarget()
         self.addTargets()
         self.setupConstraints()
+            
     }
     
     required init?(coder: NSCoder) {
@@ -99,35 +100,36 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.addSubview(self.viewTextStatus)
         self.addSubview(self.textStatusOfButton)
         
-        NSLayoutConstraint.activate([
-            
-            self.imageView.widthAnchor.constraint(equalToConstant: 100),
-            self.imageView.heightAnchor.constraint(equalToConstant: 100),
-            self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            
-            self.nameProfileLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
-            self.nameProfileLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
-            
-            self.statusLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
-            self.statusLabel.topAnchor.constraint(equalTo: self.nameProfileLabel.bottomAnchor, constant: 20),
-            
-            self.viewTextStatus.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 14),
-            self.viewTextStatus.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            self.viewTextStatus.topAnchor.constraint(equalTo: self.nameProfileLabel.bottomAnchor, constant: 50),
-            self.viewTextStatus.heightAnchor.constraint(equalToConstant: 40),
-            
-            self.textStatusOfButton.leadingAnchor.constraint(equalTo: self.viewTextStatus.leadingAnchor, constant: 10),
-            self.textStatusOfButton.trailingAnchor.constraint(equalTo: self.viewTextStatus.trailingAnchor, constant: -10),
-            self.textStatusOfButton.topAnchor.constraint(equalTo: self.viewTextStatus.topAnchor, constant: 5),
-            self.textStatusOfButton.bottomAnchor.constraint(equalTo: self.viewTextStatus.bottomAnchor, constant: -5),
-        
-            self.showStatusButton.topAnchor.constraint(equalTo: self.viewTextStatus.bottomAnchor, constant: 15),
-            self.showStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            self.showStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            self.showStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            self.showStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-        ])
+        self.imageView.snp.makeConstraints { maker in
+            maker.width.equalTo(100)
+            maker.height.equalTo(100)
+            maker.top.equalToSuperview().inset(16)
+            maker.left.equalToSuperview().inset(16)
+        }
+        self.nameProfileLabel.snp.makeConstraints { maker in
+            maker.left.equalTo(self.imageView.snp.right).offset(14)
+            maker.top.equalToSuperview().inset(27)
+        }
+        self.statusLabel.snp.makeConstraints { maker in
+            maker.left.equalTo(self.imageView.snp.right).offset(14)
+            maker.top.equalTo(self.nameProfileLabel.snp.bottom).offset(20)
+        }
+        self.viewTextStatus.snp.makeConstraints { maker in
+            maker.left.equalTo(self.imageView.snp.right).offset(14)
+            maker.right.equalToSuperview().inset(16)
+            maker.top.equalTo(self.nameProfileLabel.snp.bottom).offset(50)
+            maker.height.equalTo(40)
+        }
+        self.textStatusOfButton.snp.makeConstraints { maker in
+            maker.left.right.equalTo(self.viewTextStatus).inset(10)
+            maker.top.bottom.equalTo(self.viewTextStatus).inset(5)
+        }
+        self.showStatusButton.snp.makeConstraints { maker in
+            maker.top.equalTo(self.viewTextStatus.snp.bottom).offset(15)
+            maker.left.right.equalToSuperview().inset(16)
+            maker.height.equalTo(50)
+            maker.bottom.equalToSuperview().inset(16)
+        }
     }
     
     private func addTarget () {
