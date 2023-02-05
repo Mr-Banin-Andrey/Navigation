@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class ProfileViewController: UIViewController {
     
@@ -13,7 +14,7 @@ class ProfileViewController: UIViewController {
     
     let profileHV = ProfileHeaderView()
     
-    private var posts: [PostCustomTableViewCell.ViewModel] = [
+    private let posts: [PostCustomTableViewCell.ViewModel] = [
         PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "задумалась", image: UIImage(named: "задумалась"), likes: 1, views: 456),
         PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "моя авка", image: UIImage(named: "моя авка"), likes: 123, views: 599000),
         PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "Обо мне: Ча́йки — наиболее многочисленный род птиц семейства чайковых, обитающих как на морских просторах, так и на внутренних водоёмах. Многие виды считаются синантропными — они живут вблизи человека и получают от этого выгоду.", image: UIImage(named: "я во всей красе"), likes: 2, views: 102),
@@ -238,10 +239,21 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             cell.selectionStyle = .none
-            let post = self.posts[indexPath.row]
+            
+            var arriveVar: [PostCustomTableViewCell.ViewModel] = []
+            posts.forEach({ arriveVar.append($0) })
+                    
+            func editImage(image: UIImage?) -> Void {
+                arriveVar[indexPath.row].image = image
+            }
+            
+            ImageProcessor().processImage(sourceImage: posts[indexPath.row].image ?? UIImage.checkmark, filter: .transfer, completion: editImage)
+            let post = arriveVar[indexPath.row]
             cell.setup(with: post)
+            arriveVar.removeAll()
             return cell
         }
+        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
         return cell
