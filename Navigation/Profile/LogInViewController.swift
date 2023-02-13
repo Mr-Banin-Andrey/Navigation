@@ -81,6 +81,8 @@ class LogInViewController: UIViewController {
         return line
     }()
     
+    let alertController = UIAlertController(title: "Error", message: "login invalid", preferredStyle: .alert)
+    
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +92,7 @@ class LogInViewController: UIViewController {
         
         self.setupGestures()
         self.addTarget()
+        self.setupAlertController()
         self.setupConstraints()
     }
     
@@ -158,6 +161,16 @@ class LogInViewController: UIViewController {
         logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
     }
     
+    func setupAlertController() {
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            print("login invalid")
+        }))
+    }
+    
+    @objc func showAlert () {
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc private func didShowKeyboard(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -184,7 +197,28 @@ class LogInViewController: UIViewController {
     }
     
     @objc private func showProfileViewController() {
-        let showProfileViewController = ProfileViewController()
-        navigationController?.pushViewController(showProfileViewController, animated: true)
+        
+        let profileVC = ProfileViewController()
+        
+#if DEBUG
+        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
+        if loginTextField.text == user.login {
+            profileVC.profileHV.setup(user: user)
+            profileVC.userVar = user
+            navigationController?.pushViewController(profileVC, animated: true)
+        } else {
+            showAlert()
+        }
+#else
+        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
+        if loginTextField.text == user.login {
+            profileVC.profileHV.setup(user: user)
+            profileVC.userVar = user
+            navigationController?.pushViewController(profileVC, animated: true)
+        } else {
+            showAlert()
+        }
+#endif
+        
     }
 }

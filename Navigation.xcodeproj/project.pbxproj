@@ -16,6 +16,7 @@
 		9D0EC52D298C31BB00A98E06 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC52B298C31B200A98E06 /* Post.swift */; };
 		9D0EC530298F000900A98E06 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC52F298F000900A98E06 /* iOSIntPackage */; };
 		9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC5322991117F00A98E06 /* SnapKit */; };
+		9D2CFDC6299568CB00CBDDEC /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2CFDC5299568CB00CBDDEC /* Dependencies.swift */; };
 		9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */; };
 		9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */; };
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
@@ -78,6 +79,7 @@
 		9D0EC515298C1EC400A98E06 /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D0EC51C298C1EC400A98E06 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		9D0EC52B298C31B200A98E06 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		9D2CFDC5299568CB00CBDDEC /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 			path = StorageServiceTests;
 			sourceTree = "<group>";
 		};
+		9D9F8E05299AAB9F002CB078 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				9D2CFDC5299568CB00CBDDEC /* Dependencies.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		9DBD55A828FF1A1800454D01 = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +185,7 @@
 				9DBD55C228FF1A1900454D01 /* Info.plist */,
 				9DE3E480292671E20043E19D /* Feed */,
 				9DE3E47F292671D20043E19D /* Profile */,
+				9D9F8E05299AAB9F002CB078 /* Dependencies */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -377,6 +388,7 @@
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
 				9DBD55B928FF1A1800454D01 /* ViewController.swift in Sources */,
 				9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */,
+				9D2CFDC6299568CB00CBDDEC /* Dependencies.swift in Sources */,
 				9DBD55CB28FF3AFB00454D01 /* ProfileViewController.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import iOSIntPackage
+//import iOSIntPackage
 
 class ProfileViewController: UIViewController {
     
@@ -74,6 +74,11 @@ class ProfileViewController: UIViewController {
     
     private var isImageViewBigIncreased = false
     
+    let userDebug = User(login: "Test", fullName: "Голубь разработчик", status: "не баг, а фича", profilePhoto: UIImage(named: "admin") ?? UIImage.checkmark)
+    let userRelease = User(login: "Larus", fullName: "Турецкая чайка", status: "хочу рыбки", profilePhoto: UIImage(named: "чайка") ?? UIImage.checkmark)
+    
+    var userVar = User(login: "ABS", fullName: "peremenya", status: "peremenya", profilePhoto: UIImage(named: "чайка") ?? UIImage.checkmark)
+    
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +87,7 @@ class ProfileViewController: UIViewController {
         self.viewSetupConstraints()
         
         #if DEBUG
-            self.view.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+            self.tableView.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
         #else
             self.view.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         #endif
@@ -194,7 +199,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.zoomPicture(_:)))
             header.imageView.addGestureRecognizer(tapGestureRecognizer)
-
+            
+            header.setup(user: userVar)
             return header
         }
         return nil
@@ -240,17 +246,19 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.selectionStyle = .none
             
-            var arriveVar: [PostCustomTableViewCell.ViewModel] = []
-            posts.forEach({ arriveVar.append($0) })
-                    
-            func editImage(image: UIImage?) -> Void {
-                arriveVar[indexPath.row].image = image
-            }
-            
-            ImageProcessor().processImage(sourceImage: posts[indexPath.row].image ?? UIImage.checkmark, filter: .transfer, completion: editImage)
-            let post = arriveVar[indexPath.row]
+//            var arriveVar: [PostCustomTableViewCell.ViewModel] = []
+//            posts.forEach({ arriveVar.append($0) })
+//
+//            func editImage(image: UIImage?) -> Void {
+//                arriveVar[indexPath.row].image = image
+//            }
+//
+//            ImageProcessor().processImage(sourceImage: posts[indexPath.row].image ?? UIImage.checkmark, filter: .transfer, completion: editImage)
+//            let post = arriveVar[indexPath.row]
+//            cell.setup(with: post)
+//            arriveVar.removeAll()
+            let post = posts[indexPath.row]
             cell.setup(with: post)
-            arriveVar.removeAll()
             return cell
         }
         
