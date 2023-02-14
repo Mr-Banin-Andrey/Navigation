@@ -202,15 +202,11 @@ class LogInViewController: UIViewController {
         
 #if DEBUG
         let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
-        if loginTextField.text == user.login {
-            profileVC.profileHV.setup(user: user)
-            profileVC.userVar = user
-            navigationController?.pushViewController(profileVC, animated: true)
-        } else {
-            showAlert()
-        }
+
 #else
         let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
+
+#endif
         if loginTextField.text == user.login {
             profileVC.profileHV.setup(user: user)
             profileVC.userVar = user
@@ -218,7 +214,5 @@ class LogInViewController: UIViewController {
         } else {
             showAlert()
         }
-#endif
-        
     }
 }
