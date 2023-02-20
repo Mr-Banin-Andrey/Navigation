@@ -13,7 +13,7 @@ class Checker {
     static let shared = Checker()
     
     private init() {
-        loginUser = "1"
+        loginUser = "Larus"
         passwordUser = "1"
     }
     
@@ -21,9 +21,7 @@ class Checker {
     private let passwordUser: String
         
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
-        
-        print("checker work?")
-        
+        print("Checker")
         if (login == loginUser) && (password == passwordUser) {
             return true
         }

@@ -7,20 +7,19 @@
 
 import UIKit
 
-protocol LoginViewControllerDelegate: AnyObject {
+protocol LoginViewControllerDelegate {
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool
 }
 
 struct LoginInspector: LoginViewControllerDelegate {
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
-        print("login inspector work?")
         return Checker.shared.isCheck(LogInViewController(), login: login, password: password)
     }
 }
 
 class LogInViewController: UIViewController {
     
-    weak var loginDelegate: LoginViewControllerDelegate?
+    var loginDelegate: LoginViewControllerDelegate?
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -94,8 +93,8 @@ class LogInViewController: UIViewController {
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()
-    
-    let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+        
+    var alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
@@ -212,33 +211,27 @@ class LogInViewController: UIViewController {
         let profileVC = ProfileViewController()
         
         let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
+        
+#if DEBUG
+        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
+#else
         let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-        
-//        let checkCheck = Checker.shared.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
-//        print(checkCheck, "- -- -checker first")
-        
-        if check == true { //(loginTextField.text == user.login) && 
-            profileVC.profileHV.setup(user: user)
-            profileVC.userVar = user
-            navigationController?.pushViewController(profileVC, animated: true)
+#endif
+        if loginTextField.text == user.login {
+            if check == true {
+                profileVC.profileHV.setup(user: user)
+                profileVC.userVar = user
+                navigationController?.pushViewController(profileVC, animated: true)
+            } else {
+                alertController = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
+                setupAlertController()
+                showAlert()
+            }
         } else {
+            alertController = UIAlertController(title: "Ошибка", message: "Логин не существует", preferredStyle: .alert)
+            setupAlertController()
             showAlert()
         }
-        
-        
-//#if DEBUG
-//        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
-//#else
-//        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-//#endif
-//        if loginTextField.text == user.login {
-//            profileVC.profileHV.setup(user: user)
-//            profileVC.userVar = user
-//            navigationController?.pushViewController(profileVC, animated: true)
-//        } else {
-//            showAlert()
-//        }
-        
     }
 }
 

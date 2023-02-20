@@ -17,6 +17,8 @@
 		9D0EC530298F000900A98E06 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC52F298F000900A98E06 /* iOSIntPackage */; };
 		9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC5322991117F00A98E06 /* SnapKit */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
+		9D34F39A29A3D233004B91E1 /* TabBarNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39929A3D233004B91E1 /* TabBarNavigation.swift */; };
+		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
 		9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */; };
 		9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */; };
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
@@ -81,6 +83,8 @@
 		9D0EC51C298C1EC400A98E06 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		9D0EC52B298C31B200A98E06 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		9D34F39929A3D233004B91E1 /* TabBarNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigation.swift; sourceTree = "<group>"; };
+		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
 		9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				9D34F390299F81FB004B91E1 /* Checker.swift */,
+				9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */,
 			);
 			path = CheckLogin;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
 				9DBD55C228FF1A1900454D01 /* Info.plist */,
+				9D34F39929A3D233004B91E1 /* TabBarNavigation.swift */,
 				9DE3E480292671E20043E19D /* Feed */,
 				9DE3E47F292671D20043E19D /* Profile */,
 			);
@@ -394,8 +400,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
+				9D34F39A29A3D233004B91E1 /* TabBarNavigation.swift in Sources */,
 				9D34F391299F81FB004B91E1 /* Checker.swift in Sources */,
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
+				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* Dependencies.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
