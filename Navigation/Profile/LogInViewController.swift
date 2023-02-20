@@ -7,7 +7,20 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate: AnyObject {
+    func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool
+}
+
+struct LoginInspector: LoginViewControllerDelegate {
+    func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
+        print("login inspector work?")
+        return Checker.shared.isCheck(LogInViewController(), login: login, password: password)
+    }
+}
+
 class LogInViewController: UIViewController {
+    
+    weak var loginDelegate: LoginViewControllerDelegate?
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -42,7 +55,7 @@ class LogInViewController: UIViewController {
         return stack
     }()
     
-    private lazy var loginTextField: UITextField = {
+    lazy var loginTextField: UITextField = {
         let login = UITextField()
         login.placeholder = "Email of phone"
         login.font = UIFont.systemFont(ofSize: 16)
@@ -52,7 +65,7 @@ class LogInViewController: UIViewController {
         return login
     }()
     
-    private lazy var passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let password = UITextField()
         password.placeholder = "Password"
         password.font = UIFont.systemFont(ofSize: 16)
@@ -70,6 +83,7 @@ class LogInViewController: UIViewController {
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
         return button
     }()
     
@@ -81,7 +95,7 @@ class LogInViewController: UIViewController {
         return line
     }()
     
-    let alertController = UIAlertController(title: "Error", message: "login invalid", preferredStyle: .alert)
+    let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
@@ -91,7 +105,7 @@ class LogInViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
-        self.addTarget()
+//        self.addTarget()
         self.setupAlertController()
         self.setupConstraints()
     }
@@ -157,17 +171,14 @@ class LogInViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestures)
     }
     
-    private func addTarget() {
-        logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
-    }
     
-    func setupAlertController() {
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+    private func setupAlertController() {
+        alertController.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
             print("login invalid")
         }))
     }
     
-    @objc func showAlert () {
+    @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -200,19 +211,35 @@ class LogInViewController: UIViewController {
         
         let profileVC = ProfileViewController()
         
-#if DEBUG
-        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
-
-#else
+        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
         let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-
-#endif
-        if loginTextField.text == user.login {
+        
+//        let checkCheck = Checker.shared.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
+//        print(checkCheck, "- -- -checker first")
+        
+        if check == true { //(loginTextField.text == user.login) && 
             profileVC.profileHV.setup(user: user)
             profileVC.userVar = user
             navigationController?.pushViewController(profileVC, animated: true)
         } else {
             showAlert()
         }
+        
+        
+//#if DEBUG
+//        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
+//#else
+//        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
+//#endif
+//        if loginTextField.text == user.login {
+//            profileVC.profileHV.setup(user: user)
+//            profileVC.userVar = user
+//            navigationController?.pushViewController(profileVC, animated: true)
+//        } else {
+//            showAlert()
+//        }
+        
     }
 }
+
+

@@ -16,10 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var feedTabNavigationController: UIViewController!
     var profileTabNavigationController: UIViewController!
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         //MARK: - 2. Инициализируем таббар контроллер
@@ -28,8 +30,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //MARK: - 3. напрямую создаем навигационные контроллеры
         
+        let inspector = LoginInspector()
+        let logInVC = LogInViewController()
+        logInVC.loginDelegate = inspector
+        
         feedTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
-        profileTabNavigationController = UINavigationController.init(rootViewController: LogInViewController())
+        profileTabNavigationController = UINavigationController(rootViewController: logInVC.self)
         
         //MARK: - 4. Заполняем контейнер с контроллерами таббара нашими навигационными контроллерами
         
@@ -54,9 +60,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)  //в строчке 23 даём название вместо _
         window.rootViewController = tabBarController
-        window.makeKeyAndVisible()
-        self.window = window
         
+        self.window = window
+        window.makeKeyAndVisible()
         
     }
     
