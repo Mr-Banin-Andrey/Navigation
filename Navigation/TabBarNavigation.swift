@@ -22,11 +22,9 @@ final class TabBarNavigation: UITabBarController {
     
     private func setupTabBar() {
         
-        let inspector = LoginInspector()
         let logInVC = LogInViewController()
         let myLF = MyLoginFactory()
         
-        logInVC.loginDelegate = inspector
         logInVC.loginDelegate = myLF.makeLoginInspector()
         
         feedTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())

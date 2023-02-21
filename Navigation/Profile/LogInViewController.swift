@@ -13,7 +13,7 @@ protocol LoginViewControllerDelegate {
 
 struct LoginInspector: LoginViewControllerDelegate {
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
-        return Checker.shared.isCheck(LogInViewController(), login: login, password: password)
+        return Checker.shared.isCheck(sender, login: login, password: password)
     }
 }
 
@@ -94,7 +94,7 @@ class LogInViewController: UIViewController {
         return line
     }()
         
-    var alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+    let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
@@ -104,7 +104,6 @@ class LogInViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
-//        self.addTarget()
         self.setupAlertController()
         self.setupConstraints()
     }
@@ -217,19 +216,12 @@ class LogInViewController: UIViewController {
 #else
         let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
 #endif
-        if loginTextField.text == user.login {
-            if check == true {
-                profileVC.profileHV.setup(user: user)
-                profileVC.userVar = user
-                navigationController?.pushViewController(profileVC, animated: true)
-            } else {
-                alertController = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
-                setupAlertController()
-                showAlert()
-            }
+        if check == true {
+            profileVC.profileHV.setup(user: user)
+            profileVC.userVar = user
+            navigationController?.pushViewController(profileVC, animated: true)
         } else {
-            alertController = UIAlertController(title: "Ошибка", message: "Логин не существует", preferredStyle: .alert)
-            setupAlertController()
+
             showAlert()
         }
     }
