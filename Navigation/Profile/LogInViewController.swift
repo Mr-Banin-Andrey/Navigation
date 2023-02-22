@@ -7,7 +7,19 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate {
+    func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool
+}
+
+struct LoginInspector: LoginViewControllerDelegate {
+    func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
+        return Checker.shared.isCheck(sender, login: login, password: password)
+    }
+}
+
 class LogInViewController: UIViewController {
+    
+    var loginDelegate: LoginViewControllerDelegate?
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -42,7 +54,7 @@ class LogInViewController: UIViewController {
         return stack
     }()
     
-    private lazy var loginTextField: UITextField = {
+    lazy var loginTextField: UITextField = {
         let login = UITextField()
         login.placeholder = "Email of phone"
         login.font = UIFont.systemFont(ofSize: 16)
@@ -52,7 +64,7 @@ class LogInViewController: UIViewController {
         return login
     }()
     
-    private lazy var passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let password = UITextField()
         password.placeholder = "Password"
         password.font = UIFont.systemFont(ofSize: 16)
@@ -70,6 +82,7 @@ class LogInViewController: UIViewController {
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
         return button
     }()
     
@@ -80,8 +93,8 @@ class LogInViewController: UIViewController {
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()
-    
-    let alertController = UIAlertController(title: "Error", message: "login invalid", preferredStyle: .alert)
+        
+    let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
@@ -91,7 +104,6 @@ class LogInViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
-        self.addTarget()
         self.setupAlertController()
         self.setupConstraints()
     }
@@ -157,17 +169,14 @@ class LogInViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestures)
     }
     
-    private func addTarget() {
-        logInButton.addTarget(self, action: #selector(showProfileViewController), for: .touchUpInside)
-    }
     
-    func setupAlertController() {
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+    private func setupAlertController() {
+        alertController.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
             print("login invalid")
         }))
     }
     
-    @objc func showAlert () {
+    @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -200,19 +209,22 @@ class LogInViewController: UIViewController {
         
         let profileVC = ProfileViewController()
         
+        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
+        
 #if DEBUG
         let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
-
 #else
         let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-
 #endif
-        if loginTextField.text == user.login {
+        if check == true {
             profileVC.profileHV.setup(user: user)
             profileVC.userVar = user
             navigationController?.pushViewController(profileVC, animated: true)
         } else {
+
             showAlert()
         }
     }
 }
+
+
