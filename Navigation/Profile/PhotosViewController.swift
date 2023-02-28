@@ -123,11 +123,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
 extension PhotosViewController: ImageLibrarySubscriber {
 
     func receive(images: [UIImage]) {
-        
-        for v in images {
-            imageArrive.append(v)
-            collectionView.reloadData()
-        }
-        
+        imageArrive = images
+        collectionView.reloadData()
     }
 }
