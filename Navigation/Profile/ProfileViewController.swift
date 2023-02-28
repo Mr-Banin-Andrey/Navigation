@@ -186,8 +186,8 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func showPhotosViewController() {
-        let showPhotosViewController = PhotosViewController()
-        navigationController?.pushViewController(showPhotosViewController, animated: true)
+        let photosVC = PhotosViewController()
+        navigationController?.pushViewController(photosVC, animated: true)
     }
 }
 
@@ -271,7 +271,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             showPhotosViewController()
-            
         }
     }
 }

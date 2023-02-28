@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
@@ -13,6 +14,7 @@ class PhotosViewController: UIViewController {
         static let numberOfItemsInLine: CGFloat = 3
     }
     
+    //MARK: - 1. Properties
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -44,13 +46,31 @@ class PhotosViewController: UIViewController {
         PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "17")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "18")),
         PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "19")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "20"))
     ]
+    
+    let imagePF = ImagePublisherFacade()
+    
+    var imageArrive: [UIImage] = []
+    
+    //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         self.navigationBarFunc()
         self.setupConstraints()
+        
+        imagePF.rechargeImageLibrary()
+        imagePF.subscribe(self)
+        imagePF.addImagesWithTimer(time: 0.5, repeat: 10)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        imagePF.removeSubscription(for: self)
+        
+    }
+    
+    //MARK: - 3. Methods
     private func navigationBarFunc() {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.title = "Photo Gallery"
@@ -75,7 +95,7 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.photoGallery.count
+        self.imageArrive.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,8 +103,8 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "defaultID", for: indexPath)
             return cell
         }
-        
-        cell.setup(with: self.photoGallery[indexPath.row])
+
+        cell.photoImage.image = self.imageArrive[indexPath.row]
         return cell
     }
     
@@ -97,5 +117,13 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
         let itemWight = floor(wight / Constants.numberOfItemsInLine)
         
         return CGSize(width: itemWight, height: itemWight)
+    }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+
+    func receive(images: [UIImage]) {
+        imageArrive = images
+        collectionView.reloadData()
     }
 }
