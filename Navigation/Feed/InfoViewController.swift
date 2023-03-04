@@ -10,14 +10,8 @@ import UIKit
 class InfoViewController: UIViewController {
     
     //MARK: - 1. Properties
-    private let button: UIButton = {
-        let button = UIButton()
-        button.setTitle("click", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private let button = CustomButton(title: "click")
+
     
     let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
