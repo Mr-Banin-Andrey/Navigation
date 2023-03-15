@@ -24,9 +24,10 @@
 		9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */; };
 		9D9F8E09299ACAD5002CB078 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F8E08299ACAD5002CB078 /* Dependencies.swift */; };
 		9DB5FA2729A6A4D000A6D424 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB5FA2629A6A4D000A6D424 /* iOSIntPackage */; };
+		9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */; };
+		9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */; };
 		9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B428FF1A1800454D01 /* AppDelegate.swift */; };
 		9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */; };
-		9DBD55B928FF1A1800454D01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B828FF1A1800454D01 /* ViewController.swift */; };
 		9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BD28FF1A1900454D01 /* Assets.xcassets */; };
 		9DBD55C128FF1A1900454D01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */; };
 		9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55C828FF3ADA00454D01 /* FeedViewController.swift */; };
@@ -90,10 +91,11 @@
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		9D9F8E08299ACAD5002CB078 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9DBD55B828FF1A1800454D01 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9DBD55BD28FF1A1900454D01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DBD55C028FF1A1900454D01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9DBD55C228FF1A1900454D01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,6 +171,39 @@
 			path = Dependencies;
 			sourceTree = "<group>";
 		};
+		9DB5FA2A29AE8A3D00A6D424 /* SmartViews */ = {
+			isa = PBXGroup;
+			children = (
+				9DB5FA2B29AE8AC000A6D424 /* Buttons */,
+			);
+			path = SmartViews;
+			sourceTree = "<group>";
+		};
+		9DB5FA2B29AE8AC000A6D424 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		9DB5FA2E29B3AD1800A6D424 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9DB5FA2F29B3B10600A6D424 /* Application layer */ = {
+			isa = PBXGroup;
+			children = (
+				9DBD55B428FF1A1800454D01 /* AppDelegate.swift */,
+				9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */,
+			);
+			path = "Application layer";
+			sourceTree = "<group>";
+		};
 		9DBD55A828FF1A1800454D01 = {
 			isa = PBXGroup;
 			children = (
@@ -192,13 +227,13 @@
 		9DBD55B328FF1A1800454D01 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				9DBD55B428FF1A1800454D01 /* AppDelegate.swift */,
-				9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */,
-				9DBD55B828FF1A1800454D01 /* ViewController.swift */,
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
 				9DBD55C228FF1A1900454D01 /* Info.plist */,
+				9DB5FA2F29B3B10600A6D424 /* Application layer */,
 				9D34F39929A3D233004B91E1 /* TabBarNavigation.swift */,
+				9DB5FA2E29B3AD1800A6D424 /* Model */,
+				9DB5FA2A29AE8A3D00A6D424 /* SmartViews */,
 				9DE3E480292671E20043E19D /* Feed */,
 				9DE3E47F292671D20043E19D /* Profile */,
 			);
@@ -400,14 +435,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
+				9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */,
 				9D34F39A29A3D233004B91E1 /* TabBarNavigation.swift in Sources */,
+				9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */,
 				9D34F391299F81FB004B91E1 /* Checker.swift in Sources */,
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
 				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* Dependencies.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
-				9DBD55B928FF1A1800454D01 /* ViewController.swift in Sources */,
 				9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */,
 				9DBD55CB28FF3AFB00454D01 /* ProfileViewController.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,

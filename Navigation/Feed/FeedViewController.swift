@@ -10,7 +10,7 @@ import UIKit
 class FeedViewController: UIViewController {
    
     //MARK: - 1. Properties
-    private let label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Заголовок 1"
         label.textColor = .black
@@ -18,7 +18,7 @@ class FeedViewController: UIViewController {
         return label
     }()
     
-    private let twoButtons: UIStackView = {
+    private lazy var twoButtons: UIStackView = {
         let twoButtons = UIStackView()
         twoButtons.axis = .vertical
         twoButtons.spacing = 10
@@ -26,20 +26,46 @@ class FeedViewController: UIViewController {
         return twoButtons
     }()
     
-    private let firstButton: UIButton = {
-        let firstButton = UIButton()
-        firstButton.setTitle("Show window", for: .normal)
-        firstButton.setTitleColor(UIColor.white, for: .normal)
-        firstButton.backgroundColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
-        return firstButton
+    private lazy var firstButton: CustomButton = {
+        let button = CustomButton(title: "Show First", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            let showVC = PostViewController()
+            navigationController?.pushViewController(showVC, animated: true)
+        }
+        return button
     }()
     
-    private let secondButton: UIButton = {
-        let secondButton = UIButton()
-        secondButton.setTitle("Show window", for: .normal)
-        secondButton.setTitleColor(UIColor.white, for: .normal)
-        secondButton.backgroundColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
-        return secondButton
+    private lazy var secondButton: CustomButton = {
+        let button = CustomButton(title: "Show Second", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            let showVC = PostViewController()
+            navigationController?.pushViewController(showVC, animated: true)
+        }
+        return button
+    }()
+    
+    private lazy var textCheck: UITextField = {
+        let textStatus = UITextField()
+        textStatus.placeholder = " Text Check "
+        textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textStatus.backgroundColor = .white
+        textStatus.translatesAutoresizingMaskIntoConstraints = false
+        return textStatus
+    }()
+    
+    private lazy var checkGuessButton: CustomButton = {
+        let feedModel = FeedModel()
+        let button = CustomButton(title: "Check guess", bgColor: .blue) { [unowned self] in
+            guard let word = textCheck.text else { return }
+            let isCheck = FeedModel().isCheck(word: word)
+            checkLabel.text = isCheck.text
+            checkLabel.backgroundColor = isCheck.color
+        }
+        return button
+    }()
+    
+    private lazy var checkLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     //MARK: - 2. Life cycle
@@ -48,32 +74,36 @@ class FeedViewController: UIViewController {
         
         view.backgroundColor = .lightGray
         setupConstraints()
-        addTarget()
     }
     
     //MARK: - 3. Methods
-    func addTarget () {
-        firstButton.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
-        secondButton.addTarget(self, action: #selector(showDetailController), for: .touchUpInside)
-    }
-    
     func setupConstraints(){
         view.addSubview(label)
         view.addSubview(twoButtons)
         twoButtons.addArrangedSubview(firstButton)
         twoButtons.addArrangedSubview(secondButton)
+        view.addSubview(self.textCheck)
+        view.addSubview(self.checkGuessButton)
+        view.addSubview(self.checkLabel)
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             twoButtons.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            twoButtons.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            twoButtons.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            
+            textCheck.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            textCheck.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 200),
+            textCheck.widthAnchor.constraint(equalToConstant: 150),
+            textCheck.heightAnchor.constraint(equalToConstant: 30),
+            
+            checkGuessButton.topAnchor.constraint(equalTo: textCheck.bottomAnchor, constant: 25),
+            checkGuessButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            checkLabel.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 150),
+            checkLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            checkLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
-    }
-    
-    @objc func showDetailController() {
-        let detailController = PostViewController()
-        navigationController?.pushViewController(detailController, animated: true)
     }
 }

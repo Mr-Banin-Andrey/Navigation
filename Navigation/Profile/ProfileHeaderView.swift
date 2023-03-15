@@ -13,7 +13,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     //MARK: - 1. Properties
     private lazy var nameProfileLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Tурецкая чайка"
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +21,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage(named: "чайка")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 50
         imageView.layer.borderWidth = 3
@@ -34,7 +32,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Здесь появятся мысли чайки"
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
