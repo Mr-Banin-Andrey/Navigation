@@ -10,7 +10,7 @@ import UIKit
 class FeedViewController: UIViewController {
    
     //MARK: - 1. Properties
-    private let label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Заголовок 1"
         label.textColor = .black
@@ -18,7 +18,7 @@ class FeedViewController: UIViewController {
         return label
     }()
     
-    private let twoButtons: UIStackView = {
+    private lazy var twoButtons: UIStackView = {
         let twoButtons = UIStackView()
         twoButtons.axis = .vertical
         twoButtons.spacing = 10
@@ -26,16 +26,20 @@ class FeedViewController: UIViewController {
         return twoButtons
     }()
     
-    private let firstButton: CustomButton = {
-        let firstButton = CustomButton(title: "Show First")
-        firstButton.addTarget(self, action: #selector(showPostVC), for: .touchUpInside)
-        return firstButton
+    private lazy var firstButton: CustomButton = {
+        let button = CustomButton(title: "Show First", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            let showVC = PostViewController()
+            navigationController?.pushViewController(showVC, animated: true)
+        }
+        return button
     }()
     
-    private let secondButton: CustomButton = {
-        let secondButton = CustomButton(title: "Show Second")
-        secondButton.addTarget(self, action: #selector(showPostVC), for: .touchUpInside)
-        return secondButton
+    private lazy var secondButton: CustomButton = {
+        let button = CustomButton(title: "Show Second", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            let showVC = PostViewController()
+            navigationController?.pushViewController(showVC, animated: true)
+        }
+        return button
     }()
     
     private lazy var textCheck: UITextField = {
@@ -47,18 +51,22 @@ class FeedViewController: UIViewController {
         return textStatus
     }()
     
-    private let checkGuessButton: CustomButton = {
-        let secondButton = CustomButton(title: "Check guess")
-        secondButton.addTarget(self, action: #selector(checkGuess), for: .touchUpInside)
-        return secondButton
+    private lazy var checkGuessButton: CustomButton = {
+        let feedModel = FeedModel()
+        let button = CustomButton(title: "Check guess", bgColor: .blue) { [unowned self] in
+            guard let word = textCheck.text else { return }
+            let isCheck = FeedModel().isCheck(word: word)
+            checkLabel.text = isCheck.text
+            checkLabel.backgroundColor = isCheck.color
+        }
+        return button
     }()
     
-    private let checkLabel: UILabel = {
+    private lazy var checkLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
@@ -97,23 +105,5 @@ class FeedViewController: UIViewController {
             checkLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             checkLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
-    }
-    
-    @objc func showPostVC() {
-        firstButton.buttonTapped(self, PostViewController())
-    }
-    
-    @objc func checkGuess() {
-        
-        let feedModel = FeedModel()
-        let isCheck = feedModel.isCheck(word: textCheck.text!)
-        
-        if isCheck == true {
-            checkLabel.text = "  ВЕРНО ✔️  "
-            checkLabel.backgroundColor = .systemGreen
-        } else {
-            checkLabel.text = "  НЕВЕРНО ✖️  "
-            checkLabel.backgroundColor = .systemRed
-        }
     }
 }

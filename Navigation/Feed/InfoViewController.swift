@@ -10,8 +10,12 @@ import UIKit
 class InfoViewController: UIViewController {
     
     //MARK: - 1. Properties
-    private let button = CustomButton(title: "click")
-
+    private lazy var button: CustomButton = {
+        let button = CustomButton(title: "click", bgColor: .blue) { [unowned self] in
+            self.present(alertController, animated: true, completion: nil)
+        }
+        return button
+    }()
     
     let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
@@ -20,15 +24,15 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
-        addTargets()
+//        addTargets()
         setupConstraints()
         setupAlertController()
     }
     
     //MARK: - 3. Methods
-    func addTargets() {
-        button.addTarget(self, action: #selector(addTarget), for: .touchUpInside)
-    }
+//    func addTargets() {
+//        button.addTarget(self, action: #selector(addTarget), for: .touchUpInside)
+//    }
     
     func setupConstraints() {
         view.addSubview(button)
@@ -48,7 +52,7 @@ class InfoViewController: UIViewController {
         }))
     }
     
-    @objc func addTarget () {
-        self.present(alertController, animated: true, completion: nil)
-    }
+//    @objc func addTarget () {
+//        self.present(alertController, animated: true, completion: nil)
+//    }
 }

@@ -21,7 +21,6 @@ class Checker {
     private let passwordUser: String
         
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
-        print("Checker")
         if (login == loginUser) && (password == passwordUser) {
             return true
         }

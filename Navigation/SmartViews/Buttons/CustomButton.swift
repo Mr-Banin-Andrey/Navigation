@@ -7,30 +7,28 @@
 
 import UIKit
 
+final class CustomButton: UIButton {
+    typealias Action = () -> Void
 
-class CustomButton: UIButton {
-        
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-    }
+    var buttonAction: Action
     
-    init(title: String) {
+    init(title: String, titleColor: UIColor = .white, bgColor: UIColor, action: @escaping Action) {
+        buttonAction = action
         super.init(frame: .zero)
         
         setTitle("  \(title)  ", for: .normal)
-        setTitleColor(.white, for: .normal)
-        backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        backgroundColor = bgColor
         layer.cornerRadius = 9
         translatesAutoresizingMaskIntoConstraints = false
+        
+        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func buttonTapped( _ selfVC: UIViewController, _ toVC: UIViewController) {
-        let showVC = toVC
-        selfVC.navigationController?.pushViewController(showVC, animated: true)
+    @objc private func buttonTapped() {
+        buttonAction()
     }
 }
