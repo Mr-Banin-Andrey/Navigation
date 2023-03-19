@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var rootCoordinator: AppCoordinator?
 
     func scene(
         _ scene: UIScene,
@@ -19,13 +20,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
       
-        let tabBarController = TabBarNavigation()
-        let window = UIWindow(windowScene: windowScene)  //в строчке 20 даём название вместо _
-        window.rootViewController = tabBarController
+//        let tabBarController = TabBarNavigation()
+//        let window = UIWindow(windowScene: windowScene)  //в строчке 20 даём название вместо _
+//        window.rootViewController = tabBarController
+//
+//        self.window = window
+//        window.makeKeyAndVisible()
         
+        let window = UIWindow(windowScene: windowScene)
+        let navigationController = UINavigationController()
+        window.rootViewController = navigationController
+    
         self.window = window
-        window.makeKeyAndVisible()
         
+        let coordinator = TabBarNavigationCoordinator(
+            navigationController: navigationController
+        )
+        self.rootCoordinator = coordinator
+        
+        window.makeKeyAndVisible()
+        coordinator.start()
+
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
