@@ -16,17 +16,30 @@ class FeedCoordinator: AppCoordinator {
     
     var navigationController: UINavigationController
     
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
     func start() {
         showFeedVC()
     }
     
-    private func showFeedVC() {
-
+    func showFeedVC() {
         let feedVC = FeedViewController()
+        feedVC.coordinator = self
         navigationController.pushViewController(feedVC, animated: false)
     }
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    func showPostVC() {
+        let postVC = PostViewController()
+        postVC.coordinator = self
+        navigationController.pushViewController(postVC, animated: true)
     }
+    
+    func showInfoVC() {
+        let infoVC = InfoViewController()
+        navigationController.pushViewController(infoVC, animated: true)
+    }
+    
+    
 }

@@ -9,10 +9,12 @@ import UIKit
 
 class FeedViewController: UIViewController {
    
+    var coordinator: FeedCoordinator?
+    
     //MARK: - 1. Properties
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Заголовок 1"
+        label.text = "Feed"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -27,17 +29,21 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var firstButton: CustomButton = {
-        let button = CustomButton(title: "Show First", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
-            let showVC = PostViewController()
-            navigationController?.pushViewController(showVC, animated: true)
+        let button = CustomButton(title: "Show Post", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            print("firstButton - coordinator?.showPostVC()")
+            
+            coordinator?.showPostVC()
+//            let showVC = PostViewController()
+//            navigationController?.pushViewController(showVC, animated: true)
         }
         return button
     }()
     
     private lazy var secondButton: CustomButton = {
-        let button = CustomButton(title: "Show Second", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
-            let showVC = PostViewController()
-            navigationController?.pushViewController(showVC, animated: true)
+        let button = CustomButton(title: "Show Info", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            coordinator?.showInfoVC()
+//            let showVC = PostViewController()
+//            navigationController?.pushViewController(showVC, animated: true)
         }
         return button
     }()

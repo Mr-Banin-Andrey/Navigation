@@ -34,11 +34,11 @@
 		9DBD55CB28FF3AFB00454D01 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55CA28FF3AFB00454D01 /* ProfileViewController.swift */; };
 		9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55CC28FF4A3800454D01 /* PostViewController.swift */; };
 		9DBD55D128FF4F7F00454D01 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55D028FF4F7F00454D01 /* InfoViewController.swift */; };
-		9DBD5C3629C48E5B009F494C /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C3529C48E5B009F494C /* RootCoordinator.swift */; };
 		9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C5729C73735009F494C /* AppCoordinator.swift */; };
 		9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C5A29C7942A009F494C /* FeedCoordinator.swift */; };
 		9DBD5C5D29C79444009F494C /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C5C29C79444009F494C /* ProfileCoordinator.swift */; };
-		9DBD5C5F29C79BAE009F494C /* TabBarNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C5E29C79BAE009F494C /* TabBarNavigationCoordinator.swift */; };
+		9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C5E29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift */; };
+		9DBD5C6129C7BC35009F494C /* CheckInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C6029C7BC35009F494C /* CheckInput.swift */; };
 		9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */; };
 		9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4C5293A0E190043E19D /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
@@ -108,11 +108,11 @@
 		9DBD55CA28FF3AFB00454D01 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Navigation/Profile/ProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 		9DBD55CC28FF4A3800454D01 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostViewController.swift; path = Navigation/Feed/PostViewController.swift; sourceTree = SOURCE_ROOT; };
 		9DBD55D028FF4F7F00454D01 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Navigation/Feed/InfoViewController.swift; sourceTree = SOURCE_ROOT; };
-		9DBD5C3529C48E5B009F494C /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		9DBD5C5729C73735009F494C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		9DBD5C5A29C7942A009F494C /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		9DBD5C5C29C79444009F494C /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
-		9DBD5C5E29C79BAE009F494C /* TabBarNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationCoordinator.swift; sourceTree = "<group>"; };
+		9DBD5C5E29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarNavigationCoordinator.swift; sourceTree = "<group>"; };
+		9DBD5C6029C7BC35009F494C /* CheckInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInput.swift; sourceTree = "<group>"; };
 		9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		9DE3E4C5293A0E190043E19D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -201,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */,
+				9DBD5C6029C7BC35009F494C /* CheckInput.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,9 +241,9 @@
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
 				9DBD55C228FF1A1900454D01 /* Info.plist */,
+				9D34F39929A3D233004B91E1 /* TabBarNavigation.swift */,
 				9DB5FA2F29B3B10600A6D424 /* Application layer */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
-				9D34F39929A3D233004B91E1 /* TabBarNavigation.swift */,
 				9DB5FA2E29B3AD1800A6D424 /* Model */,
 				9DB5FA2A29AE8A3D00A6D424 /* SmartViews */,
 				9DE3E480292671E20043E19D /* Feed */,
@@ -255,10 +256,9 @@
 			isa = PBXGroup;
 			children = (
 				9DBD5C5729C73735009F494C /* AppCoordinator.swift */,
-				9DBD5C3529C48E5B009F494C /* RootCoordinator.swift */,
+				9DBD5C5E29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift */,
 				9DBD5C5A29C7942A009F494C /* FeedCoordinator.swift */,
 				9DBD5C5C29C79444009F494C /* ProfileCoordinator.swift */,
-				9DBD5C5E29C79BAE009F494C /* TabBarNavigationCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -270,10 +270,10 @@
 				9D9F8E0A299ACD1A002CB078 /* Dependencies */,
 				9DE3E4C5293A0E190043E19D /* LogInViewController.swift */,
 				9DBD55CA28FF3AFB00454D01 /* ProfileViewController.swift */,
+				9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */,
 				9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */,
 				9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */,
 				9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */,
-				9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */,
 				9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */,
 			);
 			path = Profile;
@@ -458,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DBD5C5D29C79444009F494C /* ProfileCoordinator.swift in Sources */,
+				9DBD5C6129C7BC35009F494C /* CheckInput.swift in Sources */,
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
 				9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */,
 				9D34F39A29A3D233004B91E1 /* TabBarNavigation.swift in Sources */,
@@ -466,7 +467,7 @@
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
 				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
-				9DBD5C5F29C79BAE009F494C /* TabBarNavigationCoordinator.swift in Sources */,
+				9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* Dependencies.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
 				9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */,
@@ -479,7 +480,6 @@
 				9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */,
 				9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */,
 				9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */,
-				9DBD5C3629C48E5B009F494C /* RootCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,8 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    
     private enum Constants {
         static let numberOfItemsInLine: CGFloat = 3
     }

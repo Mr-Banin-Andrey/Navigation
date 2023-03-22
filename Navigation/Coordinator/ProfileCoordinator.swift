@@ -16,17 +16,43 @@ class ProfileCoordinator: AppCoordinator {
     
     var navigationController: UINavigationController
     
-    func start() {
-        showProfileVC()
-    }
-    
-    private func showProfileVC() {
-
-        let profileVC = ProfileViewController()
-        navigationController.pushViewController(profileVC, animated: false)
-    }
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
+    func start() {
+        showLogInVC()
+    }
+    
+    func showLogInVC() {
+        
+        let logInVC = LogInViewController()
+        let myLF = MyLoginFactory()
+
+        logInVC.loginDelegate = myLF.makeLoginInspector()
+        logInVC.coordinator = self
+        navigationController.pushViewController(logInVC, animated: false)
+        print("ProfileCoordinator")
+    }
+    
+    func showProfileVC() {
+        let profileVC = ProfileViewController()
+        //подумать над реализацией добавления юзера
+        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
+        profileVC.profileHV.setup(user: user)
+        profileVC.userVar = user
+        
+        profileVC.coordinator = self
+        navigationController.pushViewController(profileVC, animated: true)
+        print("showProfileVC()")
+    }
+    
+    func showPhotosVC() {
+        let photosVC = PhotosViewController()
+        photosVC.coordinator = self
+        navigationController.pushViewController(photosVC, animated: false)
+    
+    }
+    
 }

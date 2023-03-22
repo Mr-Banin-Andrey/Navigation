@@ -8,33 +8,27 @@
 import Foundation
 import UIKit
 
-class TabBarNavigationCoordinator: AppCoordinator {
+class RootTabBarNavigationCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?
     var navigationController: UINavigationController
     
     var child: [AppCoordinator] = []
+
+    // MARK: - Initialization
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
     
+    // MARK: - Func
     func start() {
         setupTabBar()
     }
     
     private func setupTabBar() {
         
-//        let navigationController = UINavigationController()
-        let vc = UITabBarController.init()
-        
-//        let logInVC = LogInViewController()
-//        let myLF = MyLoginFactory()
-//
-//        logInVC.loginDelegate = myLF.makeLoginInspector()
-        
-//        var feedTabNavigationController = UIViewController()
-//        var profileTabNavigationController = UIViewController()
-        
-//        feedTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
-//        profileTabNavigationController = UINavigationController.init(rootViewController: logInVC)
-        
+        let tabBarCont = UITabBarController.init()
+                
         let feedNC = UINavigationController()
         let feedCoordinator = FeedCoordinator.init(navigationController: feedNC)
 
@@ -53,8 +47,8 @@ class TabBarNavigationCoordinator: AppCoordinator {
         feedNC.tabBarItem = userFeed
         profileNC.tabBarItem = userProfile
         
-        vc.viewControllers = [feedNC, profileNC]
-        navigationController.pushViewController(vc, animated: true)
+        tabBarCont.viewControllers = [feedNC, profileNC]
+        navigationController.pushViewController(tabBarCont, animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
         
         parentCoordinator?.child.append(feedCoordinator)
@@ -62,9 +56,5 @@ class TabBarNavigationCoordinator: AppCoordinator {
         
         feedCoordinator.start()
         profileCoordinator.start()
-    }
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
     }
 }

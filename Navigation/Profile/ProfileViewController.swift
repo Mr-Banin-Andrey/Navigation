@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    
     //MARK: - 1. Properties
     
     let profileHV = ProfileHeaderView()
@@ -25,7 +27,7 @@ class ProfileViewController: UIViewController {
         PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "1"), imageTwo: UIImage(named: "2"), imageThree: UIImage(named: "3"), imageFour: UIImage(named: "4"))
     ]
     
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
@@ -185,10 +187,11 @@ class ProfileViewController: UIViewController {
         self.animateCloseView(completion: completion)
     }
     
-    @objc func showPhotosViewController() {
-        let photosVC = PhotosViewController()
-        navigationController?.pushViewController(photosVC, animated: true)
-    }
+//    @objc func showPhotosViewController() {
+//
+////        let photosVC = PhotosViewController()
+////        navigationController?.pushViewController(photosVC, animated: true)
+//    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -270,7 +273,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            showPhotosViewController()
+            
+            print("didSelectRowAt --- coordinator?.showPhotosVC()")
+            coordinator?.showPhotosVC()
         }
     }
 }

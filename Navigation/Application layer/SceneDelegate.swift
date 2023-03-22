@@ -20,12 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
       
-//        let tabBarController = TabBarNavigation()
-//        let window = UIWindow(windowScene: windowScene)  //в строчке 20 даём название вместо _
-//        window.rootViewController = tabBarController
-//
-//        self.window = window
-//        window.makeKeyAndVisible()
         
         let window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
@@ -33,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
         self.window = window
         
-        let coordinator = TabBarNavigationCoordinator(
+        let coordinator = RootTabBarNavigationCoordinator(
             navigationController: navigationController
         )
         self.rootCoordinator = coordinator
