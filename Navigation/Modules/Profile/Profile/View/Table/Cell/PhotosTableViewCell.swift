@@ -9,13 +9,6 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
-    struct ViewModel {
-        var imageOne: UIImage?
-        var imageTwo: UIImage?
-        var imageThree: UIImage?
-        var imageFour: UIImage?
-    }
-    
     private lazy var photosLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos"
@@ -77,11 +70,11 @@ class PhotosTableViewCell: UITableViewCell {
     }
     
     
-    func setup(with viewModel: ViewModel){
-        self.photoOne.image = viewModel.imageOne
-        self.photoTwo.image = viewModel.imageTwo
-        self.photoThree.image = viewModel.imageThree
-        self.photoFour.image = viewModel.imageFour
+    func setup(with photo: PhotosInCell){
+        self.photoOne.image = photo.imageOne.imageOne
+        self.photoTwo.image = photo.imageTwo.imageTwo
+        self.photoThree.image = photo.imageThree.imageThree
+        self.photoFour.image = photo.imageFour.imageFour
     }
     
     private func setupConstraints() {
@@ -97,13 +90,11 @@ class PhotosTableViewCell: UITableViewCell {
         self.contentView.addSubview(self.photoFour)
         
         NSLayoutConstraint.activate([
-            
             self.photosLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 12),
             self.photosLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12),
             
             self.arrowLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -12),
             self.arrowLabel.centerYAnchor.constraint(equalTo: self.photosLabel.centerYAnchor),
-            
             
             self.photoOne.topAnchor.constraint(equalTo: self.photosLabel.bottomAnchor, constant: 12),
             self.photoOne.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12),
@@ -133,3 +124,9 @@ class PhotosTableViewCell: UITableViewCell {
 
 }
 
+extension String {
+    var imageOne: UIImage? { get { return UIImage(named: self) } }
+    var imageTwo: UIImage? { get { return UIImage(named: self) } }
+    var imageThree: UIImage? { get { return UIImage(named: self) } }
+    var imageFour: UIImage? { get { return UIImage(named: self) } }
+}

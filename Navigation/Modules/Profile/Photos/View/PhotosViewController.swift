@@ -36,19 +36,6 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
-    private var photoGallery: [PhotosCollectionViewCell.ViewModel] = [
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "1")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "2")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "3")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "4")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "5")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "6")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "7")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "8")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "9")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "10")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "11")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "12")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "13")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "14")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "15")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "16")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "17")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "18")),
-        PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "19")), PhotosCollectionViewCell.ViewModel(photo: UIImage(named: "20"))
-    ]
-    
     let imagePF = ImagePublisherFacade()
     
     var imageArrive: [UIImage] = []

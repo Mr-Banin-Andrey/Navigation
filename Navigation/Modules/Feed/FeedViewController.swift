@@ -30,7 +30,6 @@ class FeedViewController: UIViewController {
     
     private lazy var firstButton: CustomButton = {
         let button = CustomButton(title: "Show Post", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
-            print("firstButton - coordinator?.showPostVC()")
             
             coordinator?.showPostVC()
 //            let showVC = PostViewController()
@@ -41,6 +40,7 @@ class FeedViewController: UIViewController {
     
     private lazy var secondButton: CustomButton = {
         let button = CustomButton(title: "Show Info", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+            
             coordinator?.showInfoVC()
 //            let showVC = PostViewController()
 //            navigationController?.pushViewController(showVC, animated: true)
@@ -58,9 +58,11 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let feedModel = FeedModel()
+                
         let button = CustomButton(title: "Check guess", bgColor: .blue) { [unowned self] in
+            
             guard let word = textCheck.text else { return }
+            
             let isCheck = FeedModel().isCheck(word: word)
             checkLabel.text = isCheck.text
             checkLabel.backgroundColor = isCheck.color

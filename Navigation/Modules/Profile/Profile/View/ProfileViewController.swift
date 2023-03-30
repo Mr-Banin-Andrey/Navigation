@@ -16,17 +16,6 @@ class ProfileViewController: UIViewController {
     
     let profileHV = ProfileHeaderView()
     
-    private let posts: [PostCustomTableViewCell.ViewModel] = [
-        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "задумалась", image: UIImage(named: "задумалась"), likes: 1, views: 456),
-        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "моя авка", image: UIImage(named: "моя авка"), likes: 123, views: 599000),
-        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "Обо мне: Ча́йки — наиболее многочисленный род птиц семейства чайковых, обитающих как на морских просторах, так и на внутренних водоёмах. Многие виды считаются синантропными — они живут вблизи человека и получают от этого выгоду.", image: UIImage(named: "я во всей красе"), likes: 2, views: 102),
-        PostCustomTableViewCell.ViewModel(author: "кожаный бастард", description: "я с каким-то голубем", image: UIImage(named: "я с каким-то голубем"), likes: 55, views: 240)
-    ]
-    
-    private var photoBooks: [PhotosTableViewCell.ViewModel] = [
-        PhotosTableViewCell.ViewModel(imageOne: UIImage(named: "1"), imageTwo: UIImage(named: "2"), imageThree: UIImage(named: "3"), imageFour: UIImage(named: "4"))
-    ]
-    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
@@ -43,7 +32,7 @@ class ProfileViewController: UIViewController {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
-        image.image = profileHV.imageView.image
+        image.image = ReleaseOrTest().user.userPhoto.userPhoto
         image.isHidden = true
         image.clipsToBounds = true
         image.layer.cornerRadius = 50
@@ -75,11 +64,6 @@ class ProfileViewController: UIViewController {
     private var imageHeightConstaint: NSLayoutConstraint?
     
     private var isImageViewBigIncreased = false
-    
-    let userDebug = User(login: "Test", fullName: "Голубь разработчик", status: "не баг, а фича", profilePhoto: UIImage(named: "admin") ?? UIImage.checkmark)
-    let userRelease = User(login: "Larus", fullName: "Турецкая чайка", status: "хочу рыбки", profilePhoto: UIImage(named: "чайка") ?? UIImage.checkmark)
-    
-    var userVar = User(login: "ABS", fullName: "peremenya", status: "peremenya", profilePhoto: UIImage(named: "чайка") ?? UIImage.checkmark)
     
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
@@ -187,11 +171,6 @@ class ProfileViewController: UIViewController {
         self.animateCloseView(completion: completion)
     }
     
-//    @objc func showPhotosViewController() {
-//
-////        let photosVC = PhotosViewController()
-////        navigationController?.pushViewController(photosVC, animated: true)
-//    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -203,7 +182,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.zoomPicture(_:)))
             header.imageView.addGestureRecognizer(tapGestureRecognizer)
             
-            header.setup(user: userVar)
+            header.setup(user: ReleaseOrTest().user)
             return header
         }
         return nil
@@ -219,7 +198,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if section == 1 {
-            let postsArrive = (self.posts.count)
+            let posts = Posts()
+            let postsArrive = (posts.postsArray.count)
             return postsArrive
         }
 
@@ -236,7 +216,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
 
             cell.selectionStyle = .none
-            let photo = self.photoBooks[indexPath.row]
+            let photo = PhotosInCellProfile().PhotosInCellProfile[indexPath.row]
             cell.setup(with: photo)
             return cell
         }
@@ -248,23 +228,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             cell.selectionStyle = .none
-            
-//            var arriveVar: [PostCustomTableViewCell.ViewModel] = []
-//            posts.forEach({ arriveVar.append($0) })
-//
-//            func editImage(image: UIImage?) -> Void {
-//                arriveVar[indexPath.row].image = image
-//            }
-//
-//            ImageProcessor().processImage(sourceImage: posts[indexPath.row].image ?? UIImage.checkmark, filter: .transfer, completion: editImage)
-//            let post = arriveVar[indexPath.row]
-//            cell.setup(with: post)
-//            arriveVar.removeAll()
-            let post = posts[indexPath.row]
+            let posts = Posts()
+            let post = posts.postsArray[indexPath.row]
             cell.setup(with: post)
             return cell
         }
-        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
         return cell

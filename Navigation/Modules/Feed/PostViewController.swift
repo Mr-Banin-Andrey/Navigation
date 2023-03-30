@@ -14,7 +14,7 @@ class PostViewController: UIViewController {
     var coordinator: FeedCoordinator?
     
     //MARK: - 1. Properties
-    var titleView = Post(title: "Post")
+    var titleView = PostTitle(title: "Post")
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()

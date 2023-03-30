@@ -27,9 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
         self.window = window
         
-        let coordinator = RootTabBarNavigationCoordinator(
-            navigationController: navigationController
-        )
+        let coordinator = RootTabBarNavigationCoordinator(navigationController: navigationController)
         self.rootCoordinator = coordinator
         
         window.makeKeyAndVisible()

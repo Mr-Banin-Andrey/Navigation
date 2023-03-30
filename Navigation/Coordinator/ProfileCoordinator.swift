@@ -26,7 +26,6 @@ class ProfileCoordinator: AppCoordinator {
     }
     
     func showLogInVC() {
-        
         let logInVC = LogInViewController()
         let myLF = MyLoginFactory()
 
@@ -38,11 +37,7 @@ class ProfileCoordinator: AppCoordinator {
     
     func showProfileVC() {
         let profileVC = ProfileViewController()
-        //подумать над реализацией добавления юзера
-        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-        profileVC.profileHV.setup(user: user)
-        profileVC.userVar = user
-        
+                
         profileVC.coordinator = self
         navigationController.pushViewController(profileVC, animated: true)
         print("showProfileVC()")
@@ -50,9 +45,9 @@ class ProfileCoordinator: AppCoordinator {
     
     func showPhotosVC() {
         let photosVC = PhotosViewController()
+        
         photosVC.coordinator = self
         navigationController.pushViewController(photosVC, animated: false)
-    
     }
     
 }

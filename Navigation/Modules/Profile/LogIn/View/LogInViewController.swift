@@ -209,21 +209,11 @@ class LogInViewController: UIViewController {
     
     @objc func showProfileViewController() {
 
-        let profileVC = ProfileViewController()
         let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
 
-#if DEBUG
-        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
-#else
-        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-#endif
         if check == true {
-//            profileVC.profileHV.setup(user: user)
-//            profileVC.userVar = user
             coordinator?.showProfileVC()
-//            navigationController?.pushViewController(profileVC, animated: true)
         } else {
-
             showAlert()
         }
     }
