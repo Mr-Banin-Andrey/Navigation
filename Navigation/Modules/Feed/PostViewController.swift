@@ -11,7 +11,7 @@ import UIKit
 
 class PostViewController: UIViewController {
     
-    var coordinator: FeedCoordinator?
+    weak var coordinator: FeedCoordinator?
     
     //MARK: - 1. Properties
     var titleView = PostTitle(title: "Post")

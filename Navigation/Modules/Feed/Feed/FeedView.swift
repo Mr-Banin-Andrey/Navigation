@@ -1,17 +1,27 @@
 //
-//  FeedViewController.swift
+//  FeedView.swift
 //  Navigation
 //
-//  Created by Андрей Банин on 18.10.22..
+//  Created by Андрей Банин on 5.4.23..
 //
 
+import Foundation
 import UIKit
 
-class FeedViewController: UIViewController {
-   
-    var coordinator: FeedCoordinator?
+
+protocol FeedViewDelegate: AnyObject {
+    func showPostVCon()
+    func showInfoVCon()
+    func guessWord()
+}
+
+
+class FeedView: UIView {
     
-    //MARK: - 1. Properties
+    var tapAction: (() -> Void)?
+    
+    private weak var delegate: FeedViewDelegate?
+    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Feed"
@@ -30,25 +40,33 @@ class FeedViewController: UIViewController {
     
     private lazy var firstButton: CustomButton = {
         let button = CustomButton(title: "Show Post", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
-            
-            coordinator?.showPostVC()
-//            let showVC = PostViewController()
-//            navigationController?.pushViewController(showVC, animated: true)
+            delegate?.showPostVCon()
+            tapAction?()
         }
         return button
     }()
+    
+//    private lazy var firstButton: UIButton = {
+//        let button = UIButton()
+//        button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
+//        button.setTitle(" Show Post ", for: .normal)
+//        //button.setTitleColor(UIColor.white, for: .normal)
+//        button.layer.cornerRadius = 4
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.addTarget(self, action: #selector(showPostVCon), for: .touchUpInside)
+//        return button
+//    }()
+    
     
     private lazy var secondButton: CustomButton = {
         let button = CustomButton(title: "Show Info", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
-            
-            coordinator?.showInfoVC()
-//            let showVC = PostViewController()
-//            navigationController?.pushViewController(showVC, animated: true)
+            delegate?.showInfoVCon()
+            tapAction?()
         }
         return button
     }()
     
-    private lazy var textCheck: UITextField = {
+    lazy var textCheck: UITextField = {
         let textStatus = UITextField()
         textStatus.placeholder = " Text Check "
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -58,60 +76,76 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-                
         let button = CustomButton(title: "Check guess", bgColor: .blue) { [unowned self] in
-            
-            guard let word = textCheck.text else { return }
-            
-            let isCheck = FeedModel().isCheck(word: word)
-            checkLabel.text = isCheck.text
-            checkLabel.backgroundColor = isCheck.color
+            delegate?.guessWord()
+            tapAction?()
         }
         return button
     }()
     
-    private lazy var checkLabel: UILabel = {
+    lazy var checkLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    //MARK: - 2. Life cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    init(delegate: FeedViewDelegate) {
+        self.delegate = delegate
+        super.init(frame: .zero)
         
-        view.backgroundColor = .lightGray
+        self.backgroundColor = .lightGray
         setupConstraints()
     }
     
-    //MARK: - 3. Methods
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     func setupConstraints(){
-        view.addSubview(label)
-        view.addSubview(twoButtons)
+        self.addSubview(label)
+        self.addSubview(twoButtons)
         twoButtons.addArrangedSubview(firstButton)
         twoButtons.addArrangedSubview(secondButton)
-        view.addSubview(self.textCheck)
-        view.addSubview(self.checkGuessButton)
-        view.addSubview(self.checkLabel)
+        self.addSubview(self.textCheck)
+        self.addSubview(self.checkGuessButton)
+        self.addSubview(self.checkLabel)
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.topAnchor.constraint(equalTo: self.topAnchor, constant: 65),
+            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            twoButtons.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            twoButtons.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            twoButtons.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            twoButtons.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 150),
             
-            textCheck.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            textCheck.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             textCheck.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 200),
             textCheck.widthAnchor.constraint(equalToConstant: 150),
             textCheck.heightAnchor.constraint(equalToConstant: 30),
             
             checkGuessButton.topAnchor.constraint(equalTo: textCheck.bottomAnchor, constant: 25),
-            checkGuessButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            checkGuessButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
             checkLabel.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 150),
-            checkLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            checkLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             checkLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
+    
+//    @objc func showPostVCon() {
+//        delegate?.showPostVCon()
+//        tapAction?()
+//    }
+//
+//    @objc func showInfoVCon() {
+//        delegate?.showInfoVCon()
+//        tapAction?()
+//    }
+//
+//    @objc func guessWord() {
+//        delegate?.guessWord()
+//        tapAction?()
+//    }
 }
+
+

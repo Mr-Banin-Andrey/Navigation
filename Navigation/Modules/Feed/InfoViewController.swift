@@ -19,6 +19,8 @@ class InfoViewController: UIViewController {
     
     let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
+    weak var coordinator: FeedCoordinator?
+    
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
