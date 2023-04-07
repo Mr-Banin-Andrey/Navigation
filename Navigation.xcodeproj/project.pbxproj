@@ -189,12 +189,12 @@
 			path = CheckLogin;
 			sourceTree = "<group>";
 		};
-		9D9F8E0A299ACD1A002CB078 /* Dependencies */ = {
+		9D9F8E0A299ACD1A002CB078 /* DependenciesUserService */ = {
 			isa = PBXGroup;
 			children = (
 				9D9F8E08299ACAD5002CB078 /* UserService.swift */,
 			);
-			path = Dependencies;
+			path = DependenciesUserService;
 			sourceTree = "<group>";
 		};
 		9DA94F7029D5BB4E0095D94B /* Modules */ = {
@@ -405,7 +405,7 @@
 		9DE3E47F292671D20043E19D /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9D9F8E0A299ACD1A002CB078 /* Dependencies */,
+				9D9F8E0A299ACD1A002CB078 /* DependenciesUserService */,
 				9DBD5C7D29CD8331009F494C /* LogIn */,
 				9DBD5C7F29CD8358009F494C /* Photos */,
 				9DBD5C7E29CD8343009F494C /* Profile */,
