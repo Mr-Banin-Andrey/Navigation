@@ -44,6 +44,4 @@ class FeedCoordinator: AppCoordinator {
         infoVC.coordinator = self
         navigationController.pushViewController(infoVC, animated: true)
     }
-    
-    
 }
