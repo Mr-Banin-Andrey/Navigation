@@ -26,7 +26,7 @@ class PhotosViewController: UIViewController {
         return layout
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.layout)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -36,27 +36,27 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
-    let imagePF = ImagePublisherFacade()
-    
     var imageArrive: [UIImage] = []
+        
+    var photosGallery = PhotoGallery().photos
     
+    let stringToUiImage = ""
+        
     //MARK: - 2. Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+                
+        self.photoGalleryToImageArrive()
+        
         self.navigationBarFunc()
         self.setupConstraints()
-        
-        imagePF.rechargeImageLibrary()
-        imagePF.subscribe(self)
-        imagePF.addImagesWithTimer(time: 0.5, repeat: 10)
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         
-        imagePF.removeSubscription(for: self)
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.processImagesOnThread()
     }
     
     //MARK: - 3. Methods
@@ -79,6 +79,33 @@ class PhotosViewController: UIViewController {
             self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
+    
+    func photoGalleryToImageArrive() {
+        if imageArrive.isEmpty {
+            photosGallery.forEach{ imageArrive.append(($0.photo.stringToUiImage!)) }
+        }
+    }
+    
+    func processImagesOnThread() {
+        
+        let imageProcessor = ImageProcessor()
+        
+        let startTime = Date().timeIntervalSince1970
+        print("startTime", startTime)
+        imageProcessor.processImagesOnThread(sourceImages: imageArrive, filter: .colorInvert, qos: .default) { photos in
+            
+            for (index, value) in photos.enumerated() {
+                self.imageArrive[index] = UIImage(cgImage: value!)
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            let endTime = Date().timeIntervalSince1970
+            print("endTime", endTime)
+            let elapsedTime = endTime - startTime
+            print("time", elapsedTime)
+        }
+    }
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -93,7 +120,9 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
             return cell
         }
 
+        
         cell.photoImage.image = self.imageArrive[indexPath.row]
+//        cell.setup(with: photoGallery[indexPath.row])
         return cell
     }
     
@@ -109,10 +138,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
-
-    func receive(images: [UIImage]) {
-        imageArrive = images
-        collectionView.reloadData()
-    }
+extension String {
+    var stringToUiImage: UIImage? { get { return UIImage(named: self) } }
 }
+

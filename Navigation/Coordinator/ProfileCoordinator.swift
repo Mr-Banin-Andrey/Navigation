@@ -32,7 +32,6 @@ class ProfileCoordinator: AppCoordinator {
         logInVC.loginDelegate = myLF.makeLoginInspector()
         logInVC.coordinator = self
         navigationController.pushViewController(logInVC, animated: false)
-        print("ProfileCoordinator")
     }
     
     func showProfileVC() {
@@ -40,14 +39,13 @@ class ProfileCoordinator: AppCoordinator {
                 
         profileVC.coordinator = self
         navigationController.pushViewController(profileVC, animated: true)
-        print("showProfileVC()")
     }
     
     func showPhotosVC() {
         let photosVC = PhotosViewController()
         
         photosVC.coordinator = self
-        navigationController.pushViewController(photosVC, animated: false)
+        navigationController.pushViewController(photosVC, animated: true)
     }
     
 }

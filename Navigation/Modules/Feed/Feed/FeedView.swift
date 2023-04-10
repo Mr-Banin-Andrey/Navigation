@@ -46,18 +46,6 @@ class FeedView: UIView {
         return button
     }()
     
-//    private lazy var firstButton: UIButton = {
-//        let button = UIButton()
-//        button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
-//        button.setTitle(" Show Post ", for: .normal)
-//        //button.setTitleColor(UIColor.white, for: .normal)
-//        button.layer.cornerRadius = 4
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(showPostVCon), for: .touchUpInside)
-//        return button
-//    }()
-    
-    
     private lazy var secondButton: CustomButton = {
         let button = CustomButton(title: "Show Info", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
             delegate?.showInfoVCon()
@@ -131,21 +119,6 @@ class FeedView: UIView {
             checkLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
-    
-//    @objc func showPostVCon() {
-//        delegate?.showPostVCon()
-//        tapAction?()
-//    }
-//
-//    @objc func showInfoVCon() {
-//        delegate?.showInfoVCon()
-//        tapAction?()
-//    }
-//
-//    @objc func guessWord() {
-//        delegate?.guessWord()
-//        tapAction?()
-//    }
 }
 
 

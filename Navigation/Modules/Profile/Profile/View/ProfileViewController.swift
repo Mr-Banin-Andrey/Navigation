@@ -216,7 +216,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             }
 
             cell.selectionStyle = .none
-            let photo = PhotosInCellProfile().PhotosInCellProfile[indexPath.row]
+            let photo = PhotosInCellProfile().photos[indexPath.row]
             cell.setup(with: photo)
             return cell
         }
