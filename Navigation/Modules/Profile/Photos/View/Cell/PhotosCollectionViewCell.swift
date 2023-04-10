@@ -9,10 +9,6 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     
-    struct ViewModel {
-        var photo: UIImage?
-    }
-    
     lazy var photoImage: UIImageView = {
         let photo = UIImageView()
         photo.translatesAutoresizingMaskIntoConstraints = false
@@ -29,8 +25,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(with viewModel: ViewModel) {
-        self.photoImage.image = viewModel.photo
+    func setup(with photoCollectionViewCell: PhotoCollectionViewCell) {
+        self.photoImage.image = photoCollectionViewCell.photoCollectionViewCell.photoCollectionViewCell
     }
     
     private func setupConstraints() {
@@ -44,4 +40,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+}
+
+extension String {
+    var photoCollectionViewCell: UIImage? { get { return UIImage(named: self) } }
 }

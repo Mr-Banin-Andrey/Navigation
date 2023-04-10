@@ -9,14 +9,6 @@ import UIKit
 
 class PostCustomTableViewCell: UITableViewCell {
     
-    struct ViewModel {
-        var author: String
-        var description: String
-        var image: UIImage?
-        var likes: Int
-        var views: Int
-    }
-    
     private lazy var authorLabel: UILabel = {
         let authorLabel = UILabel()
         authorLabel.font = .systemFont(ofSize: 20, weight: .bold)
@@ -117,14 +109,14 @@ class PostCustomTableViewCell: UITableViewCell {
         self.likesAmountLabel.text = nil
     }
     
-    func setup(with viewModel: ViewModel) {
+    func setup(with profilePost: ProfilePost) {
         
-        let viewsAmountText = String(viewModel.views)
-        let likesAmountText = String(viewModel.likes)
+        let viewsAmountText = String(profilePost.views)
+        let likesAmountText = String(profilePost.likes)
         
-        self.authorLabel.text = viewModel.author
-        self.descriptionLabel.text = viewModel.description
-        self.imagePhotoView.image = viewModel.image
+        self.authorLabel.text = profilePost.author
+        self.descriptionLabel.text = profilePost.description
+        self.imagePhotoView.image = profilePost.photoPost.photoPost
         self.viewsAmountLabel.text = viewsAmountText
         self.likesAmountLabel.text = likesAmountText
     }
@@ -167,4 +159,8 @@ class PostCustomTableViewCell: UITableViewCell {
             self.viewsStack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
         ])
     }
+}
+
+extension String {
+    var photoPost: UIImage? { get { return UIImage(named: self) } }
 }

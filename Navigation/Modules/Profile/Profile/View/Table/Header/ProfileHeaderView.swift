@@ -131,7 +131,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     func setup(user: User) {
         nameProfileLabel.text = user.fullName
-        imageView.image = user.profilePhoto
+        imageView.image = user.userPhoto.userPhoto
         statusLabel.text = user.status
     }
     
@@ -153,4 +153,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         }
     }
     
+}
+
+extension String {
+    var userPhoto: UIImage? { get { return UIImage(named: self) } }
 }

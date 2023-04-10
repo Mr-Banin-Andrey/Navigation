@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import UIKit
 
 class Checker {
         
     static let shared = Checker()
     
     private init() {
-        loginUser = "Larus"
+        loginUser = ReleaseOrTest().user.login
         passwordUser = "1"
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct Post {
+public struct PostTitle {
     public var title: String
     
     public init(title: String) {

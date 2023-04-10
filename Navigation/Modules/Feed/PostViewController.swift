@@ -11,8 +11,10 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+    weak var coordinator: FeedCoordinator?
+    
     //MARK: - 1. Properties
-    var titleView = Post(title: "Заголовок 2")// Post(title: "Заголовок 2")
+    var titleView = PostTitle(title: "Post")
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -45,7 +47,8 @@ class PostViewController: UIViewController {
     }
     
     @objc func showAddTapped() {
-        let addTapped = InfoViewController()
-        navigationController?.pushViewController(addTapped, animated: true)
+        coordinator?.showInfoVC()
+//        let addTapped = InfoViewController()
+//        navigationController?.pushViewController(addTapped, animated: true)
     }
 }

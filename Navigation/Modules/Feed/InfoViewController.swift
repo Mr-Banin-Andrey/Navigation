@@ -19,21 +19,18 @@ class InfoViewController: UIViewController {
     
     let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
+    weak var coordinator: FeedCoordinator?
+    
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
-//        addTargets()
         setupConstraints()
         setupAlertController()
     }
     
     //MARK: - 3. Methods
-//    func addTargets() {
-//        button.addTarget(self, action: #selector(addTarget), for: .touchUpInside)
-//    }
-    
     func setupConstraints() {
         view.addSubview(button)
         
@@ -51,8 +48,4 @@ class InfoViewController: UIViewController {
             print("right button")
         }))
     }
-    
-//    @objc func addTarget () {
-//        self.present(alertController, animated: true, completion: nil)
-//    }
 }

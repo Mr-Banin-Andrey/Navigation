@@ -19,6 +19,8 @@ struct LoginInspector: LoginViewControllerDelegate {
 
 class LogInViewController: UIViewController {
     
+    var coordinator: ProfileCoordinator?
+    
     var loginDelegate: LoginViewControllerDelegate?
     
 //MARK: - 1. Properties
@@ -205,26 +207,14 @@ class LogInViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
-    @objc private func showProfileViewController() {
-        
-        let profileVC = ProfileViewController()
+    @objc func showProfileViewController() {
 
         let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
 
-#if DEBUG
-        let user = TestUserService(user: profileVC.userDebug).checkLogin(login: profileVC.userDebug)!
-#else
-        let user = CurrentUserService(user: profileVC.userRelease).checkLogin(login: profileVC.userRelease)!
-#endif
         if check == true {
-            profileVC.profileHV.setup(user: user)
-            profileVC.userVar = user
-            navigationController?.pushViewController(profileVC, animated: true)
+            coordinator?.showProfileVC()
         } else {
-
             showAlert()
         }
     }
 }
-
-
