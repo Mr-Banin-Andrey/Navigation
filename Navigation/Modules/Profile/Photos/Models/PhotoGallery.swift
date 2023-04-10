@@ -8,26 +8,26 @@
 import Foundation
 
 class PhotoGallery {
-    let PhotoGallery: [PhotoCollectionViewCell] = [
-        PhotoCollectionViewCell(photoCollectionViewCell: "1"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "2"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "3"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "4"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "5"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "6"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "7"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "8"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "9"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "10"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "11"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "12"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "13"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "14"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "15"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "16"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "17"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "18"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "19"),
-        PhotoCollectionViewCell(photoCollectionViewCell: "20")
+    let photos: [PhotoCollectionViewCell] = [
+        PhotoCollectionViewCell(photo: "1"),
+        PhotoCollectionViewCell(photo: "2"),
+        PhotoCollectionViewCell(photo: "3"),
+        PhotoCollectionViewCell(photo: "4"),
+        PhotoCollectionViewCell(photo: "5"),
+        PhotoCollectionViewCell(photo: "6"),
+        PhotoCollectionViewCell(photo: "7"),
+        PhotoCollectionViewCell(photo: "8"),
+        PhotoCollectionViewCell(photo: "9"),
+        PhotoCollectionViewCell(photo: "10"),
+        PhotoCollectionViewCell(photo: "11"),
+        PhotoCollectionViewCell(photo: "12"),
+        PhotoCollectionViewCell(photo: "13"),
+        PhotoCollectionViewCell(photo: "14"),
+        PhotoCollectionViewCell(photo: "15"),
+        PhotoCollectionViewCell(photo: "16"),
+        PhotoCollectionViewCell(photo: "17"),
+        PhotoCollectionViewCell(photo: "18"),
+        PhotoCollectionViewCell(photo: "19"),
+        PhotoCollectionViewCell(photo: "20")
     ]
 }

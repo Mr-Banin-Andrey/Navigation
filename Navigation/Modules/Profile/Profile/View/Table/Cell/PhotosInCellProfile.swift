@@ -7,7 +7,7 @@
 import Foundation
 
 class PhotosInCellProfile {
-    let PhotosInCellProfile: [PhotosInCell] = [
+    let photos: [PhotosInCell] = [
         PhotosInCell(imageOne: "1",
                      imageTwo: "2",
                      imageThree: "3",

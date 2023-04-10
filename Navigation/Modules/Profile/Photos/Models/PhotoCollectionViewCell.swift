@@ -8,5 +8,5 @@
 import Foundation
 
 struct PhotoCollectionViewCell {
-    let photoCollectionViewCell: String
+    let photo: String
 }

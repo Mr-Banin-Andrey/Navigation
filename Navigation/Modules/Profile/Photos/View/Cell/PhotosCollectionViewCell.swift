@@ -11,6 +11,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     lazy var photoImage: UIImageView = {
         let photo = UIImageView()
+        photo.contentMode = .scaleAspectFit
         photo.translatesAutoresizingMaskIntoConstraints = false
         return photo
     }()
@@ -26,7 +27,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     }
     
     func setup(with photoCollectionViewCell: PhotoCollectionViewCell) {
-        self.photoImage.image = photoCollectionViewCell.photoCollectionViewCell.photoCollectionViewCell
+        self.photoImage.image = photoCollectionViewCell.photo.photo
     }
     
     private func setupConstraints() {
@@ -43,5 +44,5 @@ class PhotosCollectionViewCell: UICollectionViewCell {
 }
 
 extension String {
-    var photoCollectionViewCell: UIImage? { get { return UIImage(named: self) } }
+    var photo: UIImage? { get { return UIImage(named: self) } }
 }
