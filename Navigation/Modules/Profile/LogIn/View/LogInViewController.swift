@@ -98,6 +98,15 @@ class LogInViewController: UIViewController {
         
     let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
+    private lazy var pickUpPassword: CustomButton = {
+        let button = CustomButton(title: "Подобрать пароль", bgColor: .green) { [unowned self] in
+            
+            bruteForce(passwordToUnlock: "")
+            passwordTextField.isSecureTextEntry = false
+        }
+        return button
+    }()
+    
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +141,7 @@ class LogInViewController: UIViewController {
         self.loginPasswordStack.addArrangedSubview(self.loginTextField)
         self.loginPasswordStack.addArrangedSubview(self.passwordTextField)
         self.scrollView.addSubview(self.logInButton)
+        self.scrollView.addSubview(self.pickUpPassword)
         
         NSLayoutConstraint.activate([
             self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -162,7 +172,11 @@ class LogInViewController: UIViewController {
             self.logInButton.heightAnchor.constraint(equalToConstant: 50),
             self.logInButton.topAnchor.constraint(equalTo: self.loginPasswordView.bottomAnchor, constant: 16),
             self.logInButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.logInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
+            self.logInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            
+            self.pickUpPassword.heightAnchor.constraint(equalToConstant: 30),
+            self.pickUpPassword.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+            self.pickUpPassword.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
         ])
     }
     
@@ -177,6 +191,28 @@ class LogInViewController: UIViewController {
             print("login invalid")
         }))
     }
+    
+    private func bruteForce(passwordToUnlock: String) {
+        
+        let bruteForce = BruteForce()
+        
+        let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
+
+        var password: String = ""
+
+        // Will strangely ends at 0000 instead of ~~~
+        while password != passwordToUnlock { // Increase MAXIMUM_PASSWORD_SIZE value for more
+            password = bruteForce.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
+
+            // Your stuff here
+//            print(password)
+            // Your stuff here
+        }
+        
+        print(password)
+        passwordTextField.text = password
+    }
+    
     
     @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
