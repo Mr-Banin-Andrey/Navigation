@@ -245,6 +245,7 @@ class LogInViewController: UIViewController {
         passwordTextField.text = nil
         activityIndicator.startAnimating()
         passwordTextField.isEnabled = false
+        pickUpPassword.isEnabled = false
         nameQueue.async { [weak self] in
             bruteForceWord = self?.bruteForce(passwordToUnlock: randomPassword) ?? ""
             DispatchQueue.main.async {
@@ -253,6 +254,7 @@ class LogInViewController: UIViewController {
                 self?.passwordTextField.isSecureTextEntry = false
                 self?.passwordTextField.text = bruteForceWord
                 self?.passwordTextField.isEnabled = true
+                self?.pickUpPassword.isEnabled = true
             }
         }
     }
