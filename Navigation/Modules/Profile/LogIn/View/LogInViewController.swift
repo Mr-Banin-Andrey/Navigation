@@ -101,7 +101,7 @@ class LogInViewController: UIViewController {
     private lazy var pickUpPassword: CustomButton = {
         let button = CustomButton(title: "Подобрать пароль", bgColor: .green) { [unowned self] in
             
-            bruteForce(passwordToUnlock: "")
+            bruteForce(passwordToUnlock: randomPassword())
             passwordTextField.isSecureTextEntry = false
         }
         return button
@@ -200,19 +200,32 @@ class LogInViewController: UIViewController {
 
         var password: String = ""
 
-        // Will strangely ends at 0000 instead of ~~~
-        while password != passwordToUnlock { // Increase MAXIMUM_PASSWORD_SIZE value for more
+        while password != passwordToUnlock {
             password = bruteForce.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
-
-            // Your stuff here
-//            print(password)
-            // Your stuff here
         }
         
         print(password)
         passwordTextField.text = password
     }
     
+    private func randomPassword() -> String {
+        var randomSymbolArray: [Character] = []
+        
+        countSymbol: while randomSymbolArray.count != 4 {
+            switch randomSymbolArray.count {
+            case 0,1,2,3:
+                let symbol = (String().letters + String().digits).randomElement()
+                randomSymbolArray.append(symbol ?? "-")
+                continue countSymbol
+            default:
+                break countSymbol
+            }
+        }
+        
+        let randomSymbol = String(randomSymbolArray)
+        print("\(randomSymbol) - randomSymbol")
+        return randomSymbol
+    }
     
     @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
@@ -223,7 +236,7 @@ class LogInViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height
+            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height + 16 + self.pickUpPassword.frame.height
             
             let keyboardOriginY = self.view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottom
