@@ -47,6 +47,7 @@
 		9DBD5C7A29CD0034009F494C /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C7929CD0034009F494C /* PhotoCollectionViewCell.swift */; };
 		9DBD5C7C29CD00BE009F494C /* PhotoGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C7B29CD00BE009F494C /* PhotoGallery.swift */; };
 		9DBD5C9829CDD349009F494C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C9729CDD349009F494C /* FeedViewModel.swift */; };
+		9DD4AD9129E9A5E9002AA212 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */; };
 		9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */; };
 		9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4C5293A0E190043E19D /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
@@ -129,6 +130,7 @@
 		9DBD5C7929CD0034009F494C /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9DBD5C7B29CD00BE009F494C /* PhotoGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGallery.swift; sourceTree = "<group>"; };
 		9DBD5C9729CDD349009F494C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 		9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		9DE3E4C5293A0E190043E19D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -274,12 +276,13 @@
 			isa = PBXGroup;
 			children = (
 				9DB5FA2F29B3B10600A6D424 /* Application layer */,
+				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
-				9DB5FA2A29AE8A3D00A6D424 /* SmartViews */,
 				9DA94F7029D5BB4E0095D94B /* Modules */,
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
 				9DBD55C228FF1A1900454D01 /* Info.plist */,
+				9DB5FA2A29AE8A3D00A6D424 /* SmartViews */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -400,6 +403,14 @@
 				9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9DD4AD8F29E97F4B002AA212 /* BruteForce */ = {
+			isa = PBXGroup;
+			children = (
+				9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */,
+			);
+			path = BruteForce;
 			sourceTree = "<group>";
 		};
 		9DE3E47F292671D20043E19D /* Profile */ = {
@@ -621,6 +632,7 @@
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,
 				9DA94F7D29DDF75A0095D94B /* FeedView.swift in Sources */,
 				9DBD55D128FF4F7F00454D01 /* InfoViewController.swift in Sources */,
+				9DD4AD9129E9A5E9002AA212 /* BruteForce.swift in Sources */,
 				9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */,
 				9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */,
 				9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */,

@@ -98,6 +98,22 @@ class LogInViewController: UIViewController {
         
     let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
+    private lazy var pickUpPassword: CustomButton = {
+        let button = CustomButton(title: "Подобрать пароль", bgColor: .green) { [unowned self] in
+            
+            self.passwordGuessQueue()
+        }
+        return button
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
+    private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
+    
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +148,8 @@ class LogInViewController: UIViewController {
         self.loginPasswordStack.addArrangedSubview(self.loginTextField)
         self.loginPasswordStack.addArrangedSubview(self.passwordTextField)
         self.scrollView.addSubview(self.logInButton)
+        self.scrollView.addSubview(self.pickUpPassword)
+        self.scrollView.addSubview(self.activityIndicator)
         
         NSLayoutConstraint.activate([
             self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -162,7 +180,14 @@ class LogInViewController: UIViewController {
             self.logInButton.heightAnchor.constraint(equalToConstant: 50),
             self.logInButton.topAnchor.constraint(equalTo: self.loginPasswordView.bottomAnchor, constant: 16),
             self.logInButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.logInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
+            self.logInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            
+            self.pickUpPassword.heightAnchor.constraint(equalToConstant: 30),
+            self.pickUpPassword.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+            self.pickUpPassword.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            
+            self.activityIndicator.bottomAnchor.constraint(equalTo: self.loginPasswordStack.bottomAnchor, constant: -8),
+            self.activityIndicator.leadingAnchor.constraint(equalTo: self.loginPasswordStack.leadingAnchor)
         ])
     }
     
@@ -178,6 +203,62 @@ class LogInViewController: UIViewController {
         }))
     }
     
+    private func bruteForce(passwordToUnlock: String) -> String {
+        
+        let bruteForce = BruteForce()
+        let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
+
+        var password: String = ""
+
+        while password != passwordToUnlock {
+            password = bruteForce.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
+        }
+        
+        print(password)
+
+        return password
+    }
+    
+    private func randomPassword() -> String {
+        var randomSymbolArray: [Character] = []
+        
+        countSymbol: while randomSymbolArray.count != 4 {
+            switch randomSymbolArray.count {
+            case 0,1,2,3:
+                let symbol = (String().letters + String().digits).randomElement()
+                randomSymbolArray.append(symbol ?? "-")
+                continue countSymbol
+            default:
+                break countSymbol
+            }
+        }
+        
+        let randomSymbol = String(randomSymbolArray)
+        print("\(randomSymbol) - randomSymbol")
+        return randomSymbol
+    }
+    
+    private func passwordGuessQueue() {
+        let randomPassword = randomPassword()
+        var bruteForceWord = ""
+        passwordTextField.placeholder = nil
+        passwordTextField.text = nil
+        activityIndicator.startAnimating()
+        passwordTextField.isEnabled = false
+        pickUpPassword.isEnabled = false
+        nameQueue.async { [weak self] in
+            bruteForceWord = self?.bruteForce(passwordToUnlock: randomPassword) ?? ""
+            DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
+                self?.activityIndicator.isHidden = true
+                self?.passwordTextField.isSecureTextEntry = false
+                self?.passwordTextField.text = bruteForceWord
+                self?.passwordTextField.isEnabled = true
+                self?.pickUpPassword.isEnabled = true
+            }
+        }
+    }
+    
     @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
     }
@@ -187,7 +268,7 @@ class LogInViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height
+            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height + 16 + self.pickUpPassword.frame.height
             
             let keyboardOriginY = self.view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottom
