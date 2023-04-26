@@ -23,7 +23,10 @@ final class FeedModel {
         Value(text: "  НЕВЕРНО ✖️ ", color: UIColor.systemRed)
     ]
     
-    public func isCheck(word: String) -> Value {
+    public func isCheck(word: String, completion: @escaping ((Result<[Value], Error>) -> Void)) -> Value {
+        
+        completion(.success(arrayValue))
+        
         if secretWord == word {
             return arrayValue[0]
         } else if emptyValue == word {
