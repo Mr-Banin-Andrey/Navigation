@@ -15,7 +15,6 @@ class ShowAlert {
         let action = UIAlertAction(title: "ок", style: .default)
         alert.addAction(action)
         
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
-        
+        UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alert, animated: true)
     }
 }
