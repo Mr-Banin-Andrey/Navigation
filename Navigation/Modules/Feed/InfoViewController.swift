@@ -21,6 +21,8 @@ class InfoViewController: UIViewController {
     
     weak var coordinator: FeedCoordinator?
     
+    private var timer: Timer = Timer()
+    
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,19 @@ class InfoViewController: UIViewController {
         setupConstraints()
         setupAlertController()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.timerStart()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+        timer.invalidate()
+        print("timer.invalidate() - viewDidDisappear")
+    }
+    
     
     //MARK: - 3. Methods
     func setupConstraints() {
@@ -48,4 +63,20 @@ class InfoViewController: UIViewController {
             print("right button")
         }))
     }
+    
+    private func timerStart() {
+        timer = Timer.scheduledTimer(timeInterval: 5.0,
+                                 target: self,
+                                 selector: #selector(autoEditColor),
+                                 userInfo: nil,
+                                 repeats: true)
+    }
+    
+    @objc private func autoEditColor() {
+        button.backgroundColor = UIColor(red: .random(in: 0...1),
+                                       green: .random(in: 0...1),
+                                       blue: .random(in: 0...1),
+                                       alpha: .random(in: 0...1))
+    }
+    
 }
