@@ -162,15 +162,21 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
 
     
     @objc private func buttonPressed()  {
-
+        
+        let alert = ShowAlert()
+        
         do {
             try editStatus()
         } catch {
             switch error as? StatusError {
             case .emptyStatus:
+                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком короткий")
                 print("emptyStatus")
+                
             case .longStatus:
+                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком длинный")
                 print("longStatus")
+                
             default:
                 print("default")
             }

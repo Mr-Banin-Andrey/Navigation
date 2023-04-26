@@ -96,7 +96,13 @@ class LogInViewController: UIViewController {
         return line
     }()
         
-    let alertController = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+    private lazy var alertController: UIAlertController = {
+        let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
+            print("login invalid")
+        }))
+        return alert
+    }()
     
     private lazy var pickUpPassword: CustomButton = {
         let button = CustomButton(title: "Подобрать пароль", bgColor: .green) { [unowned self] in
@@ -122,7 +128,6 @@ class LogInViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
-        self.setupAlertController()
         self.setupConstraints()
     }
     
@@ -196,12 +201,6 @@ class LogInViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestures)
     }
     
-    
-    private func setupAlertController() {
-        alertController.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
-            print("login invalid")
-        }))
-    }
     
     private func bruteForce(passwordToUnlock: String) -> String {
         

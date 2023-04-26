@@ -14,8 +14,6 @@ class ProfileViewController: UIViewController {
     
     //MARK: - 1. Properties
     
-    let profileHV = ProfileHeaderView()
-    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
