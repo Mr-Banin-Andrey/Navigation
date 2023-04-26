@@ -10,6 +10,11 @@ import SnapKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
+    enum StatusError: Error {
+        case emptyStatus
+        case longStatus
+    }
+    
     //MARK: - 1. Properties
     private lazy var nameProfileLabel: UILabel = {
         let label = UILabel()
@@ -48,10 +53,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
     
-    private lazy var textStatusOfButton: UITextField = {
+    private lazy var textStatusField: UITextField = {
         let textStatus = UITextField()
         textStatus.placeholder = "..."
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -70,16 +76,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return viewText
     }()
     
-    private var statusText: String = ""
     
     //MARK: - 2. Life cycle
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
                 
-        self.addTarget()
-        self.addTargets()
+
         self.setupConstraints()
-            
     }
     
     required init?(coder: NSCoder) {
@@ -95,7 +98,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.addSubview(self.statusLabel)
         self.addSubview(self.showStatusButton)
         self.addSubview(self.viewTextStatus)
-        self.addSubview(self.textStatusOfButton)
+        self.addSubview(self.textStatusField)
         
         self.imageView.snp.makeConstraints { maker in
             maker.width.equalTo(100)
@@ -110,6 +113,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.statusLabel.snp.makeConstraints { maker in
             maker.left.equalTo(self.imageView.snp.right).offset(14)
             maker.top.equalTo(self.nameProfileLabel.snp.bottom).offset(20)
+            maker.right.equalToSuperview().inset(16)
         }
         self.viewTextStatus.snp.makeConstraints { maker in
             maker.left.equalTo(self.imageView.snp.right).offset(14)
@@ -117,7 +121,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             maker.top.equalTo(self.nameProfileLabel.snp.bottom).offset(50)
             maker.height.equalTo(40)
         }
-        self.textStatusOfButton.snp.makeConstraints { maker in
+        self.textStatusField.snp.makeConstraints { maker in
             maker.left.right.equalTo(self.viewTextStatus).inset(10)
             maker.top.bottom.equalTo(self.viewTextStatus).inset(5)
         }
@@ -135,24 +139,43 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusLabel.text = user.status
     }
     
-    private func addTarget () {
-        showStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+
+    
+    func editStatus() throws {
+        
+        let size = textStatusField.attributedText?.size()
+        let width: Double = Double(size?.width ?? 1)
+        let screen: Double = UIScreen.main.bounds.size.width
+        let maxSizeStatusLabelInPercentage: Double = (width / screen) * Double(100)
+        let notMorePercentage: Double = 53
+        
+        if width == 0 {
+            throw StatusError.emptyStatus
+        } else if maxSizeStatusLabelInPercentage >= notMorePercentage {
+            throw StatusError.longStatus
+        } else {
+            statusLabel.text = textStatusField.text
+        }
+        
     }
     
-    private func addTargets () {
-        textStatusOfButton.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-    }
+
     
-    @objc private func buttonPressed () {
-        statusLabel.text = statusText
-    }
-    
-    @objc private func statusTextChanged () {
-        if textStatusOfButton.text != nil {
-            statusText = textStatusOfButton.text!
+    @objc private func buttonPressed()  {
+
+        do {
+            try editStatus()
+        } catch {
+            switch error as? StatusError {
+            case .emptyStatus:
+                print("emptyStatus")
+            case .longStatus:
+                print("longStatus")
+            default:
+                print("default")
+            }
         }
     }
-    
 }
 
 extension String {
