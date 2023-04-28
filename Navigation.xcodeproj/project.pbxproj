@@ -26,6 +26,10 @@
 		9DB5FA2729A6A4D000A6D424 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB5FA2629A6A4D000A6D424 /* iOSIntPackage */; };
 		9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */; };
 		9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */; };
+		9DB8172D29FB4F0100988937 /* 13. Numb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172929FB4F0100988937 /* 13. Numb.mp3 */; };
+		9DB8172E29FB4F0100988937 /* 01 Eminem - Lose Yourself.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172A29FB4F0100988937 /* 01 Eminem - Lose Yourself.mp3 */; };
+		9DB8172F29FB4F0100988937 /* 0117 Кукла колдуна.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172B29FB4F0100988937 /* 0117 Кукла колдуна.mp3 */; };
+		9DB8173029FB4F0100988937 /* 01 Smells Like Teen Spirit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172C29FB4F0100988937 /* 01 Smells Like Teen Spirit.mp3 */; };
 		9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B428FF1A1800454D01 /* AppDelegate.swift */; };
 		9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */; };
 		9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BD28FF1A1900454D01 /* Assets.xcassets */; };
@@ -111,6 +115,10 @@
 		9DA94F7C29DDF75A0095D94B /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		9DB8172929FB4F0100988937 /* 13. Numb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "13. Numb.mp3"; path = "../../../../../../../andrey_banin/Downloads/Король и Шут - Коллекция Лучшее. Часть 1-6 2017/Лучшее, часть 1/13. Numb.mp3"; sourceTree = "<group>"; };
+		9DB8172A29FB4F0100988937 /* 01 Eminem - Lose Yourself.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "01 Eminem - Lose Yourself.mp3"; path = "../../../../../../../andrey_banin/Downloads/Король и Шут - Коллекция Лучшее. Часть 1-6 2017/Лучшее, часть 1/01 Eminem - Lose Yourself.mp3"; sourceTree = "<group>"; };
+		9DB8172B29FB4F0100988937 /* 0117 Кукла колдуна.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "0117 Кукла колдуна.mp3"; path = "../../../../../../../andrey_banin/Downloads/Король и Шут - Коллекция Лучшее. Часть 1-6 2017/Лучшее, часть 1/0117 Кукла колдуна.mp3"; sourceTree = "<group>"; };
+		9DB8172C29FB4F0100988937 /* 01 Smells Like Teen Spirit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "01 Smells Like Teen Spirit.mp3"; path = "../../../../../../../andrey_banin/Downloads/Король и Шут - Коллекция Лучшее. Часть 1-6 2017/Лучшее, часть 1/01 Smells Like Teen Spirit.mp3"; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -429,6 +437,10 @@
 		9DC9D05729FB17A400D9791A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9DB8172A29FB4F0100988937 /* 01 Eminem - Lose Yourself.mp3 */,
+				9DB8172C29FB4F0100988937 /* 01 Smells Like Teen Spirit.mp3 */,
+				9DB8172929FB4F0100988937 /* 13. Numb.mp3 */,
+				9DB8172B29FB4F0100988937 /* 0117 Кукла колдуна.mp3 */,
 				9DC9D05829FB17B000D9791A /* Queen.mp3 */,
 			);
 			path = Resources;
@@ -606,8 +618,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DC9D05629FB16F000D9791A /* Queen.mp3 in Resources */,
+				9DB8173029FB4F0100988937 /* 01 Smells Like Teen Spirit.mp3 in Resources */,
 				9DBD55C128FF1A1900454D01 /* LaunchScreen.storyboard in Resources */,
+				9DB8172F29FB4F0100988937 /* 0117 Кукла колдуна.mp3 in Resources */,
+				9DB8172D29FB4F0100988937 /* 13. Numb.mp3 in Resources */,
 				9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */,
+				9DB8172E29FB4F0100988937 /* 01 Eminem - Lose Yourself.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
