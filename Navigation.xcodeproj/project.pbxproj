@@ -48,6 +48,9 @@
 		9DBD5C7C29CD00BE009F494C /* PhotoGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C7B29CD00BE009F494C /* PhotoGallery.swift */; };
 		9DBD5C9829CDD349009F494C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C9729CDD349009F494C /* FeedViewModel.swift */; };
 		9DC9D04F29F9555700D9791A /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9D04E29F9555700D9791A /* ShowAlert.swift */; };
+		9DC9D05229FB00E900D9791A /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9D05129FB00E900D9791A /* AudioPlayerViewController.swift */; };
+		9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9D05329FB012000D9791A /* AudioPlayerCoordinator.swift */; };
+		9DC9D05629FB16F000D9791A /* Queen.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DC9D05529FB16F000D9791A /* Queen.mp3 */; };
 		9DD4AD9129E9A5E9002AA212 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */; };
 		9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */; };
 		9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4C5293A0E190043E19D /* LogInViewController.swift */; };
@@ -132,6 +135,10 @@
 		9DBD5C7B29CD00BE009F494C /* PhotoGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGallery.swift; sourceTree = "<group>"; };
 		9DBD5C9729CDD349009F494C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		9DC9D04E29F9555700D9791A /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
+		9DC9D05129FB00E900D9791A /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
+		9DC9D05329FB012000D9791A /* AudioPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerCoordinator.swift; sourceTree = "<group>"; };
+		9DC9D05529FB16F000D9791A /* Queen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Queen.mp3; path = "../../../../../../andrey_banin/Downloads/iosint-code-main/12/AVFoundation_Audio/AVFoundation_Audio/Music/Queen.mp3"; sourceTree = "<group>"; };
+		9DC9D05829FB17B000D9791A /* Queen.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Queen.mp3; sourceTree = "<group>"; };
 		9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 		9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		9DE3E4C5293A0E190043E19D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +211,7 @@
 		9DA94F7029D5BB4E0095D94B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9DC9D05029FB00AC00D9791A /* AudioPlayer */,
 				9DE3E480292671E20043E19D /* Feed */,
 				9DE3E47F292671D20043E19D /* Profile */,
 			);
@@ -281,9 +289,11 @@
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
 				9DA94F7029D5BB4E0095D94B /* Modules */,
+				9DC9D05729FB17A400D9791A /* Resources */,
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
 				9DBD55C228FF1A1900454D01 /* Info.plist */,
+				9DC9D05529FB16F000D9791A /* Queen.mp3 */,
 				9DB5FA2A29AE8A3D00A6D424 /* SmartViews */,
 			);
 			path = Navigation;
@@ -293,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				9DBD5C5729C73735009F494C /* AppCoordinator.swift */,
+				9DC9D05329FB012000D9791A /* AudioPlayerCoordinator.swift */,
 				9DBD5C5E29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift */,
 				9DBD5C5A29C7942A009F494C /* FeedCoordinator.swift */,
 				9DBD5C5C29C79444009F494C /* ProfileCoordinator.swift */,
@@ -405,6 +416,22 @@
 				9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9DC9D05029FB00AC00D9791A /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				9DC9D05129FB00E900D9791A /* AudioPlayerViewController.swift */,
+			);
+			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
+		9DC9D05729FB17A400D9791A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9DC9D05829FB17B000D9791A /* Queen.mp3 */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		9DD4AD8F29E97F4B002AA212 /* BruteForce */ = {
@@ -578,6 +605,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DC9D05629FB16F000D9791A /* Queen.mp3 in Resources */,
 				9DBD55C128FF1A1900454D01 /* LaunchScreen.storyboard in Resources */,
 				9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */,
 			);
@@ -613,6 +641,7 @@
 				9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */,
 				9DBD5C9829CDD349009F494C /* FeedViewModel.swift in Sources */,
 				9DBD5C6C29CC7692009F494C /* ProfilePost.swift in Sources */,
+				9DC9D05229FB00E900D9791A /* AudioPlayerViewController.swift in Sources */,
 				9DBD5C7029CCE083009F494C /* User.swift in Sources */,
 				9DBD5C7C29CD00BE009F494C /* PhotoGallery.swift in Sources */,
 				9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */,
@@ -626,6 +655,7 @@
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
+				9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
 				9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */,
 				9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */,
