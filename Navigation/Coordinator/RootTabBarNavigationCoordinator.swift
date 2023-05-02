@@ -30,13 +30,13 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         let tabBarCont = UITabBarController.init()
                 
         let feedNC = UINavigationController()
-        let feedCoordinator = FeedCoordinator.init(navigationController: feedNC)
+        let feedCoordinator = FeedCoordinator(navigationController: feedNC)
 
         let profileNC = UINavigationController()
-        let profileCoordinator = ProfileCoordinator.init(navigationController: profileNC)
+        let profileCoordinator = ProfileCoordinator(navigationController: profileNC)
         
         let audioPlayerNC = UINavigationController()
-        let audioPlayerCoordinator = AudioPlayerCoordinator.init(navigationController: audioPlayerNC)
+        let audioPlayerCoordinator = AudioPlayerCoordinator(navigationController: audioPlayerNC)
         
         feedCoordinator.parentCoordinator = parentCoordinator
         profileCoordinator.parentCoordinator = parentCoordinator

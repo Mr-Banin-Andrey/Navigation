@@ -139,69 +139,60 @@ class AudioPlayerViewController: UIViewController {
     }
     
     private func settingsSongs(name: String, format: String) {
-        
         anySong = Bundle.main.url(forResource: name,
                                   withExtension: format)
     }
     
+    private func selectTrack(index: Int) {
+        self.settingsSongs(name: Songs().songs[index].name, format: Songs().songs[index].format)
+        self.settingPlayer()
+        self.nameSong.text = Songs().songs[index].name
+    }
+    
     @objc private func playPauseMusic() {
-        if let player = audioPlayer {
-            if player.isPlaying == false {
-                player.play()
-                playPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
-            }
-            else if player.isPlaying == true {
-                player.pause()
-                playPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
-            }
+        
+        guard let player = audioPlayer else { return }
+        if player.isPlaying == false {
+            player.play()
+            playPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        } else if player.isPlaying == true {
+            player.pause()
+            playPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
         }
     }
     
     @objc private func stopMusic() {
-        if let player = audioPlayer {
-            if player.currentTime > 0 || player.isPlaying == true {
-                player.stop()
-                player.currentTime = 0
-                playPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
-            }
-            else if player.currentTime > 0 || player.isPlaying == false {
-                player.currentTime = 0
-                player.stop()
-            }
+        
+        guard let player = audioPlayer else { return }
+        if player.currentTime > 0 || player.isPlaying == true {
+            player.stop()
+            player.currentTime = 0
+            playPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
+        } else if player.currentTime > 0 || player.isPlaying == false {
+            player.currentTime = 0
+            player.stop()
         }
     }
     
     @objc private func nextMusic() {
        
         if audioPlayer?.isPlaying == true {
-            
             if anyIndex == 4  {
                 anyIndex = 0
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
+                selectTrack(index: anyIndex)
                 audioPlayer?.play()
-                
             } else {
                 anyIndex += 1
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
+                selectTrack(index: anyIndex)
                 audioPlayer?.play()
             }
         } else {
-            
             if anyIndex == 4  {
                 anyIndex = 0
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
-                
+                selectTrack(index: anyIndex)
             } else {
                 anyIndex += 1
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
+                selectTrack(index: anyIndex)
             }
         }
     }
@@ -209,35 +200,22 @@ class AudioPlayerViewController: UIViewController {
     @objc private func previousMusic() {
        
         if audioPlayer?.isPlaying == true {
-            
             if anyIndex == 0 {
                 anyIndex = 4
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
+                selectTrack(index: anyIndex)
                 audioPlayer?.play()
-                        
             } else {
                 anyIndex -= 1
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
+                selectTrack(index: anyIndex)
                 audioPlayer?.play()
- 
             }
         } else {
             if anyIndex == 0 {
                 anyIndex = 4
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
-
+                selectTrack(index: anyIndex)
             } else {
                 anyIndex -= 1
-                self.settingsSongs(name: Songs().songs[anyIndex].name, format: Songs().songs[anyIndex].format)
-                self.settingPlayer()
-                self.nameSong.text = Songs().songs[anyIndex].name
-
+                selectTrack(index: anyIndex)
             }
         }
         
