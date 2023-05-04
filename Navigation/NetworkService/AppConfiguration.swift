@@ -8,8 +8,8 @@
 import Foundation
 
 
-enum AppConfiguration {
-    case filmsURL(url: String) //= "https://swapi.dev/api/films/1/"
-    case speciesURL(url: String) // = "https://swapi.dev/api/species/2/"
-    case vehiclesURL(url: String)// = "https://swapi.dev/api/vehicles/4/"
+enum AppConfiguration: String {
+    case filmsURL = "https://swapi.dev/api/films/1/"
+    case speciesURL = "https://swapi.dev/api/species/2/"
+    case vehiclesURL = "https://swapi.dev/api/vehicles/4/"
 }

@@ -12,29 +12,47 @@ struct NetworkService {
         
         switch configuration {
         case .filmsURL:
-            let films = "https://swapi.dev/api/films/1/"
-            if let url = URL(string: films) {
-                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    print(String(data: data!, encoding: .utf8)!)
+            if let url = URL(string: "https://swapi.dev/api/films/1/") {
+                
+                var request = URLRequest(url: url)
+                request.addValue("filmsURL", forHTTPHeaderField: "0")
+                
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
+                    let httpResponse = HTTPURLResponse()
+                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
+                    print("3. httpResponse.statusCode", httpResponse.statusCode)
+                    print("4. response!", response!)
                 }
                 task.resume()
-                print("abs")
             }
         case .speciesURL:
-            let species = "https://swapi.dev/api/species/2/"
-            if let url = URL(string: species) {
-                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    print(String(data: data!, encoding: .utf8)!)
+            if let url = URL(string: "https://swapi.dev/api/species/2/") {
+                
+                var request = URLRequest(url: url)
+                request.addValue("speciesURL", forHTTPHeaderField: "abs")
+                
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
+                    let httpResponse = HTTPURLResponse()
+                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
+                    print("3. httpResponse.statusCode", httpResponse.statusCode)
+                    print("4. response!", response!)
                 }
                 task.resume()
             }
         case .vehiclesURL:
-            let vehicles = "https://swapi.dev/api/vehicles/4/"
-            if let url = URL(string: vehicles) {
+            if let url = URL(string: "https://swapi.dev/api/vehicles/4/") {
+                
                 var request = URLRequest(url: url)
-                request.addValue("", forHTTPHeaderField: "")
+                request.addValue("vehiclesURL", forHTTPHeaderField: "abs")
+                
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    print(String(data: data!, encoding: .utf8)!)
+                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
+                    let httpResponse = HTTPURLResponse()
+                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
+                    print("3. httpResponse.statusCode", httpResponse.statusCode)
+                    print("4. response!", response!)
                 }
                 task.resume()
             }
@@ -42,8 +60,3 @@ struct NetworkService {
         
     }
 }
-
-//case filmsURL(url: String) //= "https://swapi.dev/api/films/1/"
-//case speciesURL(url: String) // = "https://swapi.dev/api/species/2/"
-//case vehiclesURL(url: String)// = "https://swapi.dev/api/vehicles/4/"
-//}

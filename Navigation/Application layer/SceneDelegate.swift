@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var rootCoordinator: AppCoordinator?
-    var appConfiguration: AppConfiguration?
     
     func scene(
         _ scene: UIScene,
@@ -34,12 +33,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         coordinator.start()
         
-        let films = AppConfiguration.filmsURL(url: "https://swapi.dev/api/films/1/")
-//        let species = AppConfiguration.speciesURL(url: "https://swapi.dev/api/species/2/")
-//        let vehicles = AppConfiguration.vehiclesURL(url: "https://swapi.dev/api/vehicles/4/")
-        self.appConfiguration = films
         
-
+        let urlArray = [
+            "https://swapi.dev/api/films/1/",
+            "https://swapi.dev/api/species/2/",
+            "https://swapi.dev/api/vehicles/4/"
+        ]
+        
+        let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
+        let _: () = NetworkService.request(for: appConfiguration)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
