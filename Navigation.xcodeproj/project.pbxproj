@@ -16,6 +16,7 @@
 		9D0EC522298C1EC400A98E06 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EC50C298C1EC400A98E06 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D0EC52D298C31BB00A98E06 /* PostTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC52B298C31B200A98E06 /* PostTitle.swift */; };
 		9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC5322991117F00A98E06 /* SnapKit */; };
+		9D0F783C2A059DE600B69143 /* JsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0F783B2A059DE600B69143 /* JsonModel.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
 		9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB542A02C613001F7368 /* NetworkService.swift */; };
@@ -110,6 +111,7 @@
 		9D0EC515298C1EC400A98E06 /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D0EC51C298C1EC400A98E06 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		9D0EC52B298C31B200A98E06 /* PostTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTitle.swift; sourceTree = "<group>"; };
+		9D0F783B2A059DE600B69143 /* JsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonModel.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
 		9D5FBB542A02C613001F7368 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -215,13 +217,14 @@
 			path = CheckLogin;
 			sourceTree = "<group>";
 		};
-		9D5FBB532A02C587001F7368 /* NetworkService */ = {
+		9D5FBB532A02C587001F7368 /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
 				9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */,
 				9D5FBB542A02C613001F7368 /* NetworkService.swift */,
+				9D0F783B2A059DE600B69143 /* JsonModel.swift */,
 			);
-			path = NetworkService;
+			path = NetworkServices;
 			sourceTree = "<group>";
 		};
 		9D63D13729FBCBEA0090C859 /* Models */ = {
@@ -322,7 +325,7 @@
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
 				9DA94F7029D5BB4E0095D94B /* Modules */,
-				9D5FBB532A02C587001F7368 /* NetworkService */,
+				9D5FBB532A02C587001F7368 /* NetworkServices */,
 				9DC9D05729FB17A400D9791A /* Resources */,
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
@@ -708,6 +711,7 @@
 				9DBD5C7A29CD0034009F494C /* PhotoCollectionViewCell.swift in Sources */,
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
+				9D0F783C2A059DE600B69143 /* JsonModel.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,
 				9DA94F7D29DDF75A0095D94B /* FeedView.swift in Sources */,
 				9DBD55D128FF4F7F00454D01 /* InfoViewController.swift in Sources */,
