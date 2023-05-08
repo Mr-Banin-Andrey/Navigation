@@ -19,7 +19,8 @@
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
 		9D4E1DB32A08366A00573EC4 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB22A08366A00573EC4 /* Planet.swift */; };
-		9D4E1DBA2A09158500573EC4 /* PlanetStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB92A09158500573EC4 /* PlanetStruct.swift */; };
+		9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */; };
+		9D4E1DBC2A09963400573EC4 /* NamesOfResidents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */; };
 		9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB542A02C613001F7368 /* NetworkService.swift */; };
 		9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */; };
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
@@ -115,7 +116,8 @@
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
 		9D4E1DB22A08366A00573EC4 /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
-		9D4E1DB92A09158500573EC4 /* PlanetStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetStruct.swift; sourceTree = "<group>"; };
+		9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOfPlanet.swift; sourceTree = "<group>"; };
+		9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesOfResidents.swift; sourceTree = "<group>"; };
 		9D5FBB542A02C613001F7368 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -223,7 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				9D4E1DB22A08366A00573EC4 /* Planet.swift */,
-				9D4E1DB92A09158500573EC4 /* PlanetStruct.swift */,
+				9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */,
+				9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */,
 			);
 			path = Json;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D63D13929FBCC0A0090C859 /* Song.swift in Sources */,
+				9D4E1DBC2A09963400573EC4 /* NamesOfResidents.swift in Sources */,
 				9D63D13B29FBCC130090C859 /* Songs.swift in Sources */,
 				9DBD5C5D29C79444009F494C /* ProfileCoordinator.swift in Sources */,
 				9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */,
@@ -712,7 +716,7 @@
 				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
 				9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */,
-				9D4E1DBA2A09158500573EC4 /* PlanetStruct.swift in Sources */,
+				9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */,
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,

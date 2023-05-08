@@ -33,25 +33,25 @@ struct NetworkService {
                 request.addValue("speciesURL", forHTTPHeaderField: "abs")
                 
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
-                    let httpResponse = HTTPURLResponse()
-                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
-                    print("3. httpResponse.statusCode", httpResponse.statusCode)
-                    //                    print("4. response!", response!)
-                                    }
-                                    task.resume()
-                                }
-                            case .vehiclesURL:
-                                if let url = URL(string: "https://swapi.dev/api/vehicles/4/") {
-                                    
-                                    var request = URLRequest(url: url)
+//                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
+//                    let httpResponse = HTTPURLResponse()
+//                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
+//                    print("3. httpResponse.statusCode", httpResponse.statusCode)
+//                    print("4. response!", response!)
+                }
+                task.resume()
+            }
+        case .vehiclesURL:
+            if let url = URL(string: "https://swapi.dev/api/vehicles/4/") {
+                
+                var request = URLRequest(url: url)
                 request.addValue("vehiclesURL", forHTTPHeaderField: "abs")
                 
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
-                    let httpResponse = HTTPURLResponse()
-                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
-                    print("3. httpResponse.statusCode", httpResponse.statusCode)
+//                    print("1. String(data: data!, encoding: .utf8)!", String(data: data!, encoding: .utf8)!)
+//                    let httpResponse = HTTPURLResponse()
+//                    print("2. httpResponse.allHeaderFields", httpResponse.allHeaderFields)
+//                    print("3. httpResponse.statusCode", httpResponse.statusCode)
 //                    print("4. response!", response!)
                 }
                 task.resume()
