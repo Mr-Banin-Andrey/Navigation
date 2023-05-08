@@ -16,9 +16,9 @@
 		9D0EC522298C1EC400A98E06 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EC50C298C1EC400A98E06 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D0EC52D298C31BB00A98E06 /* PostTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC52B298C31B200A98E06 /* PostTitle.swift */; };
 		9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC5322991117F00A98E06 /* SnapKit */; };
-		9D0F783C2A059DE600B69143 /* JsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0F783B2A059DE600B69143 /* JsonModel.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
+		9D4E1DB32A08366A00573EC4 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB22A08366A00573EC4 /* Planet.swift */; };
 		9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB542A02C613001F7368 /* NetworkService.swift */; };
 		9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */; };
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
@@ -111,9 +111,9 @@
 		9D0EC515298C1EC400A98E06 /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D0EC51C298C1EC400A98E06 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		9D0EC52B298C31B200A98E06 /* PostTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTitle.swift; sourceTree = "<group>"; };
-		9D0F783B2A059DE600B69143 /* JsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonModel.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
+		9D4E1DB22A08366A00573EC4 /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		9D5FBB542A02C613001F7368 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -217,12 +217,20 @@
 			path = CheckLogin;
 			sourceTree = "<group>";
 		};
+		9D4E1DB42A0836C400573EC4 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DB22A08366A00573EC4 /* Planet.swift */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
 		9D5FBB532A02C587001F7368 /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
+				9D4E1DB42A0836C400573EC4 /* Json */,
 				9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */,
 				9D5FBB542A02C613001F7368 /* NetworkService.swift */,
-				9D0F783B2A059DE600B69143 /* JsonModel.swift */,
 			);
 			path = NetworkServices;
 			sourceTree = "<group>";
@@ -693,6 +701,7 @@
 				9DBD5C7029CCE083009F494C /* User.swift in Sources */,
 				9DBD5C7C29CD00BE009F494C /* PhotoGallery.swift in Sources */,
 				9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */,
+				9D4E1DB32A08366A00573EC4 /* Planet.swift in Sources */,
 				9DBD5C6E29CC83E9009F494C /* Posts.swift in Sources */,
 				9D34F391299F81FB004B91E1 /* Checker.swift in Sources */,
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
@@ -711,7 +720,6 @@
 				9DBD5C7A29CD0034009F494C /* PhotoCollectionViewCell.swift in Sources */,
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
-				9D0F783C2A059DE600B69143 /* JsonModel.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,
 				9DA94F7D29DDF75A0095D94B /* FeedView.swift in Sources */,
 				9DBD55D128FF4F7F00454D01 /* InfoViewController.swift in Sources */,

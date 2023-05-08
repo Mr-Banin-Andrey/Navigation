@@ -17,10 +17,15 @@ class InfoViewController: UIViewController {
         return button
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.text = Json().perem
+        return label
+    }()
+    
+    private lazy var orbitalPeriodLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -36,48 +41,47 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         
         self.loadJson()
+        self.loadJsonCodable() 
         
         view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         setupConstraints()
         setupAlertController()
+        
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        self.timerStart()
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//            super.viewDidDisappear(animated)
-//        timer.invalidate()
-//        print("timer.invalidate() - viewDidDisappear")
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.timerStart()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+        timer.invalidate()
+        print("timer.invalidate() - viewDidDisappear")
+    }
     
     
     //MARK: - 3. Methods
     
-    func loadJson() {
-        
+    func loadJson()  {
+
         if let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") {
             
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
                 
                 if let unrappedData = data {
-                    
                     do {
                         let dictionary = try JSONSerialization.jsonObject(with: unrappedData)
                         print(dictionary)
                         
                         if let dict = dictionary as? [String: Any], let title = dict["title"] as? String {
-                                DispatchQueue.main.async {
-                                    self.titleLabel.text = title
-                                    print(title)
-                                }
+                            DispatchQueue.main.async {
+                                self.titleLabel.text = "Title - \(title)"
+                            }
                         }
-                    }
-                    catch let error {
+                    } catch let error {
                         print(error.localizedDescription)
                     }
                 }
@@ -88,16 +92,48 @@ class InfoViewController: UIViewController {
         }
     }
     
+    func loadJsonCodable()  {
+
+        if let url = URL(string: "https://swapi.dev/api/planets/1/") {
+            
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                
+                if let unrappedData = data {
+                    
+                    do {
+                        let planet = try JSONDecoder().decode(Planet.self, from: unrappedData)
+                        print(planet)
+                        
+                        DispatchQueue.main.async {
+                            self.orbitalPeriodLabel.text = "Период обращения - \(planet.orbital_period)"
+                        }
+                    } catch let error {
+                        print(error)
+                    }
+                   
+                }
+            }
+            task.resume()
+        } else {
+            print("Cannot create URL")
+        }
+    }
+    
+    
     func setupConstraints() {
         view.addSubview(button)
         view.addSubview(self.titleLabel)
+        view.addSubview(self.orbitalPeriodLabel)
         
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
             
             self.titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100)
+            self.titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            
+            self.orbitalPeriodLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
+            self.orbitalPeriodLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     

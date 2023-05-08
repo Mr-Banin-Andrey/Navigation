@@ -43,7 +43,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
         let _: () = NetworkService.request(for: appConfiguration)
         
-//        Json().loadJson()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
