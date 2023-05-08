@@ -29,12 +29,22 @@ class InfoViewController: UIViewController {
         return label
     }()
     
+    private lazy var tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.dataSource = self
+        table.dataSource = self
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "defaultId")
+        return table
+    }()
+    
     let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
     
     weak var coordinator: FeedCoordinator?
     
     private var timer: Timer = Timer()
     
+//    private var namesOfResidentsArray = []
     
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
@@ -119,6 +129,32 @@ class InfoViewController: UIViewController {
         }
     }
     
+    func loadJsonDecodablePlanet()  {
+
+        if let url = URL(string: "https://swapi.dev/api/planets/1/") {
+            
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                
+                if let unrappedData = data {
+                    
+                    do {
+                        let planet = try JSONDecoder().decode(Planet.self, from: unrappedData)
+                        print(planet)
+                        
+//                        DispatchQueue.main.async {
+//                            self.orbitalPeriodLabel.text = "Период обращения - \(planet.orbital_period)"
+//                        }
+                    } catch let error {
+                        print(error)
+                    }
+                   
+                }
+            }
+            task.resume()
+        } else {
+            print("Cannot create URL")
+        }
+    }
     
     func setupConstraints() {
         view.addSubview(button)
@@ -160,5 +196,17 @@ class InfoViewController: UIViewController {
                                        blue: .random(in: 0...1),
                                        alpha: .random(in: 0...1))
     }
+    
+}
+
+extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
+    }
+    
     
 }
