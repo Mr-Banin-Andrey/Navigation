@@ -35,8 +35,8 @@ class InfoViewController: UIViewController {
         table.dataSource = self
         table.dataSource = self
         table.register(UITableViewCell.self, forCellReuseIdentifier: "defaultId")
-//        table.isHidden = true
-//        table.isUserInteractionEnabled = false
+        table.isHidden = true
+        table.isUserInteractionEnabled = false
         return table
     }()
     
@@ -56,11 +56,25 @@ class InfoViewController: UIViewController {
         
         self.loadJson()
         self.loadJsonCodable()
+        
         self.loadJsonDecodablePlanet { [weak self] values in
             guard let self else { return }
             self.urlNamesOfResidents = values
             print(urlNamesOfResidents)
+            
+            loadUrlNamesOfResidents(url: urlNamesOfResidents) { [weak self] values in
+                guard let self else { return }
+                self.namesOfResidentsArray = values
+                print(namesOfResidentsArray)
+                DispatchQueue.main.async {
+                    self.tableView.isHidden = false
+                    self.tableView.isUserInteractionEnabled = true
+                    self.tableView.reloadData()
+                }
+            }
         }
+        
+        
         
         view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
@@ -163,7 +177,9 @@ class InfoViewController: UIViewController {
         }
     }
     
-    func loadUrlNamesOfResidents(url: [String]) {
+    func loadUrlNamesOfResidents(url: [String], completion:  @escaping ([String]) -> Void) {
+        
+        var array: [String] = []
         
         url.forEach { value in
             if let url = URL(string: value) {
@@ -174,10 +190,10 @@ class InfoViewController: UIViewController {
                         
                         do {
                             let planet = try JSONDecoder().decode(NamesOfResidents.self, from: unrappedData)
-                            
-                            self.namesOfResidentsArray.append(planet.name)
+                                                        
+                            array.append(planet.name)
                             print(planet.name)
-                            
+                            completion(array)
                         } catch let error {
                             print(error)
                         }
