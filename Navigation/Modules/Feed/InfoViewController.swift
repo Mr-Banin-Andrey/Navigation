@@ -45,9 +45,7 @@ class InfoViewController: UIViewController {
     weak var coordinator: FeedCoordinator?
     
     private var timer: Timer = Timer()
-    
-    private var urlNamesOfResidents: [String] = []
-    
+            
     private var namesOfResidentsArray: [String] = []
     
     //MARK: - 2. Life cycle
@@ -55,26 +53,6 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         
         self.loadJson()
-        self.loadJsonCodable()
-        
-        self.loadJsonDecodablePlanet { [weak self] values in
-            guard let self else { return }
-            self.urlNamesOfResidents = values
-            print(urlNamesOfResidents)
-            
-            loadUrlNamesOfResidents(url: urlNamesOfResidents) { [weak self] values in
-                guard let self else { return }
-                self.namesOfResidentsArray = values
-                print(namesOfResidentsArray)
-                DispatchQueue.main.async {
-                    self.tableView.isHidden = false
-                    self.tableView.isUserInteractionEnabled = true
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        
-        
         
         view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
@@ -97,116 +75,41 @@ class InfoViewController: UIViewController {
     
     //MARK: - 3. Methods
     
-    func loadJson()  {
-
-        if let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") {
-            
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                
-                if let unrappedData = data {
-                    do {
-                        let dictionary = try JSONSerialization.jsonObject(with: unrappedData)
-                        print(dictionary)
-                        
-                        if let dict = dictionary as? [String: Any], let title = dict["title"] as? String {
-                            DispatchQueue.main.async {
-                                self.titleLabel.text = "Title - \(title)"
-                            }
-                        }
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                }
-            }
-            task.resume()
-        } else {
-            print("Cannot create URL")
-        }
-    }
-    
-    func loadJsonCodable()  {
-
-        if let url = URL(string: "https://swapi.dev/api/planets/1/") {
-            
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                
-                if let unrappedData = data {
-                    
-                    do {
-                        let planet = try JSONDecoder().decode(Planet.self, from: unrappedData)
-                        print(planet)
-                        
-                        DispatchQueue.main.async {
-                            self.orbitalPeriodLabel.text = "Период обращения - \(planet.orbital_period)"
-                        }
-                    } catch let error {
-                        print(error)
-                    }
-                   
-                }
-            }
-            task.resume()
-        } else {
-            print("Cannot create URL")
-        }
-    }
-    
-    func loadJsonDecodablePlanet(completion: @escaping ([String]) -> Void)  {
-
-        if let url = URL(string: "https://swapi.dev/api/planets/1/") {
-            
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                
-                if let unrappedData = data {
-                    
-                    do {
-                        let planet = try JSONDecoder().decode(CharacterOfPlanet.self, from: unrappedData)
-                        print(planet)
-                        
-                        completion(planet.residents)
-                        
-                    } catch let error {
-                        print(error)
-                    }
-                   
-                }
-            }
-            task.resume()
-        } else {
-            print("Cannot create URL")
-        }
-    }
-    
-    func loadUrlNamesOfResidents(url: [String], completion:  @escaping ([String]) -> Void) {
-        
-        var array: [String] = []
-        
-        url.forEach { value in
-            if let url = URL(string: value) {
-                
-                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    
-                    if let unrappedData = data {
-                        
-                        do {
-                            let planet = try JSONDecoder().decode(NamesOfResidents.self, from: unrappedData)
-                                                        
-                            array.append(planet.name)
-                            print(planet.name)
-                            completion(array)
-                        } catch let error {
-                            print(error)
-                        }
-                    }
-                }
-                task.resume()
-            } else {
-                print("Cannot create URL")
+    private func loadJson() {
+        TitleJsonSerialization.shared.loadJson { [weak self] value in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.titleLabel.text = "Title: \(value)"
+                print(value, "TitleJsonSerialization")
             }
         }
         
+        OrbitalPeriodJsonSingleton.shared.loadJsonCodable { [weak self] value in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.orbitalPeriodLabel.text = "Период обращения планеты: \(value)"
+                print(value, "OrbitalPeriodJsonSingleton")
+            }
+        }
+
+        
+        NamesOfResidentsJsonSingleton.shared.loadJsonDecodablePlanet { [weak self] values in
+            guard let self else { return }
+            
+            NamesOfResidentsJsonSingleton.shared.loadUrlNamesOfResidents(url: values) { [weak self] names in
+                guard let self else { return }
+                self.namesOfResidentsArray = names
+                print(namesOfResidentsArray)
+                
+                DispatchQueue.main.async {
+                    self.tableView.isHidden = false
+                    self.tableView.isUserInteractionEnabled = true
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
-    
+            
     func setupConstraints() {
         view.addSubview(button)
         view.addSubview(self.titleLabel)
@@ -267,14 +170,13 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
+        
         if namesOfResidentsArray.isEmpty == true {
             cell.textLabel?.text = "empty"
         } else {
             cell.textLabel?.text = namesOfResidentsArray[indexPath.row]
         }
-//        cell.backgroundColor = UIColor.brown
+
         return cell
     }
-    
-    
 }
