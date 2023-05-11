@@ -57,6 +57,5 @@ struct NetworkService {
                 task.resume()
             }
         }
-        
     }
 }

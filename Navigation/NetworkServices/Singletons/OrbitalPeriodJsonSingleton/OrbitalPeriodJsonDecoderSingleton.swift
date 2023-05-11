@@ -18,7 +18,7 @@ class OrbitalPeriodJsonSingleton {
     private let urlJson: String
     
     
-    func loadJsonCodable(completion: @escaping (String) -> Void)  {
+    func loadJson(completion: @escaping (String) -> Void)  {
 
         if let url = URL(string: urlJson) {
             let task = URLSession.shared.dataTask(with: url) { data, response, error in

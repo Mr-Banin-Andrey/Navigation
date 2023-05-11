@@ -17,13 +17,13 @@ class InfoViewController: UIViewController {
         return button
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var orbitalPeriodLabel: UILabel = {
+    lazy var orbitalPeriodLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -84,7 +84,7 @@ class InfoViewController: UIViewController {
             }
         }
         
-        OrbitalPeriodJsonSingleton.shared.loadJsonCodable { [weak self] value in
+        OrbitalPeriodJsonSingleton.shared.loadJson { [weak self] value in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.orbitalPeriodLabel.text = "Период обращения планеты: \(value)"
