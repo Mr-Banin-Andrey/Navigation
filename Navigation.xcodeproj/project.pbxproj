@@ -18,6 +18,11 @@
 		9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D0EC5322991117F00A98E06 /* SnapKit */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
+		9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */; };
+		9D4E1DBC2A09963400573EC4 /* NamesOfResidents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */; };
+		9D4E1DBF2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DBE2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift */; };
+		9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DC02A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift */; };
+		9D4E1DC42A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DC32A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift */; };
 		9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB542A02C613001F7368 /* NetworkService.swift */; };
 		9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */; };
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
@@ -103,7 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Justin Timberlake.mp3"; path = "../../../../../../../andrey_banin/Downloads/музыка короткая/Justin Timberlake.mp3"; sourceTree = "<group>"; };
+		9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Justin Timberlake.mp3"; sourceTree = "<group>"; };
 		9D0EC50C298C1EC400A98E06 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D0EC50E298C1EC400A98E06 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		9D0EC50F298C1EC400A98E06 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -112,6 +117,11 @@
 		9D0EC52B298C31B200A98E06 /* PostTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTitle.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
+		9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOfPlanet.swift; sourceTree = "<group>"; };
+		9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesOfResidents.swift; sourceTree = "<group>"; };
+		9D4E1DBE2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleJsonSerializationSingleton.swift; sourceTree = "<group>"; };
+		9D4E1DC02A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitalPeriodJsonDecoderSingleton.swift; sourceTree = "<group>"; };
+		9D4E1DC32A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesOfResidentsJsonSingleton.swift; sourceTree = "<group>"; };
 		9D5FBB542A02C613001F7368 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -124,10 +134,10 @@
 		9DA94F7C29DDF75A0095D94B /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		9DB5FA3029B3B1C400A6D424 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
-		9DB8172929FB4F0100988937 /* Linkin park.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Linkin park.mp3"; path = "../../../../../../../andrey_banin/Downloads/музыка короткая/Linkin park.mp3"; sourceTree = "<group>"; };
-		9DB8172A29FB4F0100988937 /* Eminem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Eminem.mp3; path = "../../../../../../../andrey_banin/Downloads/музыка короткая/Eminem.mp3"; sourceTree = "<group>"; };
-		9DB8172B29FB4F0100988937 /* Король и шут.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Король и шут.mp3"; path = "../../../../../../../andrey_banin/Downloads/музыка короткая/Король и шут.mp3"; sourceTree = "<group>"; };
-		9DB8172C29FB4F0100988937 /* Nirvana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Nirvana.mp3; path = "../../../../../../../andrey_banin/Downloads/музыка короткая/Nirvana.mp3"; sourceTree = "<group>"; };
+		9DB8172929FB4F0100988937 /* Linkin park.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Linkin park.mp3"; sourceTree = "<group>"; };
+		9DB8172A29FB4F0100988937 /* Eminem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eminem.mp3; sourceTree = "<group>"; };
+		9DB8172B29FB4F0100988937 /* Король и шут.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Король и шут.mp3"; sourceTree = "<group>"; };
+		9DB8172C29FB4F0100988937 /* Nirvana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Nirvana.mp3; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -215,13 +225,58 @@
 			path = CheckLogin;
 			sourceTree = "<group>";
 		};
-		9D5FBB532A02C587001F7368 /* NetworkService */ = {
+		9D4E1DB42A0836C400573EC4 /* OrbitalPeriodJsonSingleton */ = {
 			isa = PBXGroup;
 			children = (
+				9D4E1DC02A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift */,
+			);
+			path = OrbitalPeriodJsonSingleton;
+			sourceTree = "<group>";
+		};
+		9D4E1DBD2A0A265000573EC4 /* TitleJsonSerializationSingleton */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DBE2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift */,
+			);
+			path = TitleJsonSerializationSingleton;
+			sourceTree = "<group>";
+		};
+		9D4E1DC22A0A591300573EC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */,
+				9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9D4E1DC52A0A5B4300573EC4 /* NamesOfResidentsJsonSingleton */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DC32A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift */,
+			);
+			path = NamesOfResidentsJsonSingleton;
+			sourceTree = "<group>";
+		};
+		9D4E1DC62A0A5EDB00573EC4 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DC52A0A5B4300573EC4 /* NamesOfResidentsJsonSingleton */,
+				9D4E1DB42A0836C400573EC4 /* OrbitalPeriodJsonSingleton */,
+				9D4E1DBD2A0A265000573EC4 /* TitleJsonSerializationSingleton */,
+			);
+			path = Singletons;
+			sourceTree = "<group>";
+		};
+		9D5FBB532A02C587001F7368 /* NetworkServices */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DC22A0A591300573EC4 /* Model */,
+				9D4E1DC62A0A5EDB00573EC4 /* Singletons */,
 				9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */,
 				9D5FBB542A02C613001F7368 /* NetworkService.swift */,
 			);
-			path = NetworkService;
+			path = NetworkServices;
 			sourceTree = "<group>";
 		};
 		9D63D13729FBCBEA0090C859 /* Models */ = {
@@ -322,7 +377,7 @@
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
 				9DA94F7029D5BB4E0095D94B /* Modules */,
-				9D5FBB532A02C587001F7368 /* NetworkService */,
+				9D5FBB532A02C587001F7368 /* NetworkServices */,
 				9DC9D05729FB17A400D9791A /* Resources */,
 				9DBD55BD28FF1A1900454D01 /* Assets.xcassets */,
 				9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */,
@@ -678,10 +733,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D63D13929FBCC0A0090C859 /* Song.swift in Sources */,
+				9D4E1DBC2A09963400573EC4 /* NamesOfResidents.swift in Sources */,
 				9D63D13B29FBCC130090C859 /* Songs.swift in Sources */,
 				9DBD5C5D29C79444009F494C /* ProfileCoordinator.swift in Sources */,
 				9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */,
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
+				9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */,
 				9DBD5C7629CCFBB1009F494C /* PhotosInCellProfile.swift in Sources */,
 				9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */,
 				9DBD5C9829CDD349009F494C /* FeedViewModel.swift in Sources */,
@@ -692,11 +749,13 @@
 				9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */,
 				9DBD5C6E29CC83E9009F494C /* Posts.swift in Sources */,
 				9D34F391299F81FB004B91E1 /* Checker.swift in Sources */,
+				9D4E1DC42A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift in Sources */,
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
 				9DC9D04F29F9555700D9791A /* ShowAlert.swift in Sources */,
 				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
 				9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */,
+				9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */,
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
@@ -709,6 +768,7 @@
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,
+				9D4E1DBF2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift in Sources */,
 				9DA94F7D29DDF75A0095D94B /* FeedView.swift in Sources */,
 				9DBD55D128FF4F7F00454D01 /* InfoViewController.swift in Sources */,
 				9DD4AD9129E9A5E9002AA212 /* BruteForce.swift in Sources */,

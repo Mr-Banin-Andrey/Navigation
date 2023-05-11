@@ -42,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
         let _: () = NetworkService.request(for: appConfiguration)
+        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
