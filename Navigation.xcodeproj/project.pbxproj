@@ -25,6 +25,8 @@
 		9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DC02A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift */; };
 		9D4E1DC42A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DC32A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift */; };
 		9D4E1DC82A0D84AE00573EC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D4E1DC72A0D84AE00573EC4 /* GoogleService-Info.plist */; };
+		9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DCA2A0E4CD300573EC4 /* CheckerService.swift */; };
+		9D4E1DCD2A0E5D7700573EC4 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DCC2A0E5D7700573EC4 /* UserModel.swift */; };
 		9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB542A02C613001F7368 /* NetworkService.swift */; };
 		9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */; };
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
@@ -57,7 +59,7 @@
 		9DBD5C6829CC61D7009F494C /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C6729CC61D7009F494C /* Users.swift */; };
 		9DBD5C6C29CC7692009F494C /* ProfilePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C6B29CC7692009F494C /* ProfilePost.swift */; };
 		9DBD5C6E29CC83E9009F494C /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C6D29CC83E9009F494C /* Posts.swift */; };
-		9DBD5C7029CCE083009F494C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C6F29CCE083009F494C /* User.swift */; };
+		9DBD5C7029CCE083009F494C /* UserReleaseOrTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C6F29CCE083009F494C /* UserReleaseOrTest.swift */; };
 		9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */; };
 		9DBD5C7629CCFBB1009F494C /* PhotosInCellProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C7529CCFBB1009F494C /* PhotosInCellProfile.swift */; };
 		9DBD5C7A29CD0034009F494C /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD5C7929CD0034009F494C /* PhotoCollectionViewCell.swift */; };
@@ -131,6 +133,8 @@
 		9D4E1DC02A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbitalPeriodJsonDecoderSingleton.swift; sourceTree = "<group>"; };
 		9D4E1DC32A0A5B2600573EC4 /* NamesOfResidentsJsonSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesOfResidentsJsonSingleton.swift; sourceTree = "<group>"; };
 		9D4E1DC72A0D84AE00573EC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9D4E1DCA2A0E4CD300573EC4 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
+		9D4E1DCC2A0E5D7700573EC4 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		9D5FBB542A02C613001F7368 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -164,7 +168,7 @@
 		9DBD5C6729CC61D7009F494C /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9DBD5C6B29CC7692009F494C /* ProfilePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePost.swift; sourceTree = "<group>"; };
 		9DBD5C6D29CC83E9009F494C /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
-		9DBD5C6F29CCE083009F494C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9DBD5C6F29CCE083009F494C /* UserReleaseOrTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReleaseOrTest.swift; sourceTree = "<group>"; };
 		9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInCell.swift; sourceTree = "<group>"; };
 		9DBD5C7529CCFBB1009F494C /* PhotosInCellProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInCellProfile.swift; sourceTree = "<group>"; };
 		9DBD5C7929CD0034009F494C /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -293,6 +297,15 @@
 				9D4E1DBD2A0A265000573EC4 /* TitleJsonSerializationSingleton */,
 			);
 			path = Singletons;
+			sourceTree = "<group>";
+		};
+		9D4E1DC92A0E4CA400573EC4 /* FirebaseService */ = {
+			isa = PBXGroup;
+			children = (
+				9D4E1DCA2A0E4CD300573EC4 /* CheckerService.swift */,
+				9D4E1DCC2A0E5D7700573EC4 /* UserModel.swift */,
+			);
+			path = FirebaseService;
 			sourceTree = "<group>";
 		};
 		9D5FBB532A02C587001F7368 /* NetworkServices */ = {
@@ -432,6 +445,7 @@
 		9DBD5C7D29CD8331009F494C /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
+				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
 				9D34F392299F8F85004B91E1 /* CheckLogin */,
 				9DBD5C8729CD85C4009F494C /* View */,
 			);
@@ -573,7 +587,7 @@
 				9DBD5C7F29CD8358009F494C /* Photos */,
 				9DBD5C7E29CD8343009F494C /* Profile */,
 				9DC9D04E29F9555700D9791A /* ShowAlert.swift */,
-				9DBD5C6F29CCE083009F494C /* User.swift */,
+				9DBD5C6F29CCE083009F494C /* UserReleaseOrTest.swift */,
 				9DBD5C6729CC61D7009F494C /* Users.swift */,
 			);
 			path = Profile;
@@ -874,11 +888,12 @@
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
 				9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */,
 				9DBD5C7629CCFBB1009F494C /* PhotosInCellProfile.swift in Sources */,
+				9D4E1DCD2A0E5D7700573EC4 /* UserModel.swift in Sources */,
 				9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */,
 				9DBD5C9829CDD349009F494C /* FeedViewModel.swift in Sources */,
 				9DBD5C6C29CC7692009F494C /* ProfilePost.swift in Sources */,
 				9DC9D05229FB00E900D9791A /* AudioPlayerViewController.swift in Sources */,
-				9DBD5C7029CCE083009F494C /* User.swift in Sources */,
+				9DBD5C7029CCE083009F494C /* UserReleaseOrTest.swift in Sources */,
 				9DBD5C7C29CD00BE009F494C /* PhotoGallery.swift in Sources */,
 				9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */,
 				9DBD5C6E29CC83E9009F494C /* Posts.swift in Sources */,
@@ -893,6 +908,7 @@
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
+				9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */,
 				9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
 				9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */,

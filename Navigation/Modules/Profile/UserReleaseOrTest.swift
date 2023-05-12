@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User {
+class UserReleaseOrTest {
     let login: String
     let fullName: String
     let status: String
