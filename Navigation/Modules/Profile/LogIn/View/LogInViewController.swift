@@ -288,7 +288,9 @@ class LogInViewController: UIViewController {
     }
     
     @objc func showProfileViewController() {
-
+        
+        
+        
         let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
 
         if check == true {

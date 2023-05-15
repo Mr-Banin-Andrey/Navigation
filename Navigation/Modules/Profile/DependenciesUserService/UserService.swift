@@ -8,19 +8,19 @@
 import Foundation
 
 protocol UserService {
-    func checkLogin(login: User) -> User?
+    func checkLogin(login: UserReleaseOrTest) -> UserReleaseOrTest?
 }
 
 
 class CurrentUserService: UserService {
     
-    let user: User
+    let user: UserReleaseOrTest
     
-    init(user: User) {
+    init(user: UserReleaseOrTest) {
         self.user = user
     }
     
-    func checkLogin(login: User) -> User? {
+    func checkLogin(login: UserReleaseOrTest) -> UserReleaseOrTest? {
         if login.login == user.login {
             return login
         }
@@ -30,13 +30,13 @@ class CurrentUserService: UserService {
 
 class TestUserService: UserService {
     
-    let user: User
+    let user: UserReleaseOrTest
     
-    init(user: User) {
+    init(user: UserReleaseOrTest) {
         self.user = user
     }
     
-    func checkLogin(login: User) -> User? {
+    func checkLogin(login: UserReleaseOrTest) -> UserReleaseOrTest? {
         if login.login == user.login {
             return login
         }

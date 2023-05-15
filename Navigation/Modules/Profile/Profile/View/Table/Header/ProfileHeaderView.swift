@@ -133,7 +133,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    func setup(user: User) {
+    func setup(user: UserReleaseOrTest) {
         nameProfileLabel.text = user.fullName
         imageView.image = user.userPhoto.userPhoto
         statusLabel.text = user.status
