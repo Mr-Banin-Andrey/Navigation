@@ -27,9 +27,9 @@ class ProfileCoordinator: AppCoordinator {
     
     func showLogInVC() {
         let logInVC = LogInViewController()
-        let myLF = MyLoginFactory()
+//        let myLF = MyLoginFactory()
 
-        logInVC.loginDelegate = myLF.makeLoginInspector()
+//        logInVC.loginDelegate = myLF.makeLoginInspector()
         logInVC.coordinator = self
         navigationController.pushViewController(logInVC, animated: false)
     }

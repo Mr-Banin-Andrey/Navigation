@@ -23,6 +23,8 @@ class LogInViewController: UIViewController {
     
     var loginDelegate: LoginViewControllerDelegate?
     
+    var checkServiceDelegate = CheckerService()
+    
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -99,7 +101,7 @@ class LogInViewController: UIViewController {
     private lazy var alertController: UIAlertController = {
         let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
-            print("login invalid")
+            print("alert Error")
         }))
         return alert
     }()
@@ -289,14 +291,33 @@ class LogInViewController: UIViewController {
     
     @objc func showProfileViewController() {
         
+        print("showProfileViewController")
         
+        let login = loginTextField.text
+        let password = passwordTextField.text
         
-        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
+        checkServiceDelegate.singIn(
+            withEmail: login ?? "",
+            password:  password ?? "") { result in
+                switch result {
+                case .success:
+                    print("case .success:")
+                    self.coordinator?.showProfileVC()
+                case .failure(let error):
+                    print(error)
+                    self.showAlert()
+                }
+            }
+        
+//        dronbanin@yandex.ru
+//        123456
+        
+//        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
 
-        if check == true {
-            coordinator?.showProfileVC()
-        } else {
-            showAlert()
-        }
+//        if check == true {
+//            coordinator?.showProfileVC()
+//        } else {
+//            showAlert()
+//        }
     }
 }

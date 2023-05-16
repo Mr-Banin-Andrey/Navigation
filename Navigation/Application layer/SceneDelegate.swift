@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         ]
         
         let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
-        let _: () = NetworkService.request(for: appConfiguration)
+//        let _: () = NetworkService.request(for: appConfiguration)
         
     }
     
