@@ -21,9 +21,9 @@ class LogInViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
     
-    var loginDelegate: LoginViewControllerDelegate?
+    private var loginDelegate: LoginViewControllerDelegate?
     
-    var checkServiceDelegate = CheckerService()
+    private let checkService = CheckerService()
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -79,7 +79,7 @@ class LogInViewController: UIViewController {
         return password
     }()
     
-    private lazy var logInButton: UIButton = {
+    lazy var logInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -106,10 +106,13 @@ class LogInViewController: UIViewController {
         return alert
     }()
     
-    private lazy var pickUpPassword: CustomButton = {
-        let button = CustomButton(title: "Подобрать пароль", bgColor: .green) { [unowned self] in
-            
-            self.passwordGuessQueue()
+    lazy var singUpButton: CustomButton = {
+        let button = CustomButton(
+            title: "Регистрация",
+            bgColor: UIColor(named: "blueColor") ?? UIColor.red
+        ) { [unowned self] in
+            self.coordinator?.showRegistr()
+//            self.passwordGuessQueue()
         }
         return button
     }()
@@ -121,6 +124,9 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
+    
+    
+    var isPresent: Bool = false
     
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
@@ -155,7 +161,7 @@ class LogInViewController: UIViewController {
         self.loginPasswordStack.addArrangedSubview(self.loginTextField)
         self.loginPasswordStack.addArrangedSubview(self.passwordTextField)
         self.scrollView.addSubview(self.logInButton)
-        self.scrollView.addSubview(self.pickUpPassword)
+        self.scrollView.addSubview(self.singUpButton)
         self.scrollView.addSubview(self.activityIndicator)
         
         NSLayoutConstraint.activate([
@@ -169,7 +175,7 @@ class LogInViewController: UIViewController {
             self.logoImageView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             self.logoImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 120),
             
-            self.loginPasswordView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 120),
+            self.loginPasswordView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 100),
             self.loginPasswordView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.loginPasswordView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             self.loginPasswordView.heightAnchor.constraint(equalToConstant: 100),
@@ -189,9 +195,9 @@ class LogInViewController: UIViewController {
             self.logInButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.logInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             
-            self.pickUpPassword.heightAnchor.constraint(equalToConstant: 30),
-            self.pickUpPassword.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
-            self.pickUpPassword.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.singUpButton.heightAnchor.constraint(equalToConstant: 30),
+            self.singUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+            self.singUpButton.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             
             self.activityIndicator.bottomAnchor.constraint(equalTo: self.loginPasswordStack.bottomAnchor, constant: -8),
             self.activityIndicator.leadingAnchor.constraint(equalTo: self.loginPasswordStack.leadingAnchor)
@@ -202,7 +208,6 @@ class LogInViewController: UIViewController {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(self.forcedHidingKeyboard))
         self.view.addGestureRecognizer(tapGestures)
     }
-    
     
     private func bruteForce(passwordToUnlock: String) -> String {
         
@@ -246,7 +251,7 @@ class LogInViewController: UIViewController {
         passwordTextField.text = nil
         activityIndicator.startAnimating()
         passwordTextField.isEnabled = false
-        pickUpPassword.isEnabled = false
+        singUpButton.isEnabled = false
         nameQueue.async { [weak self] in
             bruteForceWord = self?.bruteForce(passwordToUnlock: randomPassword) ?? ""
             DispatchQueue.main.async {
@@ -255,9 +260,13 @@ class LogInViewController: UIViewController {
                 self?.passwordTextField.isSecureTextEntry = false
                 self?.passwordTextField.text = bruteForceWord
                 self?.passwordTextField.isEnabled = true
-                self?.pickUpPassword.isEnabled = true
+                self?.singUpButton.isEnabled = true
             }
         }
+    }
+    
+    private func singUp() {
+        coordinator?.showRegistr()
     }
     
     @objc func showAlert() {
@@ -269,7 +278,7 @@ class LogInViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height + 16 + self.pickUpPassword.frame.height
+            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height + 16 + self.singUpButton.frame.height
             
             let keyboardOriginY = self.view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottom
@@ -291,26 +300,38 @@ class LogInViewController: UIViewController {
     
     @objc func showProfileViewController() {
         
-        print("showProfileViewController")
-        
-        let login = loginTextField.text
-        let password = passwordTextField.text
-        
-        checkServiceDelegate.singIn(
-            withEmail: login ?? "",
-            password:  password ?? "") { result in
-                switch result {
-                case .success:
-                    print("case .success:")
-                    self.coordinator?.showProfileVC()
-                case .failure(let error):
-                    print(error)
-                    self.showAlert()
+        if isPresent {
+            print("isPresent - yes")
+        } else {
+            print("isPresent - no")
+            
+//            print("showProfileViewController")
+    
+            let login = loginTextField.text
+            let password = passwordTextField.text
+    
+            checkService.checkCredentials(
+                withEmail: login ?? "",
+                password:  password ?? "",
+                vc: self
+            ) { result in
+                    switch result {
+                    case .success:
+                        print("case .success:===")
+                        self.coordinator?.showProfileVC()
+                    case .failure(let error):
+    
+                        print("case .failure(let error): ===", error)
+    //                    self.showAlert()
+                    }
                 }
-            }
+        }
+        
+//
         
 //        dronbanin@yandex.ru
 //        123456
+//        79150444919@ya.ru
         
 //        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
 

@@ -9,20 +9,22 @@ import Foundation
 import FirebaseAuth
 
 enum CheckerError: Error {
-    case notAuthorized
-    case custom(reason: String)
+    case noUserRecord
+    case unknownError(reason: String)
 }
 
 
+
 protocol CheckerServiceProtocol: AnyObject {
-    func singUp(
+//    func singUp(
+//        withEmail email: String,
+//        password: String,
+//        completion: @escaping (Result<UserModel, CheckerError>) -> Void
+//    )
+    func checkCredentials(
         withEmail email: String,
         password: String,
-        completion: @escaping (Result<UserModel, CheckerError>) -> Void
-    )
-    func singIn(
-        withEmail email: String,
-        password: String,
+        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     )
     func singOut() throws
@@ -31,113 +33,88 @@ protocol CheckerServiceProtocol: AnyObject {
 
 class CheckerService {
     
-//    private func responseHendler(
-//        _ response: (authDate: AuthDataResult?, error: Error?),
-//        completion: @escaping (Result<UserModel, CheckerError>) -> Void
-//    ) {
-//        let useDispachQueue: (Result<UserModel, CheckerError>) -> Void = { result in
-//            DispatchQueue.main.async {
-//                completion(result)
-//            }
-//        }
-//
-//        if let error = response.error {
-//            useDispachQueue(.failure(.custom(reason: error.localizedDescription)))
-//            return
-//        }
-//
-//        guard
-//            let firUser = response.authData?.user,
-//            let firCredential = response.authData?.credential
-//        else {
-//            useDispachQueue(.failure(.notAuthorized))
-//            return
-//        }
-//
-//        let credential = CredentialModel(from: firCredential)
-//        let user = UserModel(from: firUser, credential: credential)
-//
-//        useDispachQueue(.success(user))
-//    }
+    private func responseHendler(
+        _ response: (authData: AuthDataResult?, error: Error?),
+        vc: UIViewController,
+        completion: @escaping (Result<UserModel, CheckerError>) -> Void
+    ) {
+        let useDispachQueue: (Result<UserModel, CheckerError>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        
+        if let error = response.error {
+            if error.localizedDescription == "The password is invalid or the user does not have a password." {
+                let showAlert = ShowAlert()
+                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Неверный логин или пароль")
+            } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
+                let showAlert = ShowAlert()
+                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Аккаунта с такими данными не существует")
+            }
+            
+            useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
+        }
+        
+        guard
+            let firUser = response.authData?.user
+        else {
+            useDispachQueue(.failure(.noUserRecord))
+            return
+        }
+
+        let user = UserModel(from: firUser)
+
+        useDispachQueue(.success(user))
+    }
+    
+    private func emptyPasswordOrEmailField(vc: UIViewController, email: String, password: String) {
+        if email.isEmpty || password.isEmpty {
+            let showAlert = ShowAlert()
+            showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля")
+        }
+    }
 }
 
 extension CheckerService: CheckerServiceProtocol {
     
-    func singUp(
-        withEmail email: String,
-        password: String,
-        completion: @escaping (Result<UserModel, CheckerError>) -> Void
-    ) {
-        Auth.auth().createUser(
-            withEmail: email,
-            password: password
-        ) { authData, error in //[weak self] authData, error in
+//    func singUp(
+//        withEmail email: String,
+//        password: String,
+//        completion: @escaping (Result<UserModel, CheckerError>) -> Void
+//    ) {
+//        Auth.auth().createUser(
+//            withEmail: email,
+//            password: password
+//        ) { [weak self] (authData, error) in
 //            self?.responseHendler(
-//                (authDate: authDate, error: error),
+//                (authData: authData, error: error), vc: vc,
 //                completion: completion)
-            
-            let useDispachQueue: (Result<UserModel, CheckerError>) -> Void = { result in
-                DispatchQueue.main.async {
-                    completion(result)
-                }
-            }
-            
-            if let error {
-                useDispachQueue(.failure(.custom(reason: error.localizedDescription)))
-                return
-            }
-            
-            guard
-                let firUser = authData?.user,
-                let firCredential = authData?.credential
-            else {
-                useDispachQueue(.failure(.notAuthorized))
-                return
-            }
-            
-            let credential = CredentialModel(from: firCredential)
-            let user = UserModel(from: firUser, credential: credential)
-            
-            useDispachQueue(.success(user))
-        }
-    }
+//        }
+//    }
     
-    func singIn(
+    func checkCredentials(
         withEmail email: String,
         password: String,
+        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     ) {
+        
+        emptyPasswordOrEmailField(vc: vc, email: "Ошибка", password: "Заполните все поля")
+        
+//        if email.isEmpty || password.isEmpty {
+//            let showAlert = ShowAlert()
+//            showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля")
+//        }
+        
+        
         Auth.auth().signIn(
             withEmail: email,
             password: password
-        ) { authData, error in //[weak self] authData, error in
-//            self?.responseHendler(
-//                (authDate: authDate, error: error),
-//                completion: completion)
-            
-            let useDispachQueue: (Result<UserModel, CheckerError>) -> Void = { result in
-                DispatchQueue.main.async {
-                    completion(result)
-                }
-            }
-
-            if let error {
-                useDispachQueue(.failure(.custom(reason: error.localizedDescription)))
-                return
-            }
-
-            guard
-                let firUser = authData?.user,
-                let firCredential = authData?.credential
-            else {
-                useDispachQueue(.failure(.notAuthorized))
-                return
-            }
-
-            let credential = CredentialModel(from: firCredential)
-            let user = UserModel(from: firUser, credential: credential)
-
-            useDispachQueue(.success(user))
+        ) { [weak self] (authData, error) in
+            self?.responseHendler(
+                (authData: authData, error: error), vc: vc,
+                completion: completion)
         }
     }
     
@@ -145,7 +122,7 @@ extension CheckerService: CheckerServiceProtocol {
         do {
             try Auth.auth().signOut()
         } catch {
-            throw CheckerError.custom(reason: error.localizedDescription)
+            throw CheckerError.unknownError(reason: error.localizedDescription)
         }
         
     }

@@ -33,14 +33,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         coordinator.start()
         
+//        
+//        let urlArray = [
+//            "https://swapi.dev/api/films/1/",
+//            "https://swapi.dev/api/species/2/",
+//            "https://swapi.dev/api/vehicles/4/"
+//        ]
         
-        let urlArray = [
-            "https://swapi.dev/api/films/1/",
-            "https://swapi.dev/api/species/2/",
-            "https://swapi.dev/api/vehicles/4/"
-        ]
-        
-        let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
+//        let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
 //        let _: () = NetworkService.request(for: appConfiguration)
         
     }

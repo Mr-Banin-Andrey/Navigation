@@ -48,4 +48,15 @@ class ProfileCoordinator: AppCoordinator {
         navigationController.pushViewController(photosVC, animated: true)
     }
     
+    func showRegistr() {
+        let logInVC = LogInViewController()
+//        let myLF = MyLoginFactory()
+
+//        logInVC.loginDelegate = myLF.makeLoginInspector()
+        logInVC.coordinator = self
+        logInVC.singUpButton.isHidden = true//.setTitle("Регистрация", for: .normal)
+        logInVC.logInButton.setTitle("Сохранить", for: .normal)
+        logInVC.isPresent = true
+        navigationController.present(logInVC, animated: true) //(logInVC, animated: false)
+    }
 }

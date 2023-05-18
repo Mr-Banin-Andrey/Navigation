@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ShowAlert {
+struct ShowAlert {
     
     func showAlert(vc: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
