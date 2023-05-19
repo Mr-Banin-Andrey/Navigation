@@ -21,7 +21,7 @@ class LogInViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
     
-    private var loginDelegate: LoginViewControllerDelegate?
+    var loginDelegate: LoginViewControllerDelegate?
     
     private let checkService = CheckerService()
     
@@ -99,8 +99,10 @@ class LogInViewController: UIViewController {
     }()
         
     private lazy var alertController: UIAlertController = {
-        let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
+        let alert = UIAlertController(title: "", message: "Пользователь сохранен", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "войти в аккаунт", style: .default, handler: { _ in
+            self.coordinator?.showProfileVC()
+            self.dismiss(animated: true)
             print("alert Error")
         }))
         return alert
@@ -111,7 +113,7 @@ class LogInViewController: UIViewController {
             title: "Регистрация",
             bgColor: UIColor(named: "blueColor") ?? UIColor.red
         ) { [unowned self] in
-            self.coordinator?.showRegistr()
+            self.coordinator?.showRegistration()
 //            self.passwordGuessQueue()
         }
         return button
@@ -265,10 +267,6 @@ class LogInViewController: UIViewController {
         }
     }
     
-    private func singUp() {
-        coordinator?.showRegistr()
-    }
-    
     @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
     }
@@ -299,39 +297,42 @@ class LogInViewController: UIViewController {
     }
     
     @objc func showProfileViewController() {
-        
-        if isPresent {
-            print("isPresent - yes")
-        } else {
-            print("isPresent - no")
-            
-//            print("showProfileViewController")
-    
-            let login = loginTextField.text
-            let password = passwordTextField.text
-    
-            checkService.checkCredentials(
-                withEmail: login ?? "",
-                password:  password ?? "",
-                vc: self
-            ) { result in
-                    switch result {
-                    case .success:
-                        print("case .success:===")
-                        self.coordinator?.showProfileVC()
-                    case .failure(let error):
-    
-                        print("case .failure(let error): ===", error)
-    //                    self.showAlert()
-                    }
-                }
-        }
-        
-//
-        
-//        dronbanin@yandex.ru
-//        123456
-//        79150444919@ya.ru
+       
+       if let login = loginTextField.text, let password = passwordTextField.text {
+           if isPresent {
+               print("isPresent - ", isPresent) // yes
+               
+               checkService.singUp(
+                   withEmail: login,
+                   password: password,
+                   vc: self
+               ) { result in
+                       switch result {
+                       case .success:
+                           print("view - case .success:===")
+                           self.showAlert()
+                       case .failure(let error):
+                           print("view - case .failure(let error): ===", error)
+                       }
+               }
+           } else {
+               print("isPresent - ", isPresent) //no
+               
+               checkService.checkCredentials(
+                   withEmail: login,
+                   password: password,
+                   vc: self
+               ) { result in
+                       switch result {
+                       case .success:
+                           print("case .success:===")
+                           self.coordinator?.showProfileVC()
+                       case .failure(let error):
+                           print("isPresent - case .failure(let error): ===", error)
+                       }
+               }
+           }
+       }
         
 //        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
 

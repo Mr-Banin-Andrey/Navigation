@@ -14,13 +14,13 @@ enum CheckerError: Error {
 }
 
 
-
 protocol CheckerServiceProtocol: AnyObject {
-//    func singUp(
-//        withEmail email: String,
-//        password: String,
-//        completion: @escaping (Result<UserModel, CheckerError>) -> Void
-//    )
+    func singUp(
+        withEmail email: String,
+        password: String,
+        vc: UIViewController,
+        completion: @escaping (Result<UserModel, CheckerError>) -> Void
+    )
     func checkCredentials(
         withEmail email: String,
         password: String,
@@ -68,30 +68,50 @@ class CheckerService {
         useDispachQueue(.success(user))
     }
     
-    private func emptyPasswordOrEmailField(vc: UIViewController, email: String, password: String) {
+    private func emptyPasswordOrEmailField(
+        vc: UIViewController,
+        email: String,
+        password: String,
+        title: String,
+        message: String
+    ) -> Bool {
         if email.isEmpty || password.isEmpty {
             let showAlert = ShowAlert()
             showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля")
+            return true
         }
+        return false
     }
+    
+    
 }
 
 extension CheckerService: CheckerServiceProtocol {
     
-//    func singUp(
-//        withEmail email: String,
-//        password: String,
-//        completion: @escaping (Result<UserModel, CheckerError>) -> Void
-//    ) {
-//        Auth.auth().createUser(
-//            withEmail: email,
-//            password: password
-//        ) { [weak self] (authData, error) in
-//            self?.responseHendler(
-//                (authData: authData, error: error), vc: vc,
-//                completion: completion)
-//        }
-//    }
+    func singUp(
+        withEmail email: String,
+        password: String,
+        vc: UIViewController,
+        completion: @escaping (Result<UserModel, CheckerError>) -> Void
+    ) {
+        let isEmpty = emptyPasswordOrEmailField(
+            vc: vc,
+            email: email,
+            password: password,
+            title: "Ошибка",
+            message: "Заполните все поля")
+        
+        if isEmpty == false {
+            Auth.auth().createUser(
+                withEmail: email,
+                password: password
+            ) { [weak self] (authData, error) in
+                self?.responseHendler(
+                    (authData: authData, error: error), vc: vc,
+                    completion: completion)
+            }
+        }
+    }
     
     func checkCredentials(
         withEmail email: String,
@@ -99,31 +119,33 @@ extension CheckerService: CheckerServiceProtocol {
         vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     ) {
+        let isEmpty = emptyPasswordOrEmailField(
+            vc: vc,
+            email: email,
+            password: password,
+            title: "Ошибка",
+            message: "Заполните все поля")
         
-        emptyPasswordOrEmailField(vc: vc, email: "Ошибка", password: "Заполните все поля")
-        
-//        if email.isEmpty || password.isEmpty {
-//            let showAlert = ShowAlert()
-//            showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля")
-//        }
-        
-        
-        Auth.auth().signIn(
-            withEmail: email,
-            password: password
-        ) { [weak self] (authData, error) in
-            self?.responseHendler(
-                (authData: authData, error: error), vc: vc,
-                completion: completion)
+        if isEmpty == false {
+            Auth.auth().signIn(
+                withEmail: email,
+                password: password
+            ) { [weak self] (authData, error) in
+                self?.responseHendler(
+                    (authData: authData, error: error), vc: vc,
+                    completion: completion)
+            }
         }
     }
     
     func singOut() throws {
         do {
             try Auth.auth().signOut()
+            print("try Auth.auth().signOut()")
         } catch {
             throw CheckerError.unknownError(reason: error.localizedDescription)
         }
         
     }
+
 }
