@@ -23,7 +23,7 @@ class LogInViewController: UIViewController {
     
     var loginDelegate: LoginViewControllerDelegate?
     
-    private let checkService = CheckerService()
+    private let checkerService = CheckerService()
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -60,7 +60,7 @@ class LogInViewController: UIViewController {
     
     lazy var loginTextField: UITextField = {
         let login = UITextField()
-        login.placeholder = "Email of phone"
+        login.placeholder = "E-mail"
         login.font = UIFont.systemFont(ofSize: 16)
         login.autocapitalizationType = .none
         login.textColor = .black
@@ -100,10 +100,9 @@ class LogInViewController: UIViewController {
         
     private lazy var alertController: UIAlertController = {
         let alert = UIAlertController(title: "", message: "Пользователь сохранен", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "войти в аккаунт", style: .default, handler: { _ in
-            self.coordinator?.showProfileVC()
+        alert.addAction(UIAlertAction(title: "ок", style: .default, handler: { _ in
             self.dismiss(animated: true)
-            print("alert Error")
+            print("alert Пользователь сохранен")
         }))
         return alert
     }()
@@ -126,7 +125,6 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
-    
     
     var isPresent: Bool = false
     
@@ -301,8 +299,7 @@ class LogInViewController: UIViewController {
        if let login = loginTextField.text, let password = passwordTextField.text {
            if isPresent {
                print("isPresent - ", isPresent) // yes
-               
-               checkService.singUp(
+               checkerService.singUp(
                    withEmail: login,
                    password: password,
                    vc: self
@@ -317,15 +314,14 @@ class LogInViewController: UIViewController {
                }
            } else {
                print("isPresent - ", isPresent) //no
-               
-               checkService.checkCredentials(
+               checkerService.checkCredentials(
                    withEmail: login,
                    password: password,
                    vc: self
                ) { result in
                        switch result {
                        case .success:
-                           print("case .success:===")
+                           print("isPresent - case .success:===")
                            self.coordinator?.showProfileVC()
                        case .failure(let error):
                            print("isPresent - case .failure(let error): ===", error)
@@ -333,13 +329,5 @@ class LogInViewController: UIViewController {
                }
            }
        }
-        
-//        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
-
-//        if check == true {
-//            coordinator?.showProfileVC()
-//        } else {
-//            showAlert()
-//        }
     }
 }
