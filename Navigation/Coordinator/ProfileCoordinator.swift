@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import FirebaseAuth
 
 class ProfileCoordinator: AppCoordinator {
     
@@ -23,16 +22,7 @@ class ProfileCoordinator: AppCoordinator {
     }
     
     func start() {
-        currentUser()
-    }
-    
-    func currentUser() {
-
-        if Auth.auth().currentUser != nil {
-            self.showProfileVC()
-        } else {
-            self.showLogInVC()
-        }
+        showLogInVC()
     }
     
     func showLogInVC() {

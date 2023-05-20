@@ -65,6 +65,7 @@ class LogInViewController: UIViewController {
         login.autocapitalizationType = .none
         login.textColor = .black
         login.translatesAutoresizingMaskIntoConstraints = false
+        login.keyboardType = .emailAddress
         return login
     }()
     
@@ -100,8 +101,9 @@ class LogInViewController: UIViewController {
         
     private lazy var alertController: UIAlertController = {
         let alert = UIAlertController(title: "", message: "Пользователь сохранен", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "ок", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "войти", style: .default, handler: { _ in
             self.dismiss(animated: true)
+            self.coordinator?.showProfileVC()
             print("alert Пользователь сохранен")
         }))
         return alert
