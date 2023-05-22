@@ -1,9 +1,4 @@
-//
-//  ShowAlert.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 26.4.23..
-//
+
 
 import Foundation
 import UIKit

@@ -1,9 +1,4 @@
-//
-//  UserService.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 13.2.23..
-//
+
 
 import Foundation
 

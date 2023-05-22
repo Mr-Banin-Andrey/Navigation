@@ -1,9 +1,4 @@
-//
-//  SceneDelegate.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 18.10.22..
-//
+
 
 import UIKit
 

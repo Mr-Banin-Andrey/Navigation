@@ -1,9 +1,4 @@
-//
-//  FirebaseAuthentication.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 12.5.23..
-//
+
 
 import Foundation
 import FirebaseAuth

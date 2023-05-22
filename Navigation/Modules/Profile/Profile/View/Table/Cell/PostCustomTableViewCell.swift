@@ -1,9 +1,3 @@
-//
-//  PostCustomTableViewCell.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 13.12.22..
-//
 
 import UIKit
 

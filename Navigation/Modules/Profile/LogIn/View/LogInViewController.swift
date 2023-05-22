@@ -1,9 +1,4 @@
-//
-//  LogInViewController.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 2.12.22..
-//
+
 
 import UIKit
 

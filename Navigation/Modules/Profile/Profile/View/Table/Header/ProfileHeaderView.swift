@@ -1,9 +1,4 @@
-//
-//  ProfileHeaderView.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 17.11.22..
-//
+
 
 import UIKit
 import SnapKit

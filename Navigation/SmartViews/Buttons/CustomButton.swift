@@ -1,9 +1,4 @@
-//
-//  CustomButton.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 28.2.23..
-//
+
 
 import UIKit
 
