@@ -63,23 +63,31 @@ extension DocumentsViewController: UITableViewDataSource {
 }
 
 extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: [UIImagePickerController.InfoKey : Any]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true)
-        if let image = image[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = image
             print(imageView.image!, "imageView.image")
-        }
-        
-//    }]UIImage!, editingInfo: NSDictionary!) {
 
-//        print("image-1")
+//            let dataImage = image.jpegData(compressionQuality: 1.0)
+            
+            
+//            do {
+//                let manager = FileManager.default
+//                let documentsUrl = try manager.url(for: .documentDirectory,
+//                                                   in: .userDomainMask,
+//                                                   appropriateFor: nil,
+//                                                   create: false)
 //
-//        self.dismiss(animated: false, completion: { () -> Void in
-//            print("image-2")
-//        })
-//        print("image-3")
-//        imageView.image = image
-//        print(imageView.image!, "imageView.image")
+////                manager.createFile(atPath: <#T##String#>, contents: <#T##Data?#>)
+//
+//                print(documentsUrl)
+//            } catch {
+//                print("error")
+//            }
+            
+        }
     }
 }
