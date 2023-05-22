@@ -1,9 +1,4 @@
-//
-//  Checker.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 17.2.23..
-//
+
 
 import Foundation
 

@@ -1,9 +1,4 @@
-//
-//  LogInViewController.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 2.12.22..
-//
+
 
 import UIKit
 
@@ -22,6 +17,8 @@ class LogInViewController: UIViewController {
     var coordinator: ProfileCoordinator?
     
     var loginDelegate: LoginViewControllerDelegate?
+    
+    private let checkerService = CheckerService()
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -58,11 +55,12 @@ class LogInViewController: UIViewController {
     
     lazy var loginTextField: UITextField = {
         let login = UITextField()
-        login.placeholder = "Email of phone"
+        login.placeholder = "E-mail"
         login.font = UIFont.systemFont(ofSize: 16)
         login.autocapitalizationType = .none
         login.textColor = .black
         login.translatesAutoresizingMaskIntoConstraints = false
+        login.keyboardType = .emailAddress
         return login
     }()
     
@@ -77,7 +75,7 @@ class LogInViewController: UIViewController {
         return password
     }()
     
-    private lazy var logInButton: UIButton = {
+    lazy var logInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -97,17 +95,22 @@ class LogInViewController: UIViewController {
     }()
         
     private lazy var alertController: UIAlertController = {
-        let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Попробуй ещё раз", style: .default, handler: { _ in
-            print("login invalid")
+        let alert = UIAlertController(title: "", message: "Пользователь сохранен", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "войти", style: .default, handler: { _ in
+            self.dismiss(animated: true)
+            self.coordinator?.showProfileVC()
+            print("alert Пользователь сохранен")
         }))
         return alert
     }()
     
-    private lazy var pickUpPassword: CustomButton = {
-        let button = CustomButton(title: "Подобрать пароль", bgColor: .green) { [unowned self] in
-            
-            self.passwordGuessQueue()
+    lazy var singUpButton: CustomButton = {
+        let button = CustomButton(
+            title: "Регистрация",
+            bgColor: UIColor(named: "blueColor") ?? UIColor.red
+        ) { [unowned self] in
+            self.coordinator?.showRegistration()
+//            self.passwordGuessQueue()
         }
         return button
     }()
@@ -119,6 +122,8 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
+    
+    var isPresent: Bool = false
     
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
@@ -153,7 +158,7 @@ class LogInViewController: UIViewController {
         self.loginPasswordStack.addArrangedSubview(self.loginTextField)
         self.loginPasswordStack.addArrangedSubview(self.passwordTextField)
         self.scrollView.addSubview(self.logInButton)
-        self.scrollView.addSubview(self.pickUpPassword)
+        self.scrollView.addSubview(self.singUpButton)
         self.scrollView.addSubview(self.activityIndicator)
         
         NSLayoutConstraint.activate([
@@ -167,7 +172,7 @@ class LogInViewController: UIViewController {
             self.logoImageView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             self.logoImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 120),
             
-            self.loginPasswordView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 120),
+            self.loginPasswordView.topAnchor.constraint(equalTo: self.logoImageView.bottomAnchor, constant: 100),
             self.loginPasswordView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.loginPasswordView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             self.loginPasswordView.heightAnchor.constraint(equalToConstant: 100),
@@ -187,9 +192,9 @@ class LogInViewController: UIViewController {
             self.logInButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.logInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             
-            self.pickUpPassword.heightAnchor.constraint(equalToConstant: 30),
-            self.pickUpPassword.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
-            self.pickUpPassword.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.singUpButton.heightAnchor.constraint(equalToConstant: 30),
+            self.singUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
+            self.singUpButton.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             
             self.activityIndicator.bottomAnchor.constraint(equalTo: self.loginPasswordStack.bottomAnchor, constant: -8),
             self.activityIndicator.leadingAnchor.constraint(equalTo: self.loginPasswordStack.leadingAnchor)
@@ -200,7 +205,6 @@ class LogInViewController: UIViewController {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(self.forcedHidingKeyboard))
         self.view.addGestureRecognizer(tapGestures)
     }
-    
     
     private func bruteForce(passwordToUnlock: String) -> String {
         
@@ -244,7 +248,7 @@ class LogInViewController: UIViewController {
         passwordTextField.text = nil
         activityIndicator.startAnimating()
         passwordTextField.isEnabled = false
-        pickUpPassword.isEnabled = false
+        singUpButton.isEnabled = false
         nameQueue.async { [weak self] in
             bruteForceWord = self?.bruteForce(passwordToUnlock: randomPassword) ?? ""
             DispatchQueue.main.async {
@@ -253,7 +257,7 @@ class LogInViewController: UIViewController {
                 self?.passwordTextField.isSecureTextEntry = false
                 self?.passwordTextField.text = bruteForceWord
                 self?.passwordTextField.isEnabled = true
-                self?.pickUpPassword.isEnabled = true
+                self?.singUpButton.isEnabled = true
             }
         }
     }
@@ -267,7 +271,7 @@ class LogInViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height + 16 + self.pickUpPassword.frame.height
+            let loginButtonBottom = self.loginPasswordView.frame.origin.y + self.loginPasswordView.frame.height + 16 + self.logInButton.frame.height + 16 + self.singUpButton.frame.height
             
             let keyboardOriginY = self.view.frame.height - keyboardHeight
             let yOffset = keyboardOriginY < loginButtonBottom
@@ -288,13 +292,39 @@ class LogInViewController: UIViewController {
     }
     
     @objc func showProfileViewController() {
-
-        let check = loginDelegate?.isCheck(self, login: loginTextField.text ?? "000", password: passwordTextField.text ?? "111")
-
-        if check == true {
-            coordinator?.showProfileVC()
-        } else {
-            showAlert()
-        }
+       
+       if let login = loginTextField.text, let password = passwordTextField.text {
+           if isPresent {
+               print("isPresent - ", isPresent) // yes
+               checkerService.singUp(
+                   withEmail: login,
+                   password: password,
+                   vc: self
+               ) { result in
+                       switch result {
+                       case .success:
+                           print("view - case .success:===")
+                           self.showAlert()
+                       case .failure(let error):
+                           print("view - case .failure(let error): ===", error)
+                       }
+               }
+           } else {
+               print("isPresent - ", isPresent) //no
+               checkerService.checkCredentials(
+                   withEmail: login,
+                   password: password,
+                   vc: self
+               ) { result in
+                       switch result {
+                       case .success:
+                           print("isPresent - case .success:===")
+                           self.coordinator?.showProfileVC()
+                       case .failure(let error):
+                           print("isPresent - case .failure(let error): ===", error)
+                       }
+               }
+           }
+       }
     }
 }

@@ -1,9 +1,4 @@
-//
-//  SceneDelegate.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 18.10.22..
-//
+
 
 import UIKit
 
@@ -33,19 +28,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         coordinator.start()
         
+//        
+//        let urlArray = [
+//            "https://swapi.dev/api/films/1/",
+//            "https://swapi.dev/api/species/2/",
+//            "https://swapi.dev/api/vehicles/4/"
+//        ]
         
-        let urlArray = [
-            "https://swapi.dev/api/films/1/",
-            "https://swapi.dev/api/species/2/",
-            "https://swapi.dev/api/vehicles/4/"
-        ]
-        
-        let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
-        let _: () = NetworkService.request(for: appConfiguration)
+//        let appConfiguration: AppConfiguration = AppConfiguration(rawValue: urlArray.randomElement()!)!
+//        let _: () = NetworkService.request(for: appConfiguration)
         
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
+        
+        let checkerService = CheckerService()
+        do {
+            try checkerService.singOut()
+        } catch {
+            print("error singOut")
+        }
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.

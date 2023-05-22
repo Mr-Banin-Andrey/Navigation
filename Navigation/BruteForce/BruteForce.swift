@@ -1,9 +1,4 @@
-//
-//  BruteForce.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 14.4.23..
-//
+
 
 import Foundation
 

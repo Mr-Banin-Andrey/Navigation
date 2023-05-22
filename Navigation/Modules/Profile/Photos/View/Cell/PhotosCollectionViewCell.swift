@@ -1,9 +1,4 @@
-//
-//  PhotosCollectionViewCell.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 27.12.22..
-//
+
 
 import UIKit
 

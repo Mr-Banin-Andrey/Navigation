@@ -1,9 +1,4 @@
-//
-//  TabBarNavigationCoordinator.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 19.3.23..
-//
+
 
 import Foundation
 import UIKit
@@ -47,7 +42,8 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         let audioPlayer = UITabBarItem(title: "Music", image: UIImage(systemName: "music.quarternote.3"), tag: 2)
         
         UITabBar.appearance().tintColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
-        UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        UITabBar.appearance().backgroundColor = #colorLiteral(red: 0.9154649377, green: 0.9269897342, blue: 0.9267870188, alpha: 1)
+        
         
         feedNC.tabBarItem = userFeed
         profileNC.tabBarItem = userProfile
