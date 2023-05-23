@@ -261,16 +261,8 @@
 				9D4FB8D72A1CEF610002920B /* DocumentsFileManager */,
 				9D13D62A2A1B80E9008AF427 /* Controller */,
 				9D13D6292A1B80E2008AF427 /* View */,
-				9D13D6282A1B80DD008AF427 /* Models */,
 			);
 			path = Documents;
-			sourceTree = "<group>";
-		};
-		9D13D6282A1B80DD008AF427 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		9D13D6292A1B80E2008AF427 /* View */ = {
