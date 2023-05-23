@@ -20,7 +20,6 @@
 		9D13D6252A1B7A1F008AF427 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D6242A1B7A1F008AF427 /* DocumentsViewController.swift */; };
 		9D13D6272A1B7CEC008AF427 /* DocumentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D6262A1B7CEC008AF427 /* DocumentsCoordinator.swift */; };
 		9D13D62C2A1B8107008AF427 /* DocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D62B2A1B8107008AF427 /* DocumentsView.swift */; };
-		9D13D62E2A1BBC22008AF427 /* DocumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D62D2A1BBC22008AF427 /* DocumentsModel.swift */; };
 		9D13D6302A1BC489008AF427 /* DocumentsFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
@@ -133,7 +132,6 @@
 		9D13D6242A1B7A1F008AF427 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		9D13D6262A1B7CEC008AF427 /* DocumentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsCoordinator.swift; sourceTree = "<group>"; };
 		9D13D62B2A1B8107008AF427 /* DocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsView.swift; sourceTree = "<group>"; };
-		9D13D62D2A1BBC22008AF427 /* DocumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsModel.swift; sourceTree = "<group>"; };
 		9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsFileManager.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
@@ -260,6 +258,7 @@
 		9D13D6232A1B79E5008AF427 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				9D4FB8D72A1CEF610002920B /* DocumentsFileManager */,
 				9D13D62A2A1B80E9008AF427 /* Controller */,
 				9D13D6292A1B80E2008AF427 /* View */,
 				9D13D6282A1B80DD008AF427 /* Models */,
@@ -270,8 +269,6 @@
 		9D13D6282A1B80DD008AF427 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9D13D62D2A1BBC22008AF427 /* DocumentsModel.swift */,
-				9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -351,6 +348,14 @@
 				9D4E1DCC2A0E5D7700573EC4 /* UserModel.swift */,
 			);
 			path = FirebaseService;
+			sourceTree = "<group>";
+		};
+		9D4FB8D72A1CEF610002920B /* DocumentsFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */,
+			);
+			path = DocumentsFileManager;
 			sourceTree = "<group>";
 		};
 		9D5FBB532A02C587001F7368 /* NetworkServices */ = {
@@ -929,7 +934,6 @@
 			files = (
 				9D63D13929FBCC0A0090C859 /* Song.swift in Sources */,
 				9D4E1DBC2A09963400573EC4 /* NamesOfResidents.swift in Sources */,
-				9D13D62E2A1BBC22008AF427 /* DocumentsModel.swift in Sources */,
 				9D63D13B29FBCC130090C859 /* Songs.swift in Sources */,
 				9DBD5C5D29C79444009F494C /* ProfileCoordinator.swift in Sources */,
 				9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */,

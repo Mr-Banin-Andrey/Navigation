@@ -15,6 +15,8 @@ class DocumentsView: UIView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemBackground
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
@@ -33,9 +35,10 @@ class DocumentsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureTableView(dataSource: UITableViewDataSource) {
+    func configureTableView(dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
         
         tableView.dataSource = dataSource
+        tableView.delegate = delegate
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCellId")
     }
     

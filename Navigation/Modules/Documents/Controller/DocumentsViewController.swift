@@ -7,12 +7,9 @@ class DocumentsViewController: UIViewController {
     var coordinator: DocumentsCoordinator?
     
     private lazy var documentsView = DocumentsView(delegate: self)
-    
-    private var documents: [DocumentsModel] = [DocumentsModel(document: "documents")]
-    
-    var imagePicker = UIImagePickerController()
-    var imageView = UIImageView()
-    
+        
+    private var images: [UIImage] = []
+        
     override func loadView() {
         super.loadView()
         view = documentsView
@@ -21,44 +18,38 @@ class DocumentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        documentsView.configureTableView(dataSource: self)
+        documentsView.configureTableView(dataSource: self, delegate: self)
         documentsView.navigationController(navigation: navigationItem, rightButton: documentsView.rightButton)
-        DocumentsFileManager().manager()
     }
-    
-    
-    
 }
+
 
 extension DocumentsViewController: DocumentsViewDelegate {
     func addImage() {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = false
-            
-            present(imagePicker, animated: true)
-        }
-//        DispatchQueue.main.async {
-//            self.documentsView.reload()
-//        }
+        
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = false
+        picker.delegate = self
+        present(picker, animated: true)
     }
 }
 
-extension DocumentsViewController: UITableViewDataSource { 
-    
+extension DocumentsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        documents.count
+        images.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCellId", for: indexPath)
         
-        cell.backgroundColor = .cyan
-        cell.textLabel?.text = documents[indexPath.row].document
-        
-        return cell 
+        cell.imageView?.image = images[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UIScreen.main.bounds.size.height / 4
     }
 }
 
@@ -66,28 +57,14 @@ extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigation
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage  else { return }
+        
+        images.removeAll()
+        images.append(image)
+        
+        DocumentsFileManager().manager(image)
+        documentsView.reload()
+        
         picker.dismiss(animated: true)
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageView.image = image
-            print(imageView.image!, "imageView.image")
-
-//            let dataImage = image.jpegData(compressionQuality: 1.0)
-            
-            
-//            do {
-//                let manager = FileManager.default
-//                let documentsUrl = try manager.url(for: .documentDirectory,
-//                                                   in: .userDomainMask,
-//                                                   appropriateFor: nil,
-//                                                   create: false)
-//
-////                manager.createFile(atPath: <#T##String#>, contents: <#T##Data?#>)
-//
-//                print(documentsUrl)
-//            } catch {
-//                print("error")
-//            }
-            
-        }
     }
 }

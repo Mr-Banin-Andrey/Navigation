@@ -1,11 +1,10 @@
 
 import Foundation
+import UIKit
 
 struct DocumentsFileManager {
     
-    
-//    let fileData = Data()
-    func manager() {
+    func manager(_ image: UIImage) {
         do {
             let manager = FileManager.default
             let documentsUrl = try manager.url(for: .documentDirectory,
@@ -13,15 +12,13 @@ struct DocumentsFileManager {
                                                appropriateFor: nil,
                                                create: false)
             
+            let imagePath = documentsUrl.appendingPathComponent("image.jpg")
+            let data = image.jpegData(compressionQuality: 1.0)
             
-            
-            print(documentsUrl)
+            manager.createFile(atPath: imagePath.relativePath, contents: data)
         } catch {
-            print("error")
+            print("error", error)
         }
     }
-    
-    
-    
 }
 
