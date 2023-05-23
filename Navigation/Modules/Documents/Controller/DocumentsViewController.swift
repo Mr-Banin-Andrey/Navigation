@@ -19,7 +19,7 @@ class DocumentsViewController: UIViewController {
         super.viewDidLoad()
         
         documentsView.configureTableView(dataSource: self, delegate: self)
-        documentsView.navigationController(navigation: navigationItem, rightButton: documentsView.rightButton)
+        documentsView.navigationController(navigation: navigationItem, rightButton: documentsView.rightButton, title: "Documents")
     }
 }
 
@@ -51,6 +51,18 @@ extension DocumentsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UIScreen.main.bounds.size.height / 4
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Удалить") { _, _, _ in
+            
+            DocumentsFileManager().managerDeleteImage()
+            self.images.removeAll()
+            self.documentsView.reload()
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
+    }
 }
 
 extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -62,7 +74,7 @@ extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigation
         images.removeAll()
         images.append(image)
         
-        DocumentsFileManager().manager(image)
+        DocumentsFileManager().managerAddImage(image)
         documentsView.reload()
         
         picker.dismiss(animated: true)

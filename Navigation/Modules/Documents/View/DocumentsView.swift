@@ -15,8 +15,6 @@ class DocumentsView: UIView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemBackground
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
@@ -46,10 +44,11 @@ class DocumentsView: UIView {
         tableView.reloadData()
     }
     
-    func navigationController(navigation: UINavigationItem, rightButton: UIBarButtonItem) {
+    func navigationController(navigation: UINavigationItem, rightButton: UIBarButtonItem, title: String) {
         
         rightButton.tintColor = UIColor(named: "blueColor")
         
+        navigation.title = title
         navigation.rightBarButtonItems = [rightButton]
         navigation.rightBarButtonItem = rightButton
     }
