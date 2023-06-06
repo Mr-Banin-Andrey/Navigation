@@ -3,6 +3,7 @@
 import Foundation
 import UIKit
 
+@available(iOS 16.0, *)
 class RootTabBarNavigationCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?

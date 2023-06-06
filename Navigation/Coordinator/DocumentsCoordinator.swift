@@ -3,6 +3,7 @@
 import Foundation
 import UIKit
 
+@available(iOS 16.0, *)
 class DocumentsCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?

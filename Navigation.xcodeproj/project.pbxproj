@@ -35,6 +35,7 @@
 		9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */; };
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
 		9D63D13B29FBCC130090C859 /* Songs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13A29FBCC130090C859 /* Songs.swift */; };
+		9D6706492A2F73B200438374 /* DocumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6706482A2F73B200438374 /* DocumentsModel.swift */; };
 		9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */; };
 		9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */; };
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
@@ -147,6 +148,7 @@
 		9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		9D63D13A29FBCC130090C859 /* Songs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Songs.swift; sourceTree = "<group>"; };
+		9D6706482A2F73B200438374 /* DocumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsModel.swift; sourceTree = "<group>"; };
 		9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -258,27 +260,28 @@
 		9D13D6232A1B79E5008AF427 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				9D6706472A2F739500438374 /* DocumentsModel */,
 				9D4FB8D72A1CEF610002920B /* DocumentsFileManager */,
-				9D13D62A2A1B80E9008AF427 /* Controller */,
-				9D13D6292A1B80E2008AF427 /* View */,
+				9D13D62A2A1B80E9008AF427 /* DocumentsController */,
+				9D13D6292A1B80E2008AF427 /* DocumentsView */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
 		};
-		9D13D6292A1B80E2008AF427 /* View */ = {
+		9D13D6292A1B80E2008AF427 /* DocumentsView */ = {
 			isa = PBXGroup;
 			children = (
 				9D13D62B2A1B8107008AF427 /* DocumentsView.swift */,
 			);
-			path = View;
+			path = DocumentsView;
 			sourceTree = "<group>";
 		};
-		9D13D62A2A1B80E9008AF427 /* Controller */ = {
+		9D13D62A2A1B80E9008AF427 /* DocumentsController */ = {
 			isa = PBXGroup;
 			children = (
 				9D13D6242A1B7A1F008AF427 /* DocumentsViewController.swift */,
 			);
-			path = Controller;
+			path = DocumentsController;
 			sourceTree = "<group>";
 		};
 		9D34F392299F8F85004B91E1 /* CheckLogin */ = {
@@ -368,6 +371,14 @@
 				9D63D13A29FBCC130090C859 /* Songs.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9D6706472A2F739500438374 /* DocumentsModel */ = {
+			isa = PBXGroup;
+			children = (
+				9D6706482A2F73B200438374 /* DocumentsModel.swift */,
+			);
+			path = DocumentsModel;
 			sourceTree = "<group>";
 		};
 		9D9F8E0A299ACD1A002CB078 /* DependenciesUserService */ = {
@@ -931,6 +942,7 @@
 				9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */,
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
 				9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */,
+				9D6706492A2F73B200438374 /* DocumentsModel.swift in Sources */,
 				9DBD5C7629CCFBB1009F494C /* PhotosInCellProfile.swift in Sources */,
 				9D4E1DCD2A0E5D7700573EC4 /* UserModel.swift in Sources */,
 				9DB5FA3129B3B1C400A6D424 /* FeedModel.swift in Sources */,
