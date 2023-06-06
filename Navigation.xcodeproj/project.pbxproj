@@ -21,6 +21,8 @@
 		9D13D6272A1B7CEC008AF427 /* DocumentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D6262A1B7CEC008AF427 /* DocumentsCoordinator.swift */; };
 		9D13D62C2A1B8107008AF427 /* DocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D62B2A1B8107008AF427 /* DocumentsView.swift */; };
 		9D13D6302A1BC489008AF427 /* DocumentsFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */; };
+		9D2444A72A2FAD3C00E87108 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2444A62A2FAD3C00E87108 /* Realm */; };
+		9D2444A92A2FAD3C00E87108 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2444A82A2FAD3C00E87108 /* RealmSwift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
 		9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */; };
@@ -219,10 +221,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D2444A92A2FAD3C00E87108 /* RealmSwift in Frameworks */,
 				9DB5FA2729A6A4D000A6D424 /* iOSIntPackage in Frameworks */,
 				9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */,
 				9D0EC521298C1EC400A98E06 /* StorageService.framework in Frameworks */,
 				6BC015D5618EE86C0C0673AE /* Pods_Navigation.framework in Frameworks */,
+				9D2444A72A2FAD3C00E87108 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +748,8 @@
 			packageProductDependencies = (
 				9D0EC5322991117F00A98E06 /* SnapKit */,
 				9DB5FA2629A6A4D000A6D424 /* iOSIntPackage */,
+				9D2444A62A2FAD3C00E87108 /* Realm */,
+				9D2444A82A2FAD3C00E87108 /* RealmSwift */,
 			);
 			productName = Navigation;
 			productReference = 9DBD55B128FF1A1800454D01 /* Navigation.app */;
@@ -783,6 +789,7 @@
 			packageReferences = (
 				9D0EC5312991117F00A98E06 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				9DB5FA2529A6A4D000A6D424 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				9D2444A52A2FAD3C00E87108 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 9DBD55B228FF1A1800454D01 /* Products */;
 			projectDirPath = "";
@@ -1357,8 +1364,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		9D2444A52A2FAD3C00E87108 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 10.40.0;
 			};
 		};
 		9DB5FA2529A6A4D000A6D424 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
@@ -1376,6 +1391,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9D0EC5312991117F00A98E06 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		9D2444A62A2FAD3C00E87108 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2444A52A2FAD3C00E87108 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		9D2444A82A2FAD3C00E87108 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D2444A52A2FAD3C00E87108 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		9DB5FA2629A6A4D000A6D424 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
