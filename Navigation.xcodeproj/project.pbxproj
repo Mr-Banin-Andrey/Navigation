@@ -23,6 +23,11 @@
 		9D13D6302A1BC489008AF427 /* DocumentsFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */; };
 		9D2444A72A2FAD3C00E87108 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2444A62A2FAD3C00E87108 /* Realm */; };
 		9D2444A92A2FAD3C00E87108 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2444A82A2FAD3C00E87108 /* RealmSwift */; };
+		9D2444AC2A30801700E87108 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AB2A30801700E87108 /* RealmService.swift */; };
+		9D2444AE2A308EEF00E87108 /* UserRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */; };
+		9D2444B02A3090B000E87108 /* ModalOrNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AF2A3090B000E87108 /* ModalOrNot.swift */; };
+		9D2444B22A30935200E87108 /* UseBruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B12A30935200E87108 /* UseBruteForce.swift */; };
+		9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B42A309BE800E87108 /* LogInUser.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
 		9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */; };
@@ -136,6 +141,11 @@
 		9D13D6262A1B7CEC008AF427 /* DocumentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsCoordinator.swift; sourceTree = "<group>"; };
 		9D13D62B2A1B8107008AF427 /* DocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsView.swift; sourceTree = "<group>"; };
 		9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsFileManager.swift; sourceTree = "<group>"; };
+		9D2444AB2A30801700E87108 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmModel.swift; sourceTree = "<group>"; };
+		9D2444AF2A3090B000E87108 /* ModalOrNot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOrNot.swift; sourceTree = "<group>"; };
+		9D2444B12A30935200E87108 /* UseBruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseBruteForce.swift; sourceTree = "<group>"; };
+		9D2444B42A309BE800E87108 /* LogInUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUser.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
 		9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOfPlanet.swift; sourceTree = "<group>"; };
@@ -286,6 +296,23 @@
 				9D13D6242A1B7A1F008AF427 /* DocumentsViewController.swift */,
 			);
 			path = DocumentsController;
+			sourceTree = "<group>";
+		};
+		9D2444AA2A307FCA00E87108 /* RealmService */ = {
+			isa = PBXGroup;
+			children = (
+				9D2444AB2A30801700E87108 /* RealmService.swift */,
+				9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */,
+			);
+			path = RealmService;
+			sourceTree = "<group>";
+		};
+		9D2444B32A309BA200E87108 /* LoginModel */ = {
+			isa = PBXGroup;
+			children = (
+				9D2444B42A309BE800E87108 /* LogInUser.swift */,
+			);
+			path = LoginModel;
 			sourceTree = "<group>";
 		};
 		9D34F392299F8F85004B91E1 /* CheckLogin */ = {
@@ -504,9 +531,11 @@
 		9DBD5C7D29CD8331009F494C /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
-				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
 				9D34F392299F8F85004B91E1 /* CheckLogin */,
-				9DBD5C8729CD85C4009F494C /* View */,
+				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
+				9D2444AA2A307FCA00E87108 /* RealmService */,
+				9D2444B32A309BA200E87108 /* LoginModel */,
+				9DBD5C8729CD85C4009F494C /* LoginView */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -592,12 +621,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		9DBD5C8729CD85C4009F494C /* View */ = {
+		9DBD5C8729CD85C4009F494C /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
 				9DE3E4C5293A0E190043E19D /* LogInViewController.swift */,
 			);
-			path = View;
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		9DBD5C8829CD85E2009F494C /* View */ = {
@@ -626,6 +655,7 @@
 				9DB8172929FB4F0100988937 /* Linkin park.mp3 */,
 				9DB8172B29FB4F0100988937 /* Король и шут.mp3 */,
 				9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */,
+				9D2444AF2A3090B000E87108 /* ModalOrNot.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -634,6 +664,7 @@
 			isa = PBXGroup;
 			children = (
 				9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */,
+				9D2444B12A30935200E87108 /* UseBruteForce.swift */,
 			);
 			path = BruteForce;
 			sourceTree = "<group>";
@@ -970,16 +1001,21 @@
 				9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */,
 				9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */,
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
+				9D2444AE2A308EEF00E87108 /* UserRealmModel.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
 				9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */,
 				9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
+				9D2444B02A3090B000E87108 /* ModalOrNot.swift in Sources */,
 				9D13D62C2A1B8107008AF427 /* DocumentsView.swift in Sources */,
 				9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */,
+				9D2444AC2A30801700E87108 /* RealmService.swift in Sources */,
 				9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */,
 				9DBD55CB28FF3AFB00454D01 /* ProfileViewController.swift in Sources */,
+				9D2444B22A30935200E87108 /* UseBruteForce.swift in Sources */,
 				9DBD5C7A29CD0034009F494C /* PhotoCollectionViewCell.swift in Sources */,
+				9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */,
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,

@@ -47,11 +47,6 @@ class ProfileCoordinator: AppCoordinator {
         let logInVC = LogInViewController()
 
         logInVC.coordinator = self
-        logInVC.singUpButton.isHidden = true
-        logInVC.logInButton.setTitle("Сохранить", for: .normal)
-        logInVC.isPresent = true
-        logInVC.passwordTextField.placeholder = "пароль не менее 6 символов"
-        logInVC.loginTextField.placeholder = "ваш e-mail"
         navigationController.present(logInVC, animated: true)
     }
 }
