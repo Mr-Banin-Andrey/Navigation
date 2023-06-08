@@ -132,14 +132,14 @@ class LogInViewController: UIViewController {
         if isModal {
             self.viewPresent()
         }
-        
-//        dataBaseRealmService.fetch()
-        
+                
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
         self.setupConstraints()
+        
+        self.autoAuth()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -241,6 +241,24 @@ class LogInViewController: UIViewController {
         self.loginTextField.placeholder = "ваш e-mail"
     }
     
+    private func createUserRealm(user: LogInUser) {
+        let success = dataBaseRealmService.createUser(user: user)
+        if success {
+            print("пользователь добавлен в базу Realm")
+        }
+    }
+    
+    private func autoAuth() {
+        let arrayUsers = RealmService().fetch()
+        print( arrayUsers )
+        guard arrayUsers.isEmpty == false else { return }
+        
+        loginTextField.text = arrayUsers[0].login
+        passwordTextField.text = arrayUsers[0].password
+        
+        showProfileViewController()
+    }
+    
     @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)
     }
@@ -277,46 +295,36 @@ class LogInViewController: UIViewController {
             password: passwordTextField.text ?? ""
         )
         
-//       if let login = loginTextField.text, let password = passwordTextField.text {
        if isModal {
-           
-           let success = dataBaseRealmService.createUser(user: user)
-           if success {
-               self.showAlert()
-               print("пользователь добавлен в базу")
-           } else {
-               print("пользователь не добавлен в базу")
+           checkerService.singUp(
+                withEmail: user.login,
+                password: user.password,
+                vc: self
+           ) { result in
+               switch result {
+               case .success:
+                   print("пользователь добавлен в firebase")
+                   self.createUserRealm(user: user)
+                   self.showAlert()
+               case .failure(let error):
+                   print("ошибка в firebase: ", error)
+               }
            }
        } else {
-//               checkerService.singUp(
-//                   withEmail: login,
-//                   password: password,
-//                   vc: self
-//               ) { result in
-//                       switch result {
-//                       case .success:
-//                           print("view - case .success:===")
-//                           self.showAlert()
-//
-//                       case .failure(let error):
-//                           print("view - case .failure(let error): ===", error)
-//                       }
-//               }
-//           } else {
-//               checkerService.checkCredentials(
-//                   withEmail: login,
-//                   password: password,
-//                   vc: self
-//               ) { result in
-//                       switch result {
-//                       case .success:
-//                           print("isPresent - case .success:===")
-//                           self.coordinator?.showProfileVC()
-//                       case .failure(let error):
-//                           print("isPresent - case .failure(let error): ===", error)
-//                       }
-//               }
-//           }
+           checkerService.checkCredentials(
+                withEmail: user.login,
+                password: user.password,
+                vc: self
+           ) { result in
+                   switch result {
+                   case .success:
+                       print("логин и пароль верные -> открытие профиля")
+                       self.createUserRealm(user: user)
+                       self.coordinator?.showProfileVC()
+                   case .failure(let error):
+                       print("ошибка в логине или пароле", error)
+                   }
+           }
        }
     }
 }

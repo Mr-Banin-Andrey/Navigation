@@ -4,17 +4,15 @@ import RealmSwift
 
 protocol RealmServiceProtocol: AnyObject {
     func createUser(user: LogInUser) -> Bool
-    func fetch() -> Bool //[LogInUser]
+    func fetch() -> [LogInUser]
+    func removeUser(user: LogInUser) -> Bool
 }
 
 final class RealmService {
     
-    
 }
 
 extension RealmService: RealmServiceProtocol {
-    
-    
     
     func createUser(user: LogInUser) -> Bool {
         do {
@@ -34,26 +32,40 @@ extension RealmService: RealmServiceProtocol {
         }
     }
     
-    func fetch() -> Bool {
+    func fetch() -> [LogInUser] {
         do {
             let realm = try Realm()
             
             let objects = realm.objects(UserRealmModel.self)
             
+            guard let userRealmModel = Array(objects) as? [UserRealmModel] else {
+                return []
+            }
+            return userRealmModel.map { LogInUser(userRealmModel: $0) }
+        } catch {
+            return []
+        }
+    }
+    
+    func removeUser(user: LogInUser) -> Bool {
+        do {
+            let realm = try Realm()
             
-            let user = objects.where {
-                $0.login == "pec" || $0.password == "123"
-//                print($0)
-                
+            let objects = realm.objects(UserRealmModel.self).filter { $0.login == user.login }
+            let handler: () -> Void = {
+                realm.delete(objects)
+            }
+            
+            if realm.isInWriteTransaction {
+                handler()
+            } else {
+                try realm.write {
+                    handler()
+                }
             }
             return true
-            
-//            guard let userRealmModel = Array(objects) as? [UserRealmModel] else {
-//                return []
-//            }
-//
-//            return userRealmModel.map { LogInUser(userRealmModel: $0) }
-        } catch {
+        } catch let error {
+            print("Error: \(error)")
             return false
         }
     }
