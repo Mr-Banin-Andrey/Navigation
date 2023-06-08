@@ -20,6 +20,8 @@ class LogInViewController: UIViewController {
     
     private let checkerService = CheckerService()
     
+    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
+    
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -53,7 +55,7 @@ class LogInViewController: UIViewController {
         return stack
     }()
     
-    lazy var loginTextField: UITextField = {
+    private lazy var loginTextField: UITextField = {
         let login = UITextField()
         login.placeholder = "E-mail"
         login.font = UIFont.systemFont(ofSize: 16)
@@ -64,7 +66,7 @@ class LogInViewController: UIViewController {
         return login
     }()
     
-    lazy var passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let password = UITextField()
         password.placeholder = "Password"
         password.font = UIFont.systemFont(ofSize: 16)
@@ -122,18 +124,22 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
-    
-    var isPresent: Bool = false
-    
+        
 //MARK: - 2.Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isModal {
+            self.viewPresent()
+        }
+                
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
         self.setupConstraints()
+        
+        self.autoAuth()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,43 +212,9 @@ class LogInViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestures)
     }
     
-    private func bruteForce(passwordToUnlock: String) -> String {
-        
-        let bruteForce = BruteForce()
-        let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
-
-        var password: String = ""
-
-        while password != passwordToUnlock {
-            password = bruteForce.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
-        }
-        
-        print(password)
-
-        return password
-    }
-    
-    private func randomPassword() -> String {
-        var randomSymbolArray: [Character] = []
-        
-        countSymbol: while randomSymbolArray.count != 4 {
-            switch randomSymbolArray.count {
-            case 0,1,2,3:
-                let symbol = (String().letters + String().digits).randomElement()
-                randomSymbolArray.append(symbol ?? "-")
-                continue countSymbol
-            default:
-                break countSymbol
-            }
-        }
-        
-        let randomSymbol = String(randomSymbolArray)
-        print("\(randomSymbol) - randomSymbol")
-        return randomSymbol
-    }
-    
-    private func passwordGuessQueue() {
-        let randomPassword = randomPassword()
+    func passwordGuessQueue() {
+        let useBruteForce = UseBruteForce()
+        let randomPassword = useBruteForce.randomPassword()
         var bruteForceWord = ""
         passwordTextField.placeholder = nil
         passwordTextField.text = nil
@@ -250,7 +222,7 @@ class LogInViewController: UIViewController {
         passwordTextField.isEnabled = false
         singUpButton.isEnabled = false
         nameQueue.async { [weak self] in
-            bruteForceWord = self?.bruteForce(passwordToUnlock: randomPassword) ?? ""
+            bruteForceWord = useBruteForce.bruteForce(passwordToUnlock: randomPassword)
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 self?.activityIndicator.isHidden = true
@@ -260,6 +232,31 @@ class LogInViewController: UIViewController {
                 self?.singUpButton.isEnabled = true
             }
         }
+    }
+    
+    private func viewPresent() {
+        self.singUpButton.isHidden = true
+        self.logInButton.setTitle("Сохранить", for: .normal)
+        self.passwordTextField.placeholder = "пароль не менее 6 символов"
+        self.loginTextField.placeholder = "ваш e-mail"
+    }
+    
+    private func createUserRealm(user: LogInUser) {
+        let success = dataBaseRealmService.createUser(user: user)
+        if success {
+            print("пользователь добавлен в базу Realm")
+        }
+    }
+    
+    private func autoAuth() {
+        let arrayUsers = RealmService().fetch()
+        print( arrayUsers )
+        guard arrayUsers.isEmpty == false else { return }
+        
+        loginTextField.text = arrayUsers[0].login
+        passwordTextField.text = arrayUsers[0].password
+        
+        showProfileViewController()
     }
     
     @objc func showAlert() {
@@ -293,37 +290,40 @@ class LogInViewController: UIViewController {
     
     @objc func showProfileViewController() {
        
-       if let login = loginTextField.text, let password = passwordTextField.text {
-           if isPresent {
-               print("isPresent - ", isPresent) // yes
-               checkerService.singUp(
-                   withEmail: login,
-                   password: password,
-                   vc: self
-               ) { result in
-                       switch result {
-                       case .success:
-                           print("view - case .success:===")
-                           self.showAlert()
-                       case .failure(let error):
-                           print("view - case .failure(let error): ===", error)
-                       }
+        let user = LogInUser(
+            login: loginTextField.text ?? "",
+            password: passwordTextField.text ?? ""
+        )
+        
+       if isModal {
+           checkerService.singUp(
+                withEmail: user.login,
+                password: user.password,
+                vc: self
+           ) { result in
+               switch result {
+               case .success:
+                   print("пользователь добавлен в firebase")
+                   self.createUserRealm(user: user)
+                   self.showAlert()
+               case .failure(let error):
+                   print("ошибка в firebase: ", error)
                }
-           } else {
-               print("isPresent - ", isPresent) //no
-               checkerService.checkCredentials(
-                   withEmail: login,
-                   password: password,
-                   vc: self
-               ) { result in
-                       switch result {
-                       case .success:
-                           print("isPresent - case .success:===")
-                           self.coordinator?.showProfileVC()
-                       case .failure(let error):
-                           print("isPresent - case .failure(let error): ===", error)
-                       }
-               }
+           }
+       } else {
+           checkerService.checkCredentials(
+                withEmail: user.login,
+                password: user.password,
+                vc: self
+           ) { result in
+                   switch result {
+                   case .success:
+                       print("логин и пароль верные -> открытие профиля")
+                       self.createUserRealm(user: user)
+                       self.coordinator?.showProfileVC()
+                   case .failure(let error):
+                       print("ошибка в логине или пароле", error)
+                   }
            }
        }
     }
