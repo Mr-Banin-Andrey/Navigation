@@ -37,15 +37,20 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         let documentsNC = UINavigationController()
         let documentsCoordinator = DocumentsCoordinator(navigationController: documentsNC)
         
+        let likePostsNC = UINavigationController()
+        let likePostsCoordinator = LikePostsCoordinator(navigationController: likePostsNC)
+        
         feedCoordinator.parentCoordinator = parentCoordinator
         profileCoordinator.parentCoordinator = parentCoordinator
         audioPlayerCoordinator.parentCoordinator = parentCoordinator
         documentsCoordinator.parentCoordinator = parentCoordinator
+        likePostsCoordinator.parentCoordinator = parentCoordinator
         
         let userFeed = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
         let userProfile = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         let audioPlayer = UITabBarItem(title: "Music", image: UIImage(systemName: "music.quarternote.3"), tag: 2)
         let documents = UITabBarItem(title: "Documents", image: UIImage(systemName: "doc.text"), tag: 3)
+        let likePosts = UITabBarItem(title: "Like Posts", image: UIImage(systemName: "doc.text"), tag: 4)
         
         UITabBar.appearance().tintColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
         UITabBar.appearance().backgroundColor = #colorLiteral(red: 0.9154649377, green: 0.9269897342, blue: 0.9267870188, alpha: 1)
@@ -55,8 +60,9 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         profileNC.tabBarItem = userProfile
         audioPlayerNC.tabBarItem = audioPlayer
         documentsNC.tabBarItem = documents
+        likePostsNC.tabBarItem = likePosts
         
-        tabBarCont.viewControllers = [documentsNC, feedNC, profileNC, audioPlayerNC]
+        tabBarCont.viewControllers = [documentsNC, feedNC, profileNC, audioPlayerNC, likePostsNC]
         navigationController.pushViewController(tabBarCont, animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
         
@@ -64,10 +70,12 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         parentCoordinator?.child.append(profileCoordinator)
         parentCoordinator?.child.append(audioPlayerCoordinator)
         parentCoordinator?.child.append(documentsCoordinator)
+        parentCoordinator?.child.append(likePostsCoordinator)
         
         feedCoordinator.start()
         profileCoordinator.start()
         audioPlayerCoordinator.start()
         documentsCoordinator.start()
+        likePostsCoordinator.start()
     }
 }
