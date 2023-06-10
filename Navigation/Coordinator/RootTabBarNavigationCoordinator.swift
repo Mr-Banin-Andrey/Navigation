@@ -50,7 +50,7 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         let userProfile = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         let audioPlayer = UITabBarItem(title: "Music", image: UIImage(systemName: "music.quarternote.3"), tag: 2)
         let documents = UITabBarItem(title: "Documents", image: UIImage(systemName: "doc.text"), tag: 3)
-        let likePosts = UITabBarItem(title: "Like Posts", image: UIImage(systemName: "doc.text"), tag: 4)
+        let likePosts = UITabBarItem(title: "Like Posts", image: UIImage(systemName: "hand.thumbsup"), tag: 4)
         
         UITabBar.appearance().tintColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
         UITabBar.appearance().backgroundColor = #colorLiteral(red: 0.9154649377, green: 0.9269897342, blue: 0.9267870188, alpha: 1)

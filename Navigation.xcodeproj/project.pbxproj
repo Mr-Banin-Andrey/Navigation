@@ -50,6 +50,8 @@
 		9D99C0A62A337E80008968FB /* LikePostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A52A337E80008968FB /* LikePostsViewController.swift */; };
 		9D99C0A82A337E89008968FB /* LikePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A72A337E89008968FB /* LikePostsView.swift */; };
 		9D99C0AA2A337F00008968FB /* LikePostsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */; };
+		9D99C0AE2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0AC2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld */; };
+		9D99C0B02A34F5C2008968FB /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0AF2A34F5C2008968FB /* CoreDataService.swift */; };
 		9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F8E08299ACAD5002CB078 /* UserService.swift */; };
 		9DA94F7D29DDF75A0095D94B /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA94F7C29DDF75A0095D94B /* FeedView.swift */; };
 		9DB5FA2729A6A4D000A6D424 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB5FA2629A6A4D000A6D424 /* iOSIntPackage */; };
@@ -171,6 +173,8 @@
 		9D99C0A52A337E80008968FB /* LikePostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsViewController.swift; sourceTree = "<group>"; };
 		9D99C0A72A337E89008968FB /* LikePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsView.swift; sourceTree = "<group>"; };
 		9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsCoordinator.swift; sourceTree = "<group>"; };
+		9D99C0AD2A34EEB1008968FB /* CoreDataNavigation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataNavigation.xcdatamodel; sourceTree = "<group>"; };
+		9D99C0AF2A34F5C2008968FB /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		9D9F8E08299ACAD5002CB078 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		9DA94F7C29DDF75A0095D94B /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		9DB5FA2C29AE8B5D00A6D424 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -421,26 +425,36 @@
 		9D99C0A12A337E03008968FB /* LikePosts */ = {
 			isa = PBXGroup;
 			children = (
-				9D99C0A42A337E55008968FB /* Controller */,
-				9D99C0A32A337E48008968FB /* View */,
+				9D99C0AB2A34EE72008968FB /* CoreData */,
+				9D99C0A42A337E55008968FB /* LikePostsController */,
+				9D99C0A32A337E48008968FB /* LikePostsView */,
 			);
 			path = LikePosts;
 			sourceTree = "<group>";
 		};
-		9D99C0A32A337E48008968FB /* View */ = {
+		9D99C0A32A337E48008968FB /* LikePostsView */ = {
 			isa = PBXGroup;
 			children = (
 				9D99C0A72A337E89008968FB /* LikePostsView.swift */,
 			);
-			path = View;
+			path = LikePostsView;
 			sourceTree = "<group>";
 		};
-		9D99C0A42A337E55008968FB /* Controller */ = {
+		9D99C0A42A337E55008968FB /* LikePostsController */ = {
 			isa = PBXGroup;
 			children = (
 				9D99C0A52A337E80008968FB /* LikePostsViewController.swift */,
 			);
-			path = Controller;
+			path = LikePostsController;
+			sourceTree = "<group>";
+		};
+		9D99C0AB2A34EE72008968FB /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9D99C0AC2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld */,
+				9D99C0AF2A34F5C2008968FB /* CoreDataService.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		9D9F8E0A299ACD1A002CB078 /* DependenciesUserService */ = {
@@ -596,6 +610,8 @@
 			children = (
 				9DBD5C6D29CC83E9009F494C /* Posts.swift */,
 				9DBD5C6B29CC7692009F494C /* ProfilePost.swift */,
+				9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */,
+				9DBD5C7529CCFBB1009F494C /* PhotosInCellProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -637,8 +653,6 @@
 		9DBD5C8529CD8440009F494C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */,
-				9DBD5C7529CCFBB1009F494C /* PhotosInCellProfile.swift */,
 				9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */,
 				9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */,
 			);
@@ -1024,6 +1038,7 @@
 				9DC9D05229FB00E900D9791A /* AudioPlayerViewController.swift in Sources */,
 				9DBD5C7029CCE083009F494C /* UserReleaseOrTest.swift in Sources */,
 				9DBD5C7C29CD00BE009F494C /* PhotoGallery.swift in Sources */,
+				9D99C0AE2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld in Sources */,
 				9DB5FA2D29AE8B5D00A6D424 /* CustomButton.swift in Sources */,
 				9DBD5C6E29CC83E9009F494C /* Posts.swift in Sources */,
 				9D34F391299F81FB004B91E1 /* Checker.swift in Sources */,
@@ -1031,6 +1046,7 @@
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
 				9DC9D04F29F9555700D9791A /* ShowAlert.swift in Sources */,
 				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
+				9D99C0B02A34F5C2008968FB /* CoreDataService.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
 				9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */,
 				9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */,
@@ -1480,6 +1496,19 @@
 			productName = iOSIntPackage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		9D99C0AC2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9D99C0AD2A34EEB1008968FB /* CoreDataNavigation.xcdatamodel */,
+			);
+			currentVersion = 9D99C0AD2A34EEB1008968FB /* CoreDataNavigation.xcdatamodel */;
+			path = CoreDataNavigation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9DBD55A928FF1A1800454D01 /* Project object */;
 }
