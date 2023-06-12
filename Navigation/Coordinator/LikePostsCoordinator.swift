@@ -3,6 +3,7 @@
 import Foundation
 import UIKit
 
+@available(iOS 15.0, *)
 class LikePostsCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?
@@ -17,6 +18,13 @@ class LikePostsCoordinator: AppCoordinator {
     }
     
     func start() {
+        self.showDocumentsVC()
+    }
+    
+    private func showDocumentsVC() {
+        let likePosts = LikePostsViewController()
         
+        likePosts.coordinator = self
+        navigationController.pushViewController(likePosts, animated: false)
     }
 }

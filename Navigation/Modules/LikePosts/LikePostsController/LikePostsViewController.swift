@@ -3,7 +3,10 @@
 import Foundation
 import UIKit
 
+@available(iOS 15.0, *)
 class LikePostsViewController: UIViewController {
+    
+    var coordinator: LikePostsCoordinator?
     
     private lazy var likesPostView = LikePostsView(delegate: self)
     
@@ -23,6 +26,7 @@ class LikePostsViewController: UIViewController {
     }
 }
 
+@available(iOS 15.0, *)
 extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
@@ -36,6 +40,7 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+@available(iOS 15.0, *)
 extension LikePostsViewController: LikePostsViewDelegate {
     
 }
