@@ -2,6 +2,7 @@
 
 import Foundation
 
+@available(iOS 15.0, *)
 class Checker {
         
     static let shared = Checker()

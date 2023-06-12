@@ -91,17 +91,20 @@ extension CoreDataService: CoreDataServiseProtocol {
         likePostCoreDataModel.likes = Int64(post.likes)
         likePostCoreDataModel.views = Int64(post.views)
         
+        
+        
         guard self.context.hasChanges else {
             return false
         }
         
         do {
             try self.context.save()
-            return false
+            return true
         } catch {
             return false
         }
     }
+//    dronbanin@yandex.ru
     
     func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel] {
         let fetchRequest = LikePostCoreDataModel.fetchRequest()

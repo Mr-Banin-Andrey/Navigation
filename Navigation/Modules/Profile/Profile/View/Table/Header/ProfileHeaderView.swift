@@ -3,6 +3,7 @@
 import UIKit
 import SnapKit
 
+@available(iOS 15.0, *)
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
     enum StatusError: Error {

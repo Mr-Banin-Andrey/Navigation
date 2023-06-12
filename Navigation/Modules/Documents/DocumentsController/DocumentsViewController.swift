@@ -30,17 +30,7 @@ class DocumentsViewController: UIViewController {
                 $0.nameImage < $1.nameImage
             }
         }
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(moreArray),
-                                               name: NSNotification.Name("senderOn"),
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(lessArray),
-                                               name: NSNotification.Name("senderOff"),
-                                               object: nil)
-        
+
         
         self.documentsView.configureTableView(dataSource: self,
                                               delegate: self)
@@ -48,33 +38,6 @@ class DocumentsViewController: UIViewController {
         self.documentsView.navigationController(navigation: navigationItem,
                                                 rightButton: documentsView.rightButton,
                                                 title: "Documents")
-    }
-    
-    func abs(array: [DocumentsModel]) {
-        images = array
-        images.sort {
-            $0.nameImage < $1.nameImage
-        }
-    }
-    
-    @objc func moreArray() {
-        manager.managerFiles(manager.managerCreateUrl()) { array in
-            self.images = array
-            self.images.sort {
-                $0.nameImage < $1.nameImage
-            }
-        }
-        documentsView.reload()
-    }
-    
-    @objc func lessArray() {
-        manager.managerFiles(manager.managerCreateUrl()) { array in
-            self.images = array
-            self.images.sort {
-                $0.nameImage > $1.nameImage
-            }
-        }
-        documentsView.reload()
     }
     
 }

@@ -3,6 +3,7 @@
 import Foundation
 import UIKit
 
+@available(iOS 15.0, *)
 class ProfileCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?

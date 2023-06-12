@@ -12,6 +12,8 @@ class LikePostsViewController: UIViewController {
     
     private let coreDataService: CoreDataService = CoreDataService()
     
+    private var likePosts = [ProfilePost]()
+    
     override func loadView() {
         super.loadView()
         
@@ -23,6 +25,13 @@ class LikePostsViewController: UIViewController {
         
         self.likesPostView.configurationTableView(dataSourse: self,
                                                   delegate: self)
+    }
+    
+    func fetchPosts() {
+        let corePosts = self.coreDataService.fenchPosts()
+        self.likePosts = corePosts.map{ ProfilePost(likePostCoreDataModel: $0) }
+        
+        
     }
 }
 
