@@ -5,7 +5,6 @@ import CoreData
 protocol CoreDataServiseProtocol: AnyObject {
     func createPost(_ post: ProfilePost) -> Bool
     func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel]
-    func deletePost(predicate: NSPredicate?) -> Bool
 }
 
 @available(iOS 15.0, *)
@@ -13,10 +12,6 @@ extension CoreDataService {
     
     func fenchPosts() -> [LikePostCoreDataModel] {
         self.fenchPosts(predicate: nil)
-    }
-    
-    func deletePost() -> Bool {
-        self.deletePost(predicate: nil)
     }
 }
 
@@ -62,7 +57,7 @@ final class CoreDataService {
         let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         let persistantStoreUrl = documentsDirectoryUrl?.appendingPathComponent(storeName)
         
-        print("✅", persistantStoreUrl)
+        print("✅", persistantStoreUrl!)
         
         guard let persistantStoreUrl = persistantStoreUrl else { return }
 
@@ -92,7 +87,6 @@ extension CoreDataService: CoreDataServiseProtocol {
         likePostCoreDataModel.views = Int64(post.views)
         
         
-        
         guard self.context.hasChanges else {
             return false
         }
@@ -104,7 +98,6 @@ extension CoreDataService: CoreDataServiseProtocol {
             return false
         }
     }
-//    dronbanin@yandex.ru
     
     func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel] {
         let fetchRequest = LikePostCoreDataModel.fetchRequest()
@@ -118,22 +111,4 @@ extension CoreDataService: CoreDataServiseProtocol {
         }
     }
     
-    func deletePost(predicate: NSPredicate?) -> Bool {
-        let posts = self.fenchPosts(predicate: predicate)
-        
-        posts.forEach {
-            self.context.delete($0)
-        }
-        
-        guard self.context.hasChanges else {
-            return false
-        }
-        
-        do {
-            try self.context.save()
-            return true
-        } catch {
-            return false
-        }
-    }
 }

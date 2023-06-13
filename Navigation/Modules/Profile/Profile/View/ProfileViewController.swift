@@ -151,7 +151,6 @@ class ProfileViewController: UIViewController {
     private func tapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapEdit(recognizer:)))
         tapGesture.numberOfTapsRequired = 2
-        tapGesture.numberOfTouchesRequired = 1
         tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
     }
@@ -160,10 +159,8 @@ class ProfileViewController: UIViewController {
         if recognizer.state == UIGestureRecognizer.State.ended {
             let tapLocation = recognizer.location(in: self.tableView)
             if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
-                if let tappedCell = self.tableView.cellForRow(at: tapIndexPath) as? PostCustomTableViewCell {
-                    
-                    print(tappedCell)
-
+                if let _ = self.tableView.cellForRow(at: tapIndexPath) as? PostCustomTableViewCell {
+                    print("tapEdit")
                 }
             }
         }
@@ -196,20 +193,16 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        print(profilePost)
         let success = coreDataService.createPost(profilePost)
         
-       
         if success {
             print("пост успешно добавлен в понравившиеся")
-            
+            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
+                                            object: self)
         } else {
             print("ошибка в добавлении поста в понравившиеся")
         }
-        
     }
-    
-
 }
 
 @available(iOS 15.0, *)

@@ -36,11 +36,16 @@ class LikePostsView: UIView {
     ) {
         tableView.dataSource = dataSourse
         tableView.delegate = delegate
+        tableView.register(PostCustomTableViewCell.self, forCellReuseIdentifier: "tableId")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
     }
     
     func reload() {
         tableView.reloadData()
+    }
+    
+    func navigationController(navigation: UINavigationItem, title: String) {
+        navigation.title = title
     }
     
     private func setupUi() {

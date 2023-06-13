@@ -23,7 +23,7 @@ class LogInViewController: UIViewController {
     
     private let checkerService = CheckerService()
     
-//    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
+    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
     
 //MARK: - 1. Properties
     private lazy var scrollView: UIScrollView = {
@@ -142,7 +142,7 @@ class LogInViewController: UIViewController {
         self.setupGestures()
         self.setupConstraints()
         
-//        self.autoAuth()
+        self.autoAuth()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -245,22 +245,22 @@ class LogInViewController: UIViewController {
     }
     
     private func createUserRealm(user: LogInUser) {
-//        let success = dataBaseRealmService.createUser(user: user)
-//        if success {
-//            print("пользователь добавлен в базу Realm")
-//        }
+        let success = dataBaseRealmService.createUser(user: user)
+        if success {
+            print("пользователь добавлен в базу Realm")
+        }
     }
     
-//    private func autoAuth() {
-//        let arrayUsers = RealmService().fetch()
-//        print( arrayUsers )
-//        guard arrayUsers.isEmpty == false else { return }
-//        
-//        loginTextField.text = arrayUsers[0].login
-//        passwordTextField.text = arrayUsers[0].password
-//        
-//        showProfileViewController()
-//    }
+    private func autoAuth() {
+        let arrayUsers = RealmService().fetch()
+        print( arrayUsers )
+        guard arrayUsers.isEmpty == false else { return }
+
+        loginTextField.text = arrayUsers[0].login
+        passwordTextField.text = arrayUsers[0].password
+
+        showProfileViewController()
+    }
     
     @objc func showAlert() {
         self.present(alertController, animated: true, completion: nil)

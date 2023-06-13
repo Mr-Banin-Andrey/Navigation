@@ -169,6 +169,7 @@ class PostCustomTableViewCell: UITableViewCell {
     
     private func tapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapEdit(_:)))
+        tapGesture.numberOfTapsRequired = 2
         addGestureRecognizer(tapGesture)
     }
     
