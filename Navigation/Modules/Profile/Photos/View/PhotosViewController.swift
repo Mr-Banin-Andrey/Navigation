@@ -3,6 +3,7 @@
 import UIKit
 import iOSIntPackage
 
+@available(iOS 15.0, *)
 class PhotosViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
@@ -103,6 +104,7 @@ class PhotosViewController: UIViewController {
     }
 }
 
+@available(iOS 15.0, *)
 extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

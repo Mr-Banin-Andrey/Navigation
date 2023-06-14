@@ -2,16 +2,19 @@
 
 import UIKit
 
+@available(iOS 15.0, *)
 protocol LoginViewControllerDelegate {
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool
 }
 
+@available(iOS 15.0, *)
 struct LoginInspector: LoginViewControllerDelegate {
     func isCheck(_ sender: LogInViewController, login: String, password: String) -> Bool {
         return Checker.shared.isCheck(sender, login: login, password: password)
     }
 }
 
+@available(iOS 15.0, *)
 class LogInViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
@@ -252,10 +255,10 @@ class LogInViewController: UIViewController {
         let arrayUsers = RealmService().fetch()
         print( arrayUsers )
         guard arrayUsers.isEmpty == false else { return }
-        
+
         loginTextField.text = arrayUsers[0].login
         passwordTextField.text = arrayUsers[0].password
-        
+
         showProfileViewController()
     }
     

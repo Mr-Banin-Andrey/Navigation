@@ -3,9 +3,12 @@
 import UIKit
 //import iOSIntPackage
 
+@available(iOS 15.0, *)
 class ProfileViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
+    
+    private let coreDataService: CoreDataService = CoreDataService()
     
     //MARK: - 1. Properties
     
@@ -61,8 +64,9 @@ class ProfileViewController: UIViewController {
     //MARK: - 2. Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
+        self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        self.tapGesture()
         self.viewSetupConstraints()
         
         #if DEBUG
@@ -70,6 +74,7 @@ class ProfileViewController: UIViewController {
         #else
             self.view.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         #endif
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,6 +148,24 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private func tapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapEdit(recognizer:)))
+        tapGesture.numberOfTapsRequired = 2
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func tapEdit(recognizer: UITapGestureRecognizer)  {
+        if recognizer.state == UIGestureRecognizer.State.ended {
+            let tapLocation = recognizer.location(in: self.tableView)
+            if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
+                if let _ = self.tableView.cellForRow(at: tapIndexPath) as? PostCustomTableViewCell {
+                    print("tapEdit")
+                }
+            }
+        }
+    }
+    
     
     @objc func zoomPicture(_ gestureRecognizer: UITapGestureRecognizer) {
 
@@ -166,6 +189,23 @@ class ProfileViewController: UIViewController {
     
 }
 
+@available(iOS 15.0, *)
+extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
+    func tapLikePost(_ profilePost: ProfilePost) {
+        
+        let success = coreDataService.createPost(profilePost)
+        
+        if success {
+            print("пост успешно добавлен в понравившиеся")
+            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
+                                            object: self)
+        } else {
+            print("ошибка в добавлении поста в понравившиеся")
+        }
+    }
+}
+
+@available(iOS 15.0, *)
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -224,6 +264,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let posts = Posts()
             let post = posts.postsArray[indexPath.row]
             cell.setup(with: post)
+            cell.delegate = self
             return cell
         }
         
@@ -235,7 +276,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             
-            print("didSelectRowAt --- coordinator?.showPhotosVC()")
+            print("didSelectRowAt")
             coordinator?.showPhotosVC()
         }
     }

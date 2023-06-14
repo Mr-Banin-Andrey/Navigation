@@ -1,7 +1,13 @@
 
 import UIKit
 
+protocol PostCustomTableViewCellDelegate: AnyObject {
+    func tapLikePost(_ profilePost: ProfilePost)
+}
+
 class PostCustomTableViewCell: UITableViewCell {
+    
+    weak var delegate: PostCustomTableViewCellDelegate?
     
     private lazy var authorLabel: UILabel = {
         let authorLabel = UILabel()
@@ -81,9 +87,13 @@ class PostCustomTableViewCell: UITableViewCell {
         return viewsAmountLabel
     }()
     
+    private lazy var namePhoto = ""
+    
 //MARK: - Life cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.tapGesture()
         
         self.setupConstraints()
     }
@@ -108,11 +118,14 @@ class PostCustomTableViewCell: UITableViewCell {
         let viewsAmountText = String(profilePost.views)
         let likesAmountText = String(profilePost.likes)
         
+        
         self.authorLabel.text = profilePost.author
         self.descriptionLabel.text = profilePost.description
         self.imagePhotoView.image = profilePost.photoPost.photoPost
         self.viewsAmountLabel.text = viewsAmountText
         self.likesAmountLabel.text = likesAmountText
+        
+        namePhoto = profilePost.photoPost
     }
     
     private func setupConstraints() {
@@ -152,6 +165,37 @@ class PostCustomTableViewCell: UITableViewCell {
             self.viewsStack.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             self.viewsStack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
         ])
+    }
+    
+    private func tapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapEdit(_:)))
+        tapGesture.numberOfTapsRequired = 2
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func tapEdit(_ sender: UITapGestureRecognizer) {
+        
+        guard
+            let views = viewsAmountLabel.text,
+            let likes = likesAmountLabel.text
+        else { return }
+        
+        guard
+            let description = descriptionLabel.text,
+            let author = authorLabel.text,
+            let likes = Int(likes),
+            let views = Int(views)
+        else  { return }
+
+        
+        let profilePost = ProfilePost(author: author,
+                                      description: description,
+                                      photoPost: namePhoto,
+                                      likes: likes,
+                                      views: views)
+        
+        
+        delegate?.tapLikePost(profilePost)
     }
 }
 
