@@ -5,6 +5,7 @@ import CoreData
 protocol CoreDataServiseProtocol: AnyObject {
     func createPost(_ post: ProfilePost) -> Bool
     func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel]
+    func deletePost(predicate: NSPredicate?) -> Bool
 }
 
 @available(iOS 15.0, *)
@@ -80,6 +81,7 @@ extension CoreDataService: CoreDataServiseProtocol {
     func createPost(_ post: ProfilePost) -> Bool {
         let likePostCoreDataModel = LikePostCoreDataModel(context: self.context)
         
+        likePostCoreDataModel.idPost = post.idPost
         likePostCoreDataModel.author = post.author
         likePostCoreDataModel.descriptionPost = post.description
         likePostCoreDataModel.photoPost = post.photoPost
@@ -111,4 +113,22 @@ extension CoreDataService: CoreDataServiseProtocol {
         }
     }
     
+    func deletePost(predicate: NSPredicate?) -> Bool {
+        let posts = self.fenchPosts(predicate: predicate)
+        
+        posts.forEach {
+            self.context.delete($0)
+        }
+        
+        guard self.context.hasChanges else {
+            return false
+        }
+        
+        do {
+            try self.context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
 }

@@ -89,6 +89,8 @@ class PostCustomTableViewCell: UITableViewCell {
     
     private lazy var namePhoto = ""
     
+    private lazy var idPost = ""
+    
 //MARK: - Life cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -124,6 +126,7 @@ class PostCustomTableViewCell: UITableViewCell {
         self.imagePhotoView.image = profilePost.photoPost.photoPost
         self.viewsAmountLabel.text = viewsAmountText
         self.likesAmountLabel.text = likesAmountText
+        self.idPost = profilePost.idPost
         
         namePhoto = profilePost.photoPost
     }
@@ -188,7 +191,8 @@ class PostCustomTableViewCell: UITableViewCell {
         else  { return }
 
         
-        let profilePost = ProfilePost(author: author,
+        let profilePost = ProfilePost(idPost: idPost,
+                                      author: author,
                                       description: description,
                                       photoPost: namePhoto,
                                       likes: likes,

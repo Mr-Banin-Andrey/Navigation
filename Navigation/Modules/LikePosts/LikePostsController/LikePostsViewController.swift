@@ -66,6 +66,22 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _, _, _ in
+            
+            let likePost = self.likePosts[indexPath.row]
+            
+            let success = self.coreDataService.deletePost(predicate: NSPredicate(format: "idPost == %@", likePost.idPost))
+            
+            if success {
+                self.likePosts.remove(at: indexPath.row)
+                self.likesPostView.reload()
+            }
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
 }
 
 @available(iOS 15.0, *)
