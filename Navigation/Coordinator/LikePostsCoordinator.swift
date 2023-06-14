@@ -3,7 +3,7 @@
 import Foundation
 import UIKit
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 class LikePostsCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?

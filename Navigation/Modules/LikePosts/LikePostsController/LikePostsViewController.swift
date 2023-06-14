@@ -3,7 +3,7 @@
 import Foundation
 import UIKit
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 class LikePostsViewController: UIViewController {
     
     var coordinator: LikePostsCoordinator?
@@ -25,7 +25,10 @@ class LikePostsViewController: UIViewController {
         
         self.likesPostView.configurationTableView(dataSourse: self,
                                                   delegate: self)
-        self.likesPostView.navigationController(navigation: navigationItem, title: "Like Posts")
+        self.likesPostView.navigationController(title: "Like Posts",
+                                                navigation: navigationItem,
+                                                rightButton: likesPostView.rightButton,
+                                                leftButton: likesPostView.leftButton)
         self.fetchPosts()
         
         NotificationCenter.default.addObserver(self,
@@ -45,7 +48,7 @@ class LikePostsViewController: UIViewController {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
@@ -84,7 +87,16 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 extension LikePostsViewController: LikePostsViewDelegate {
+    
+    func filterPosts() {
+        
+    }
+    
+    func cancelFilter() {
+        
+    }
+    
     
 }

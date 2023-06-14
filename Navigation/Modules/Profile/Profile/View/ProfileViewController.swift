@@ -171,8 +171,8 @@ class ProfileViewController: UIViewController {
 
         self.tableView.isUserInteractionEnabled = false // делает таблицу неактивной
         
-        let abs1 = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
-        tableView.setContentOffset(CGPoint(x: 0, y: -abs1), animated: true)
+        let viewOriginY = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
+        tableView.setContentOffset(CGPoint(x: 0, y: -viewOriginY), animated: true)
 
         let completion: () -> Void = { [weak self] in
             self?.tableView.isUserInteractionEnabled = true
@@ -193,14 +193,14 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        let success = coreDataService.createPost(profilePost)
-        
-        if success {
-            print("пост успешно добавлен в понравившиеся")
-            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
-                                            object: self)
-        } else {
-            print("ошибка в добавлении поста в понравившиеся")
+        self.coreDataService.createPost(profilePost) { [weak self] success in
+            guard let self = self else { return }
+            
+            if success {
+                print("пост успешно добавлен в понравившиеся")
+                NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
+                                                object: self)
+            }
         }
     }
 }

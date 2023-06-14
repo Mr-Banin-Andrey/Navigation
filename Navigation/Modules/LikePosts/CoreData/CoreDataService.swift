@@ -3,7 +3,7 @@ import Foundation
 import CoreData
 
 protocol CoreDataServiseProtocol: AnyObject {
-    func createPost(_ post: ProfilePost) -> Bool
+    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void)
     func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel]
     func deletePost(predicate: NSPredicate?) -> Bool
 }
@@ -24,10 +24,17 @@ final class CoreDataService {
     
     // 4.Context
     
-    private lazy var context: NSManagedObjectContext = {
+    private lazy var mainContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = self.persistentStoreCoordinator
         return context
+    }()
+    
+    private lazy var backgroundContext: NSManagedObjectContext = {
+        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        backgroundContext.mergePolicy = NSOverwriteMergePolicy
+        return backgroundContext
     }()
     
     init() {
@@ -78,26 +85,38 @@ final class CoreDataService {
 @available(iOS 15.0, *)
 extension CoreDataService: CoreDataServiseProtocol {
     
-    func createPost(_ post: ProfilePost) -> Bool {
-        let likePostCoreDataModel = LikePostCoreDataModel(context: self.context)
+    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void) {
         
-        likePostCoreDataModel.idPost = post.idPost
-        likePostCoreDataModel.author = post.author
-        likePostCoreDataModel.descriptionPost = post.description
-        likePostCoreDataModel.photoPost = post.photoPost
-        likePostCoreDataModel.likes = Int64(post.likes)
-        likePostCoreDataModel.views = Int64(post.views)
-        
-        
-        guard self.context.hasChanges else {
-            return false
-        }
-        
-        do {
-            try self.context.save()
-            return true
-        } catch {
-            return false
+        self.backgroundContext.perform {
+            let likePostCoreDataModel = LikePostCoreDataModel(context: self.backgroundContext)
+            
+            likePostCoreDataModel.idPost = post.idPost
+            likePostCoreDataModel.author = post.author
+            likePostCoreDataModel.descriptionPost = post.description
+            likePostCoreDataModel.photoPost = post.photoPost
+            likePostCoreDataModel.likes = Int64(post.likes)
+            likePostCoreDataModel.views = Int64(post.views)
+            
+            guard self.backgroundContext.hasChanges else {
+                self.mainContext.perform {
+                    completion(false)
+                }
+                return
+            }
+            
+            do {
+                try self.backgroundContext.save()
+                
+                self.mainContext.perform {
+                    completion(true)
+                }
+                
+            } catch {
+                self.mainContext.perform {
+                    print("Error добавлении в базу: ", error.localizedDescription)
+                    completion(false)
+                }
+            }
         }
     }
     
@@ -106,7 +125,7 @@ extension CoreDataService: CoreDataServiseProtocol {
         fetchRequest.predicate = predicate
         
         do {
-            let storedPosts = try self.context.fetch(fetchRequest)
+            let storedPosts = try self.mainContext.fetch(fetchRequest)
             return storedPosts
         } catch {
             return []
@@ -117,15 +136,15 @@ extension CoreDataService: CoreDataServiseProtocol {
         let posts = self.fenchPosts(predicate: predicate)
         
         posts.forEach {
-            self.context.delete($0)
+            self.mainContext.delete($0)
         }
         
-        guard self.context.hasChanges else {
+        guard self.mainContext.hasChanges else {
             return false
         }
         
         do {
-            try self.context.save()
+            try self.mainContext.save()
             return true
         } catch {
             return false
