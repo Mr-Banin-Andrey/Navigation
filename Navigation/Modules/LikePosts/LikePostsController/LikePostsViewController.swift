@@ -92,11 +92,31 @@ extension LikePostsViewController: LikePostsViewDelegate {
     
     func filterPosts() {
         
+        
+        let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
+
+        let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
+                        
+            let success = self.coreDataService.fenchPosts(
+                predicate: NSPredicate(
+                    format: "author == %@",
+                    alert.textFields?.first?.text ?? ""))
+            
+            if success.isEmpty == false {
+                self.likePosts = success.map{ ProfilePost(likePostCoreDataModel: $0) }
+                self.likesPostView.reload()
+            } else {
+                ShowAlert().showAlert(vc: self, title: "Автора не существует или автор введен некорректно", message: "Попробовать ещё раз")
+                self.likesPostView.leftButton.isHidden = true
+            }
+        }
+        
+        likesPostView.alert(vc: self, alert: alert, createAction: createAction)
+        self.likesPostView.leftButton.isHidden = false
     }
     
     func cancelFilter() {
-        
+        fetchPosts()
+        likesPostView.leftButton.isHidden = true
     }
-    
-    
 }

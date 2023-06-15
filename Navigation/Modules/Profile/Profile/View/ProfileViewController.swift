@@ -56,6 +56,15 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
+//    private lazy var likeLabel: UIImageView = {
+//        let image = UIImageView()
+//        image.translatesAutoresizingMaskIntoConstraints = false
+//        image.image = UIImage(systemName: "hand.thumbsup.fill")
+//        image.tintColor = UIColor(named: "blueColor")
+//        image.isHidden = true
+//        return image
+//    }()
+    
     private var imageWidthConstaint: NSLayoutConstraint?
     private var imageHeightConstaint: NSLayoutConstraint?
     
@@ -89,6 +98,7 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.viewBlur)
         self.view.addSubview(self.imageViewBig)
         self.view.addSubview(self.closeImageButton)
+//        self.view.addSubview(self.likeLabel)
         
         self.imageWidthConstaint = self.imageViewBig.widthAnchor.constraint(equalToConstant: 100)
         self.imageHeightConstaint = self.imageViewBig.heightAnchor.constraint(equalToConstant: 100)
@@ -110,7 +120,12 @@ class ProfileViewController: UIViewController {
             self.imageWidthConstaint,
             self.imageHeightConstaint,
             self.imageViewBig.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            self.imageViewBig.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16)
+            self.imageViewBig.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            
+//            self.likeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+//            self.likeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            self.likeLabel.widthAnchor.constraint(equalToConstant: 150),
+//            self.likeLabel.heightAnchor.constraint(equalToConstant: 150)
         ].compactMap({ $0 }))
     }
     
@@ -165,7 +180,6 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
     
     @objc func zoomPicture(_ gestureRecognizer: UITapGestureRecognizer) {
 

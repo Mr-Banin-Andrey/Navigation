@@ -26,8 +26,8 @@ class LikePostsView: UIView {
                                                             action: #selector(filterPosts))
     
     lazy var leftButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                                            target: self,
-                                                            action: #selector(cancelFilter))
+                                                           target: self,
+                                                           action: #selector(cancelFilter))
     
     
     init(delegate: LikePostsViewDelegate) {
@@ -56,7 +56,12 @@ class LikePostsView: UIView {
     }
     
     
-    func navigationController(title: String, navigation: UINavigationItem, rightButton: UIBarButtonItem, leftButton: UIBarButtonItem) {
+    func navigationController(
+        title: String,
+        navigation: UINavigationItem,
+        rightButton: UIBarButtonItem,
+        leftButton: UIBarButtonItem
+    ) {
         
         rightButton.tintColor = UIColor(named: "blueColor")
         leftButton.tintColor = #colorLiteral(red: 0.9125478316, green: 0.1491314173, blue: 0, alpha: 1)
@@ -69,6 +74,22 @@ class LikePostsView: UIView {
         navigation.leftBarButtonItem = leftButton
     }
     
+    func alert(vc: UIViewController, alert: UIAlertController, createAction: UIAlertAction) {
+        
+        alert.addTextField() {
+            $0.placeholder = "Введите автора"
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { _ in
+            self.leftButton.isHidden = true
+        }
+        
+        alert.addAction(createAction)
+        alert.addAction(cancelAction)
+                
+        vc.present(alert, animated: true)
+    }
+    
     private func setupUi() {
         self.addSubview(self.tableView)
         
@@ -78,14 +99,6 @@ class LikePostsView: UIView {
             maker.leading.trailing.equalToSuperview()
         }
     }
-    
-//    func showAlert(vc: UIViewController, title: String, message: String, button: String) {
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        let action = UIAlertAction(title: button, style: .default)
-//        alert.addAction(action)
-//        
-//        vc.present(alert, animated: true)
-//    }
     
     @objc private func filterPosts() {
         delegate?.filterPosts()

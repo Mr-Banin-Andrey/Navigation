@@ -613,8 +613,8 @@
 			children = (
 				9DBD5C6D29CC83E9009F494C /* Posts.swift */,
 				9DBD5C6B29CC7692009F494C /* ProfilePost.swift */,
-				9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */,
 				9DBD5C7529CCFBB1009F494C /* PhotosInCellProfile.swift */,
+				9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
