@@ -56,14 +56,14 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-//    private lazy var likeLabel: UIImageView = {
-//        let image = UIImageView()
-//        image.translatesAutoresizingMaskIntoConstraints = false
-//        image.image = UIImage(systemName: "hand.thumbsup.fill")
-//        image.tintColor = UIColor(named: "blueColor")
-//        image.isHidden = true
-//        return image
-//    }()
+    private lazy var likeLabel: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(systemName: "hand.thumbsup.fill")
+        image.tintColor = UIColor(named: "blueColor")
+        image.isHidden = true
+        return image
+    }()
     
     private var imageWidthConstaint: NSLayoutConstraint?
     private var imageHeightConstaint: NSLayoutConstraint?
@@ -98,7 +98,7 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.viewBlur)
         self.view.addSubview(self.imageViewBig)
         self.view.addSubview(self.closeImageButton)
-//        self.view.addSubview(self.likeLabel)
+        self.view.addSubview(self.likeLabel)
         
         self.imageWidthConstaint = self.imageViewBig.widthAnchor.constraint(equalToConstant: 100)
         self.imageHeightConstaint = self.imageViewBig.heightAnchor.constraint(equalToConstant: 100)
@@ -122,10 +122,10 @@ class ProfileViewController: UIViewController {
             self.imageViewBig.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
             self.imageViewBig.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             
-//            self.likeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-//            self.likeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            self.likeLabel.widthAnchor.constraint(equalToConstant: 150),
-//            self.likeLabel.heightAnchor.constraint(equalToConstant: 150)
+            self.likeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            self.likeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.likeLabel.widthAnchor.constraint(equalToConstant: 150),
+            self.likeLabel.heightAnchor.constraint(equalToConstant: 150)
         ].compactMap({ $0 }))
     }
     
@@ -144,6 +144,17 @@ class ProfileViewController: UIViewController {
             self.closeImageButton.isHidden = false
         }
     }
+    
+    
+    private func showLikeLabel() {
+        
+        // анимация
+        UIView.animate(withDuration: 0.5) {
+            self.likeLabel.isHidden = false
+            self.likeLabel.alpha = 0.0
+        }
+    }
+
     
     private func animateCloseView(completion: @escaping () -> Void) {
         self.imageWidthConstaint?.constant = self.isImageViewBigIncreased ? self.view.bounds.width : 100
@@ -202,20 +213,26 @@ class ProfileViewController: UIViewController {
     }
     
 }
-
 @available(iOS 15.0, *)
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        self.coreDataService.createPost(profilePost) { [weak self] success in
-            guard let self = self else { return }
-            
-            if success {
-                print("пост успешно добавлен в понравившиеся")
-                NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
-                                                object: self)
+        let fenchPost = self.coreDataService.fenchPosts(predicate: NSPredicate(format: "idPost == %@", profilePost.idPost))
+
+        if fenchPost.isEmpty == true {
+            self.coreDataService.createPost(profilePost) { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    print("пост успешно добавлен в понравившиеся")
+                    NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
+                                                    object: self)
+                    showLikeLabel()
+                }
             }
+        } else {
+            ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выбрать другой пост")
         }
+
     }
 }
 

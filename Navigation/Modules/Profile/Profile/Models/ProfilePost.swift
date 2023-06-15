@@ -9,8 +9,14 @@ struct ProfilePost {
     let photoPost: String
     let likes: Int
     let views: Int
-    
-    init(idPost: String, author: String, description: String, photoPost: String, likes: Int, views: Int) {
+        
+    init(idPost: String,
+         author: String,
+         description: String,
+         photoPost: String,
+         likes: Int,
+         views: Int
+    ) {
         self.idPost = idPost
         self.author = author
         self.description = description
