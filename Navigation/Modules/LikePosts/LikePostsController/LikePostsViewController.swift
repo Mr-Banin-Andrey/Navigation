@@ -38,9 +38,18 @@ class LikePostsViewController: UIViewController {
     }
     
     func fetchPosts() {
-        let corePosts = self.coreDataService.fenchPosts()
-        self.likePosts = corePosts.map{ ProfilePost(likePostCoreDataModel: $0) }
-        likesPostView.reload()
+        
+        self.coreDataService.fetch(LikePostCoreDataModel.self, predicate: nil) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetchedObjects):
+                self.likePosts = fetchedObjects.map({ ProfilePost(likePostCoreDataModel: $0)})
+                likesPostView.reload()
+            case .failure:
+                fatalError()
+            }
+        }
     }
     
     @objc private func postAdded() {
@@ -74,12 +83,9 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
             
             let likePost = self.likePosts[indexPath.row]
             
-            let success = self.coreDataService.deletePost(predicate: NSPredicate(format: "idPost == %@", likePost.idPost))
-            
-            if success {
-                self.likePosts.remove(at: indexPath.row)
-                self.likesPostView.reload()
-            }
+            self.coreDataService.deletePost(predicate: NSPredicate(format: "idPost == %@", likePost.idPost))
+            self.likePosts.remove(at: indexPath.row)
+            self.likesPostView.reload()
         }
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -92,22 +98,28 @@ extension LikePostsViewController: LikePostsViewDelegate {
     
     func filterPosts() {
         
-        
         let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
 
         let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
                         
-            let success = self.coreDataService.fenchPosts(
-                predicate: NSPredicate(
-                    format: "author == %@",
-                    alert.textFields?.first?.text ?? ""))
-            
-            if success.isEmpty == false {
-                self.likePosts = success.map{ ProfilePost(likePostCoreDataModel: $0) }
-                self.likesPostView.reload()
-            } else {
-                ShowAlert().showAlert(vc: self, title: "Автора не существует или автор введен некорректно", message: "Попробовать ещё раз")
-                self.likesPostView.leftButton.isHidden = true
+            self.coreDataService.fetch(
+                LikePostCoreDataModel.self,
+                predicate: NSPredicate(format: "author == %@", alert.textFields?.first?.text ?? "")
+            ) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let fetchedObjects):
+                    if fetchedObjects.isEmpty == false {
+                        self.likePosts = fetchedObjects.map({ ProfilePost(likePostCoreDataModel: $0)})
+                        likesPostView.reload()
+                    } else {
+                        ShowAlert().showAlert(vc: self, title: "Ошибка", message: "Автора не существует или автор введен некорректно", titleButton: "Попробовать ещё раз")
+                        self.likesPostView.leftButton.isHidden = true
+                    }
+                case .failure:
+                    fatalError()
+                }
             }
         }
         

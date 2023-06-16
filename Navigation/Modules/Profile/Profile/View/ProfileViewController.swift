@@ -124,8 +124,8 @@ class ProfileViewController: UIViewController {
             
             self.likeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             self.likeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.likeLabel.widthAnchor.constraint(equalToConstant: 150),
-            self.likeLabel.heightAnchor.constraint(equalToConstant: 150)
+            self.likeLabel.widthAnchor.constraint(equalToConstant: 100),
+            self.likeLabel.heightAnchor.constraint(equalToConstant: 100)
         ].compactMap({ $0 }))
     }
     
@@ -144,17 +144,6 @@ class ProfileViewController: UIViewController {
             self.closeImageButton.isHidden = false
         }
     }
-    
-    
-    private func showLikeLabel() {
-        
-        // анимация
-        UIView.animate(withDuration: 0.5) {
-            self.likeLabel.isHidden = false
-            self.likeLabel.alpha = 0.0
-        }
-    }
-
     
     private func animateCloseView(completion: @escaping () -> Void) {
         self.imageWidthConstaint?.constant = self.isImageViewBigIncreased ? self.view.bounds.width : 100
@@ -179,6 +168,25 @@ class ProfileViewController: UIViewController {
         tapGesture.numberOfTapsRequired = 2
         tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    private func showLikeLabel() {
+        
+        let screenWidth = UIScreen.main.bounds.size.width
+        let screenDivision5 = UIScreen.main.bounds.size.width / 5
+        let screenHeightDivision2 = UIScreen.main.bounds.size.height / 2
+        let startPoint = self.likeLabel.center
+        
+        likeLabel.isHidden = false
+
+        UIView.animate(withDuration: 2.0) {
+            self.likeLabel.center = CGPoint(x: (screenWidth - screenDivision5), y: screenHeightDivision2 * 2)
+            self.likeLabel.alpha = 0.0
+        } completion: { _ in
+            self.likeLabel.center = startPoint
+            self.likeLabel.isHidden = true
+            self.likeLabel.alpha = 1.0
+        }
     }
     
     @objc func tapEdit(recognizer: UITapGestureRecognizer)  {
@@ -217,22 +225,32 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        let fenchPost = self.coreDataService.fenchPosts(predicate: NSPredicate(format: "idPost == %@", profilePost.idPost))
-
-        if fenchPost.isEmpty == true {
-            self.coreDataService.createPost(profilePost) { [weak self] success in
-                guard let self = self else { return }
-                if success {
-                    print("пост успешно добавлен в понравившиеся")
-                    NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
-                                                    object: self)
+        self.coreDataService.fetch(
+            LikePostCoreDataModel.self,
+            predicate: NSPredicate(format: "idPost == %@", profilePost.idPost)
+        ) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetchedObjects):
+                
+                if fetchedObjects.isEmpty == true {
+                    self.coreDataService.createPost(profilePost) { [weak self] success in
+                        guard let self = self else { return }
+                        if success {
+                            print("пост успешно добавлен в понравившиеся")
+                            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
+                                                            object: self)
+                        }
+                    }
                     showLikeLabel()
+                } else {
+                    ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
                 }
+            case .failure:
+                fatalError()
             }
-        } else {
-            ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выбрать другой пост")
         }
-
     }
 }
 

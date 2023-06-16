@@ -4,17 +4,14 @@ import CoreData
 
 protocol CoreDataServiseProtocol: AnyObject {
     func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void)
-    func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel]
-    func deletePost(predicate: NSPredicate?) -> Bool
+    func fetch<T>(
+        _ model: T.Type,
+        predicate: NSPredicate?,
+        completion: @escaping (Result<[T], Error>) -> Void
+    ) where T:NSManagedObject
+    func deletePost(predicate: NSPredicate?)
 }
 
-@available(iOS 15.0, *)
-extension CoreDataService {
-    
-    func fenchPosts() -> [LikePostCoreDataModel] {
-        self.fenchPosts(predicate: nil)
-    }
-}
 
 @available(iOS 15.0, *)
 final class CoreDataService {
@@ -120,34 +117,53 @@ extension CoreDataService: CoreDataServiseProtocol {
         }
     }
     
-    func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel] {
-        let fetchRequest = LikePostCoreDataModel.fetchRequest()
+    func fetch<T>(
+        _ model: T.Type,
+        predicate: NSPredicate?,
+        completion: @escaping (Result<[T], Error>) -> Void
+    ) where T:NSManagedObject {
+        let fetchRequest = model.fetchRequest()
         fetchRequest.predicate = predicate
         
-        do {
-            let storedPosts = try self.mainContext.fetch(fetchRequest)
-            return storedPosts
-        } catch {
-            return []
+        guard
+            let fetchRequestResult = try? self.mainContext.fetch(fetchRequest),
+            let fetchedObjects = fetchRequestResult as? [T]
+        else {
+            self.mainContext.perform {
+                completion(.failure(NSError()))
+            }
+            return
+        }
+        
+        self.mainContext.perform {
+            completion(.success(fetchedObjects))
         }
     }
     
-    func deletePost(predicate: NSPredicate?) -> Bool {
-        let posts = self.fenchPosts(predicate: predicate)
-        
-        posts.forEach {
-            self.mainContext.delete($0)
+    func deletePost(predicate: NSPredicate?)  {
+        self.fetch(LikePostCoreDataModel.self, predicate: predicate) { [weak self] result in
+
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let fetchedObject):
+                fetchedObject.forEach {
+                    self.mainContext.delete($0)
+                }
+
+                guard self.mainContext.hasChanges else {
+                    fatalError()
+                }
+
+                do {
+                    try self.mainContext.save()
+                } catch {
+                    fatalError()
+                }
+            case .failure:
+                fatalError()
+            }
         }
-        
-        guard self.mainContext.hasChanges else {
-            return false
-        }
-        
-        do {
-            try self.mainContext.save()
-            return true
-        } catch {
-            return false
-        }
+    
     }
 }

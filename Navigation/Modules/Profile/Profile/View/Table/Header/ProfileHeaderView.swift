@@ -166,11 +166,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         } catch {
             switch error as? StatusError {
             case .emptyStatus:
-                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком короткий")
+                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком короткий", titleButton: "Попробовать ещё раз")
                 print("emptyStatus")
                 
             case .longStatus:
-                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком длинный")
+                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком длинный", titleButton: "Попробовать ещё раз")
                 print("longStatus")
                 
             default:
