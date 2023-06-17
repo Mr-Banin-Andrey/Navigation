@@ -38,7 +38,6 @@
 		9D4E1DC82A0D84AE00573EC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D4E1DC72A0D84AE00573EC4 /* GoogleService-Info.plist */; };
 		9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DCA2A0E4CD300573EC4 /* CheckerService.swift */; };
 		9D4E1DCD2A0E5D7700573EC4 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DCC2A0E5D7700573EC4 /* UserModel.swift */; };
-		9D573BDA2A37178C00F8E4F3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D573BD92A37178C00F8E4F3 /* StringExtension.swift */; };
 		9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB542A02C613001F7368 /* NetworkService.swift */; };
 		9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */; };
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
@@ -162,7 +161,6 @@
 		9D4E1DC72A0D84AE00573EC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9D4E1DCA2A0E4CD300573EC4 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		9D4E1DCC2A0E5D7700573EC4 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		9D573BD92A37178C00F8E4F3 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9D5FBB542A02C613001F7368 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9D5FBB562A02C65D001F7368 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -455,7 +453,6 @@
 			children = (
 				9D99C0AC2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld */,
 				9D99C0AF2A34F5C2008968FB /* CoreDataService.swift */,
-				9D573BD92A37178C00F8E4F3 /* StringExtension.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -613,8 +610,8 @@
 			children = (
 				9DBD5C6D29CC83E9009F494C /* Posts.swift */,
 				9DBD5C6B29CC7692009F494C /* ProfilePost.swift */,
-				9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */,
 				9DBD5C7529CCFBB1009F494C /* PhotosInCellProfile.swift */,
+				9DBD5C7329CCF9CA009F494C /* PhotosInCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1055,7 +1052,6 @@
 				9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */,
 				9D99C0AA2A337F00008968FB /* LikePostsCoordinator.swift in Sources */,
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
-				9D573BDA2A37178C00F8E4F3 /* StringExtension.swift in Sources */,
 				9D2444AE2A308EEF00E87108 /* UserRealmModel.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,

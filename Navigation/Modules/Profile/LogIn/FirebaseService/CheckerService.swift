@@ -42,10 +42,10 @@ class CheckerService {
         if let error = response.error {
             if error.localizedDescription == "The password is invalid or the user does not have a password." {
                 let showAlert = ShowAlert()
-                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Неверный логин или пароль")
+                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Неверный логин или пароль", titleButton: "Попробовать ещё раз")
             } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
                 let showAlert = ShowAlert()
-                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Аккаунта с такими данными не существует")
+                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Аккаунта с такими данными не существует", titleButton: "Попробовать ещё раз")
             }
             
             useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
@@ -72,7 +72,7 @@ class CheckerService {
     ) -> Bool {
         if email.isEmpty || password.isEmpty {
             let showAlert = ShowAlert()
-            showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля")
+            showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля", titleButton: "Попробовать ещё раз")
             return true
         }
         return false

@@ -3,14 +3,14 @@
 import Foundation
 import UIKit
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 class LikePostsViewController: UIViewController {
     
     var coordinator: LikePostsCoordinator?
     
     private lazy var likesPostView = LikePostsView(delegate: self)
     
-    private let coreDataService: CoreDataService = CoreDataService()
+    private let coreDataService: CoreDataService = CoreDataService.shared
     
     private var likePosts = [ProfilePost]()
     
@@ -25,7 +25,10 @@ class LikePostsViewController: UIViewController {
         
         self.likesPostView.configurationTableView(dataSourse: self,
                                                   delegate: self)
-        self.likesPostView.navigationController(navigation: navigationItem, title: "Like Posts")
+        self.likesPostView.navigationController(title: "Like Posts",
+                                                navigation: navigationItem,
+                                                rightButton: likesPostView.rightButton,
+                                                leftButton: likesPostView.leftButton)
         self.fetchPosts()
         
         NotificationCenter.default.addObserver(self,
@@ -35,9 +38,18 @@ class LikePostsViewController: UIViewController {
     }
     
     func fetchPosts() {
-        let corePosts = self.coreDataService.fenchPosts()
-        self.likePosts = corePosts.map{ ProfilePost(likePostCoreDataModel: $0) }
-        likesPostView.reload()
+        
+        self.coreDataService.fetch(LikePostCoreDataModel.self, predicate: nil) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetchedObjects):
+                self.likePosts = fetchedObjects.map({ ProfilePost(likePostCoreDataModel: $0)})
+                likesPostView.reload()
+            case .failure:
+                fatalError()
+            }
+        }
     }
     
     @objc private func postAdded() {
@@ -45,7 +57,7 @@ class LikePostsViewController: UIViewController {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
@@ -66,9 +78,57 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _, _, _ in
+            
+            let likePost = self.likePosts[indexPath.row]
+            
+            self.coreDataService.deletePost(predicate: NSPredicate(format: "idPost == %@", likePost.idPost))
+            self.likePosts.remove(at: indexPath.row)
+            self.likesPostView.reload()
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 extension LikePostsViewController: LikePostsViewDelegate {
     
+    func filterPosts() {
+        
+        let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
+
+        let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
+                        
+            self.coreDataService.fetch(
+                LikePostCoreDataModel.self,
+                predicate: NSPredicate(format: "author == %@", alert.textFields?.first?.text ?? "")
+            ) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let fetchedObjects):
+                    if fetchedObjects.isEmpty == false {
+                        self.likePosts = fetchedObjects.map({ ProfilePost(likePostCoreDataModel: $0)})
+                        likesPostView.reload()
+                    } else {
+                        ShowAlert().showAlert(vc: self, title: "Ошибка", message: "Автора не существует или автор введен некорректно", titleButton: "Попробовать ещё раз")
+                        self.likesPostView.leftButton.isHidden = true
+                    }
+                case .failure:
+                    fatalError()
+                }
+            }
+        }
+        
+        likesPostView.alert(vc: self, alert: alert, createAction: createAction)
+        self.likesPostView.leftButton.isHidden = false
+    }
+    
+    func cancelFilter() {
+        fetchPosts()
+        likesPostView.leftButton.isHidden = true
+    }
 }

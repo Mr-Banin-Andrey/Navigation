@@ -3,112 +3,118 @@ import Foundation
 import CoreData
 
 protocol CoreDataServiseProtocol: AnyObject {
-    func createPost(_ post: ProfilePost) -> Bool
-    func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel]
-}
-
-@available(iOS 15.0, *)
-extension CoreDataService {
-    
-    func fenchPosts() -> [LikePostCoreDataModel] {
-        self.fenchPosts(predicate: nil)
-    }
+    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void)
+    func fetch<T>(
+        _ model: T.Type,
+        predicate: NSPredicate?,
+        completion: @escaping (Result<[T], Error>) -> Void
+    ) where T:NSManagedObject
+    func deletePost(predicate: NSPredicate?)
 }
 
 @available(iOS 15.0, *)
 final class CoreDataService {
     
-    private let objectModel: NSManagedObjectModel
-    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
-    
-    // 4.Context
-    
-    private lazy var context: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = self.persistentStoreCoordinator
-        return context
-    }()
-    
-    init() {
-        /// 1.NSManagedObjectModel
-        
-        guard let url = Bundle.main.url(forResource: "CoreDataNavigation", withExtension: "momd") else {
-            fatalError("There is no xcdatamodeld file.")
-        }
+    static let shared = CoreDataService()
+            
+    private let persistentContainer: NSPersistentContainer
+    private lazy var backgroundContext = persistentContainer.newBackgroundContext()
+    private lazy var mainContext = persistentContainer.viewContext
 
-        let path = url.pathExtension
-        guard let name = try? url.lastPathComponent.replace(path, replacement: "") else {
-            fatalError()
+    private init() {
+        let container = NSPersistentContainer(name: "CoreDataNavigation")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
+            }
         }
-
-        guard let model = NSManagedObjectModel(contentsOf: url) else {
-            fatalError("Can`t create NSManagedObjectModel")
-        }
-
-        self.objectModel = model
-        
-        /// 2.NSPersistantStoreCoordinator
-        
-        self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.objectModel)
-        
-        /// 3.NSPersistantStore
-        
-        let storeName = name + "sqlite"
-        let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let persistantStoreUrl = documentsDirectoryUrl?.appendingPathComponent(storeName)
-        
-        print("✅", persistantStoreUrl!)
-        
-        guard let persistantStoreUrl = persistantStoreUrl else { return }
-
-        let options = [NSMigratePersistentStoresAutomaticallyOption:true]
-        do {
-            try self.persistentStoreCoordinator.addPersistentStore(
-                type: .sqlite,
-                at: persistantStoreUrl,
-                options: options
-            )
-        } catch {
-            fatalError("Can't create NSPersistantStore")
-        }
+        self.persistentContainer = container
     }
 }
 
 @available(iOS 15.0, *)
 extension CoreDataService: CoreDataServiseProtocol {
     
-    func createPost(_ post: ProfilePost) -> Bool {
-        let likePostCoreDataModel = LikePostCoreDataModel(context: self.context)
+    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void) {
         
-        likePostCoreDataModel.author = post.author
-        likePostCoreDataModel.descriptionPost = post.description
-        likePostCoreDataModel.photoPost = post.photoPost
-        likePostCoreDataModel.likes = Int64(post.likes)
-        likePostCoreDataModel.views = Int64(post.views)
-        
-        
-        guard self.context.hasChanges else {
-            return false
-        }
-        
-        do {
-            try self.context.save()
-            return true
-        } catch {
-            return false
+        self.backgroundContext.perform {
+            let likePostCoreDataModel = LikePostCoreDataModel(context: self.backgroundContext)
+            
+            likePostCoreDataModel.idPost = post.idPost
+            likePostCoreDataModel.author = post.author
+            likePostCoreDataModel.descriptionPost = post.description
+            likePostCoreDataModel.photoPost = post.photoPost
+            likePostCoreDataModel.likes = Int64(post.likes)
+            likePostCoreDataModel.views = Int64(post.views)
+            
+            guard self.backgroundContext.hasChanges else {
+                self.mainContext.perform {
+                    completion(false)
+                }
+                return
+            }
+            
+            do {
+                try self.backgroundContext.save()
+                self.mainContext.perform {
+                    completion(true)
+                }
+            } catch {
+                self.mainContext.perform {
+                    print("Error добавлении в базу: ", error.localizedDescription)
+                    completion(false)
+                }
+            }
         }
     }
     
-    func fenchPosts(predicate: NSPredicate?) -> [LikePostCoreDataModel] {
-        let fetchRequest = LikePostCoreDataModel.fetchRequest()
+    func fetch<T>(
+        _ model: T.Type,
+        predicate: NSPredicate?,
+        completion: @escaping (Result<[T], Error>) -> Void
+    ) where T:NSManagedObject {
+        let fetchRequest = model.fetchRequest()
         fetchRequest.predicate = predicate
         
-        do {
-            let storedPosts = try self.context.fetch(fetchRequest)
-            return storedPosts
-        } catch {
-            return []
+        guard
+            let fetchRequestResult = try? self.mainContext.fetch(fetchRequest),
+            let fetchedObjects = fetchRequestResult as? [T]
+        else {
+            self.mainContext.perform {
+                completion(.failure(NSError()))
+            }
+            return
+        }
+        
+        self.mainContext.perform {
+            completion(.success(fetchedObjects))
         }
     }
     
+    func deletePost(predicate: NSPredicate?)  {
+        self.fetch(LikePostCoreDataModel.self, predicate: predicate) { [weak self] result in
+
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let fetchedObject):
+                fetchedObject.forEach {
+                    self.mainContext.delete($0)
+                }
+
+                guard self.mainContext.hasChanges else {
+                    fatalError()
+                }
+
+                do {
+                    try self.mainContext.save()
+                } catch {
+                    fatalError()
+                }
+            case .failure:
+                fatalError()
+            }
+        }
+    
+    }
 }

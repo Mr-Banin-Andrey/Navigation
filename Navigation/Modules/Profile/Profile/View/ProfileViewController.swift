@@ -8,7 +8,7 @@ class ProfileViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
     
-    private let coreDataService: CoreDataService = CoreDataService()
+    private let coreDataService: CoreDataService = CoreDataService.shared
     
     //MARK: - 1. Properties
     
@@ -56,6 +56,15 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
+    private lazy var likeLabel: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(systemName: "hand.thumbsup.fill")
+        image.tintColor = UIColor(named: "blueColor")
+        image.isHidden = true
+        return image
+    }()
+    
     private var imageWidthConstaint: NSLayoutConstraint?
     private var imageHeightConstaint: NSLayoutConstraint?
     
@@ -89,6 +98,7 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(self.viewBlur)
         self.view.addSubview(self.imageViewBig)
         self.view.addSubview(self.closeImageButton)
+        self.view.addSubview(self.likeLabel)
         
         self.imageWidthConstaint = self.imageViewBig.widthAnchor.constraint(equalToConstant: 100)
         self.imageHeightConstaint = self.imageViewBig.heightAnchor.constraint(equalToConstant: 100)
@@ -110,7 +120,12 @@ class ProfileViewController: UIViewController {
             self.imageWidthConstaint,
             self.imageHeightConstaint,
             self.imageViewBig.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            self.imageViewBig.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16)
+            self.imageViewBig.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            
+            self.likeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            self.likeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.likeLabel.widthAnchor.constraint(equalToConstant: 100),
+            self.likeLabel.heightAnchor.constraint(equalToConstant: 100)
         ].compactMap({ $0 }))
     }
     
@@ -155,6 +170,25 @@ class ProfileViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
+    private func showLikeLabel() {
+        
+        let screenWidth = UIScreen.main.bounds.size.width
+        let screenDivision5 = UIScreen.main.bounds.size.width / 5
+        let screenHeightDivision2 = UIScreen.main.bounds.size.height / 2
+        let startPoint = self.likeLabel.center
+        
+        likeLabel.isHidden = false
+
+        UIView.animate(withDuration: 2.0) {
+            self.likeLabel.center = CGPoint(x: (screenWidth - screenDivision5), y: screenHeightDivision2 * 2)
+            self.likeLabel.alpha = 0.0
+        } completion: { _ in
+            self.likeLabel.center = startPoint
+            self.likeLabel.isHidden = true
+            self.likeLabel.alpha = 1.0
+        }
+    }
+    
     @objc func tapEdit(recognizer: UITapGestureRecognizer)  {
         if recognizer.state == UIGestureRecognizer.State.ended {
             let tapLocation = recognizer.location(in: self.tableView)
@@ -166,13 +200,12 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    
     @objc func zoomPicture(_ gestureRecognizer: UITapGestureRecognizer) {
 
         self.tableView.isUserInteractionEnabled = false // делает таблицу неактивной
         
-        let abs1 = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
-        tableView.setContentOffset(CGPoint(x: 0, y: -abs1), animated: true)
+        let viewOriginY = self.view.safeAreaLayoutGuide.layoutFrame.origin.y
+        tableView.setContentOffset(CGPoint(x: 0, y: -viewOriginY), animated: true)
 
         let completion: () -> Void = { [weak self] in
             self?.tableView.isUserInteractionEnabled = true
@@ -188,19 +221,35 @@ class ProfileViewController: UIViewController {
     }
     
 }
-
 @available(iOS 15.0, *)
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        let success = coreDataService.createPost(profilePost)
-        
-        if success {
-            print("пост успешно добавлен в понравившиеся")
-            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
-                                            object: self)
-        } else {
-            print("ошибка в добавлении поста в понравившиеся")
+        self.coreDataService.fetch(
+            LikePostCoreDataModel.self,
+            predicate: NSPredicate(format: "idPost == %@", profilePost.idPost)
+        ) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetchedObjects):
+                
+                if fetchedObjects.isEmpty == true {
+                    self.coreDataService.createPost(profilePost) { [weak self] success in
+                        guard let self = self else { return }
+                        if success {
+                            print("пост успешно добавлен в понравившиеся")
+                            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
+                                                            object: self)
+                        }
+                    }
+                    showLikeLabel()
+                } else {
+                    ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
+                }
+            case .failure:
+                fatalError()
+            }
         }
     }
 }
