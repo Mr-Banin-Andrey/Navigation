@@ -12,70 +12,23 @@ protocol CoreDataServiseProtocol: AnyObject {
     func deletePost(predicate: NSPredicate?)
 }
 
-
 @available(iOS 15.0, *)
 final class CoreDataService {
     
-    private let objectModel: NSManagedObjectModel
-    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
-    
-    // 4.Context
-    
-    private lazy var mainContext: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = self.persistentStoreCoordinator
-        return context
-    }()
-    
-    private lazy var backgroundContext: NSManagedObjectContext = {
-        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        backgroundContext.mergePolicy = NSOverwriteMergePolicy
-        return backgroundContext
-    }()
-    
-    init() {
-        /// 1.NSManagedObjectModel
-        
-        guard let url = Bundle.main.url(forResource: "CoreDataNavigation", withExtension: "momd") else {
-            fatalError("There is no xcdatamodeld file.")
-        }
+    static let shared = CoreDataService()
+            
+    private let persistentContainer: NSPersistentContainer
+    private lazy var backgroundContext = persistentContainer.newBackgroundContext()
+    private lazy var mainContext = persistentContainer.viewContext
 
-        let path = url.pathExtension
-        guard let name = try? url.lastPathComponent.replace(path, replacement: "") else {
-            fatalError()
+    private init() {
+        let container = NSPersistentContainer(name: "CoreDataNavigation")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
+            }
         }
-
-        guard let model = NSManagedObjectModel(contentsOf: url) else {
-            fatalError("Can`t create NSManagedObjectModel")
-        }
-
-        self.objectModel = model
-        
-        /// 2.NSPersistantStoreCoordinator
-        
-        self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.objectModel)
-        
-        /// 3.NSPersistantStore
-        
-        let storeName = name + "sqlite"
-        let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let persistantStoreUrl = documentsDirectoryUrl?.appendingPathComponent(storeName)
-        
-        print("✅", persistantStoreUrl!)
-        
-        guard let persistantStoreUrl = persistantStoreUrl else { return }
-
-        let options = [NSMigratePersistentStoresAutomaticallyOption:true]
-        do {
-            try self.persistentStoreCoordinator.addPersistentStore(
-                type: .sqlite,
-                at: persistantStoreUrl,
-                options: options
-            )
-        } catch {
-            fatalError("Can't create NSPersistantStore")
-        }
+        self.persistentContainer = container
     }
 }
 
@@ -103,11 +56,9 @@ extension CoreDataService: CoreDataServiseProtocol {
             
             do {
                 try self.backgroundContext.save()
-                
                 self.mainContext.perform {
                     completion(true)
                 }
-                
             } catch {
                 self.mainContext.perform {
                     print("Error добавлении в базу: ", error.localizedDescription)

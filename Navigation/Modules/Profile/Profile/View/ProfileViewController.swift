@@ -8,7 +8,7 @@ class ProfileViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
     
-    private let coreDataService: CoreDataService = CoreDataService()
+    private let coreDataService: CoreDataService = CoreDataService.shared
     
     //MARK: - 1. Properties
     

@@ -10,7 +10,7 @@ class LikePostsViewController: UIViewController {
     
     private lazy var likesPostView = LikePostsView(delegate: self)
     
-    private let coreDataService: CoreDataService = CoreDataService()
+    private let coreDataService: CoreDataService = CoreDataService.shared
     
     private var likePosts = [ProfilePost]()
     
