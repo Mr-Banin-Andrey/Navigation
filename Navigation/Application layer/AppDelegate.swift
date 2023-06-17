@@ -2,15 +2,22 @@
 
 import UIKit
 import FirebaseCore
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var container: NSPersistentContainer?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
         FirebaseApp.configure()
+        
+        self.createContainer { container in
+            self.container = container
+        }
+        
         return true
     }
 
@@ -28,6 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
+    private func createContainer(completion: @escaping (NSPersistentContainer) -> Void) {
+        let container = NSPersistentContainer(name: "CoreDataNavigation")
+        container.loadPersistentStores { _, error in
+            guard error == nil else { fatalError("Failder to load store") }
+            
+            completion(container)
+        }
+    }
+    
 }
 
