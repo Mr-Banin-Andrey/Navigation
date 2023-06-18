@@ -14,9 +14,9 @@
 //
 //@available(iOS 15.0, *)
 //final class CoreDataService {
-//    
+//
 //    static let shared = CoreDataService()
-//            
+//
 //    private let persistentContainer: NSPersistentContainer
 //    private lazy var backgroundContext = persistentContainer.newBackgroundContext()
 //    private lazy var mainContext = persistentContainer.viewContext
@@ -36,24 +36,24 @@
 //extension CoreDataService: CoreDataServiseProtocol {
 //    
 //    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void) {
-//        
+//
 //        self.backgroundContext.perform {
 //            let likePostCoreDataModel = LikePostCoreDataModel(context: self.backgroundContext)
-//            
+//
 //            likePostCoreDataModel.idPost = post.idPost
 //            likePostCoreDataModel.author = post.author
 //            likePostCoreDataModel.descriptionPost = post.description
 //            likePostCoreDataModel.photoPost = post.photoPost
 //            likePostCoreDataModel.likes = Int64(post.likes)
 //            likePostCoreDataModel.views = Int64(post.views)
-//            
+//
 //            guard self.backgroundContext.hasChanges else {
 //                self.mainContext.perform {
 //                    completion(false)
 //                }
 //                return
 //            }
-//            
+//
 //            do {
 //                try self.backgroundContext.save()
 //                self.mainContext.perform {
@@ -67,7 +67,7 @@
 //            }
 //        }
 //    }
-//    
+//
 //    func fetch<T>(
 //        _ model: T.Type,
 //        predicate: NSPredicate?,
@@ -75,7 +75,7 @@
 //    ) where T:NSManagedObject {
 //        let fetchRequest = model.fetchRequest()
 //        fetchRequest.predicate = predicate
-//        
+//
 //        guard
 //            let fetchRequestResult = try? self.mainContext.fetch(fetchRequest),
 //            let fetchedObjects = fetchRequestResult as? [T]
@@ -85,12 +85,12 @@
 //            }
 //            return
 //        }
-//        
+//
 //        self.mainContext.perform {
 //            completion(.success(fetchedObjects))
 //        }
 //    }
-//    
+//
 //    func deletePost(predicate: NSPredicate?)  {
 //        self.fetch(LikePostCoreDataModel.self, predicate: predicate) { [weak self] result in
 //
@@ -115,6 +115,6 @@
 //                fatalError()
 //            }
 //        }
-//    
+//
 //    }
 //}

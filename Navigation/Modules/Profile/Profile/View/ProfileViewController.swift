@@ -8,7 +8,8 @@ class ProfileViewController: UIViewController {
     
     var coordinator: ProfileCoordinator?
     
-    private let coreDataService: CoreDataService = CoreDataService.shared
+//    private let coreDataService: CoreDataService = CoreDataService.shared
+    private let coreDataService: CoreDataServiceFetchResult = CoreDataServiceFetchResult()
     
     //MARK: - 1. Properties
     
@@ -75,7 +76,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        self.tapGesture()
+//        self.tapGesture()
         self.viewSetupConstraints()
         
         #if DEBUG
@@ -83,7 +84,6 @@ class ProfileViewController: UIViewController {
         #else
             self.view.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         #endif
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,14 +163,14 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    private func tapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapEdit(recognizer:)))
-        tapGesture.numberOfTapsRequired = 2
-        tapGesture.delegate = self
-        view.addGestureRecognizer(tapGesture)
-    }
+//    private func tapGesture() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapEdit(recognizer:)))
+//        tapGesture.numberOfTapsRequired = 2
+//        tapGesture.delegate = self
+//        view.addGestureRecognizer(tapGesture)
+//    }
     
-    private func showLikeLabel() {
+    private func showLikeAnimateLabel() {
         
         let screenWidth = UIScreen.main.bounds.size.width
         let screenDivision5 = UIScreen.main.bounds.size.width / 5
@@ -189,16 +189,18 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    @objc func tapEdit(recognizer: UITapGestureRecognizer)  {
-        if recognizer.state == UIGestureRecognizer.State.ended {
-            let tapLocation = recognizer.location(in: self.tableView)
-            if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
-                if let _ = self.tableView.cellForRow(at: tapIndexPath) as? PostCustomTableViewCell {
-                    print("tapEdit")
-                }
-            }
-        }
-    }
+//    @objc func tapEdit(recognizer: UITapGestureRecognizer)  {
+//        if recognizer.state == UIGestureRecognizer.State.ended {
+//            let tapLocation = recognizer.location(in: self.tableView)
+//            if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
+//                if let tap = self.tableView.cellForRow(at: tapIndexPath) as? PostCustomTableViewCell {
+//                    print("🌽 1 tapLocation", tapLocation)
+//                    print("🌽 2 tapIndexPath", tapIndexPath)
+//                    print("🌽 3 tap", tap)
+//                }
+//            }
+//        }
+//    }
     
     @objc func zoomPicture(_ gestureRecognizer: UITapGestureRecognizer) {
 
@@ -221,37 +223,62 @@ class ProfileViewController: UIViewController {
     }
     
 }
+
+
 @available(iOS 15.0, *)
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        self.coreDataService.fetch(
-            LikePostCoreDataModel.self,
-            predicate: NSPredicate(format: "idPost == %@", profilePost.idPost)
-        ) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let fetchedObjects):
-                
-                if fetchedObjects.isEmpty == true {
-                    self.coreDataService.createPost(profilePost) { [weak self] success in
-                        guard let self = self else { return }
-                        if success {
-                            print("пост успешно добавлен в понравившиеся")
-                            NotificationCenter.default.post(name: NSNotification.Name("postAdded"),
-                                                            object: self)
-                        }
-                    }
-                    showLikeLabel()
-                } else {
-                    ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
-                }
-            case .failure:
-                fatalError()
-            }
-        }
+        //проверка на дубль
+//        print("🫐 1", profilePost)
+//        coreDataService.setupFetchedResultsController { value in
+//            
+//            print("🫐 1", value.fetchedObjects?.isEmpty)
+//        }
+//            guard let posts = value.fetchedObjects else { return }
+//            print("🫐 2", posts)
+//
+//            posts.forEach{ likePostModel in
+//                print("🫐 3", posts)
+//
+//                if likePostModel.idPost == profilePost.idPost {
+//                    print("🫐 4", likePostModel.idPost)
+//                    ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
+//                } else {
+        
+//        coreDataService.setupFetchedResultsController { value in
+//            value
+//        }
+                    let dict = ["post": profilePost]
+                    NotificationCenter.default.post(name: NSNotification.Name("postAdded"), object: self, userInfo: dict)
+                    self.showLikeAnimateLabel()
+//                }
+//            }
     }
+         
+        
+        
+//        if let  {
+//            likePosts.forEach { value in
+//                
+//                if value.idPost == profilePost.idPost {
+//                    print("🫐 3", value.idPost!)
+//                    ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
+//                } else {
+//                    let dict = ["post": profilePost]
+//                    NotificationCenter.default.post(name: NSNotification.Name("postAdded"), object: self, userInfo: dict)
+//                    showLikeAnimateLabel()
+//                }
+//            }
+//        } else {
+//            print("🏓 5")
+//
+//        }
+//        print("🫐 2", likePosts)
+        
+        
+        
+    
 }
 
 @available(iOS 15.0, *)

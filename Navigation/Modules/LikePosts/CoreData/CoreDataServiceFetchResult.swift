@@ -8,29 +8,15 @@
 import CoreData
 import UIKit
 
-//protocol CoreDataServiceFetchResultProtocol: AnyObject {
-////    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void)
-////    func fetch<T>(
-////        _ model: T.Type,
-////        predicate: NSPredicate?,
-////        completion: @escaping (Result<[T], Error>) -> Void
-////    ) where T:NSManagedObject
-////    func deletePost(predicate: NSPredicate?)
-//}
 
 @available(iOS 15.0, *)
 final class CoreDataServiceFetchResult {
     
-    private var context: NSManagedObjectContext?
-    private var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>?
+    var context: NSManagedObjectContext?
+    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>?
     
-    
-    func setupCoreData() {
-        self.setupFetchedResultsController()
         
-    }
-    
-    private func setupFetchedResultsController() {
+    func setupFetchedResultsController() { //completion: @escaping (NSFetchRequest<LikePostCoreDataModel>) ->Void ) {
         
         self.context = (UIApplication.shared.delegate as? AppDelegate)?.container?.viewContext
         
@@ -42,34 +28,23 @@ final class CoreDataServiceFetchResult {
             sortDescriptor
         ]
         
-        let fetchResultController = NSFetchedResultsController(
+        fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: context,
             sectionNameKeyPath: nil,
             cacheName: nil)
+       
         
-        fetchResultController.delegate = self
+//        completion(fetchRequest)
+//        completion(fetchedResultsController?.fetchedObjects)
     }
     
-    
-    
-}
-
-@available(iOS 15.0, *)
-extension CoreDataServiceFetchResult: NSFetchedResultsControllerDelegate {
-    
-    
-//    func createPost(_ post: ProfilePost, completion: @escaping (Bool) -> Void) {
-//        <#code#>
-//    }
-//
-//    func fetch<T>(_ model: T.Type, predicate: NSPredicate?, completion: @escaping (Result<[T], Error>) -> Void) where T : NSManagedObject {
-//        <#code#>
-//    }
-//
-//    func deletePost(predicate: NSPredicate?) {
-//        <#code#>
-//    }
-    
+     func fetchLikePosts() {
+        do {
+            try self.fetchedResultsController?.performFetch()
+        } catch {
+            fatalError("Can't fetch data from db")
+        }
+    }
     
 }
