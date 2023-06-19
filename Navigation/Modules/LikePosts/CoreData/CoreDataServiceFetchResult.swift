@@ -8,21 +8,25 @@
 import CoreData
 import UIKit
 
+@available(iOS 15.0, *)
+protocol CoreDataServiceFetchResultDelegate {
+    func addPost(_ profilePost: ProfilePost)
+    
+}
 
 @available(iOS 15.0, *)
 final class CoreDataServiceFetchResult {
     
-    let context: NSManagedObjectContext?
-    let fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>
-    let fetchRequest: NSFetchRequest<LikePostCoreDataModel>
-        
-    init() {
+    var context: NSManagedObjectContext?
+    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>?
+    
+    func fetchResultsController() {
         
         self.context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
         
         guard let context = self.context else { fatalError() }
         
-        fetchRequest = LikePostCoreDataModel.fetchRequest()
+        let fetchRequest = LikePostCoreDataModel.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "author", ascending: true)
         fetchRequest.sortDescriptors = [
             sortDescriptor
@@ -35,17 +39,22 @@ final class CoreDataServiceFetchResult {
             cacheName: nil)
     }
     
-    
     func fetchLikePosts() {
+        
+        guard let fetchedResultsController = fetchedResultsController else { return }
+        
         do {
-            try self.fetchedResultsController.performFetch()
+            try fetchedResultsController.performFetch()
         } catch {
             fatalError("Can't fetch data from db")
         }
     }
+}
+    
+@available(iOS 15.0, *)
+extension CoreDataServiceFetchResult: CoreDataServiceFetchResultDelegate {
     
     func addPost(_ profilePost: ProfilePost) {
-        
         guard
             let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
         else { return }
@@ -57,5 +66,8 @@ final class CoreDataServiceFetchResult {
         postModel.photoPost = profilePost.photoPost
         postModel.likes = Int64(profilePost.likes)
         postModel.views = Int64(profilePost.views)
+        
     }
+    
+    
 }

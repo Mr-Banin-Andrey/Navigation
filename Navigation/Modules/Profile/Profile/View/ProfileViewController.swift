@@ -208,8 +208,6 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        
-        
         self.coreDataService.fetchLikePosts()
         guard let posts = self.coreDataService.fetchedResultsController.fetchedObjects else { return }
         print("❌🍊 00", posts)
