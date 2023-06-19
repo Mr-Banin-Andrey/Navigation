@@ -12,17 +12,17 @@ import UIKit
 @available(iOS 15.0, *)
 final class CoreDataServiceFetchResult {
     
-    var context: NSManagedObjectContext?
-    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>?
-    
+    let context: NSManagedObjectContext?
+    let fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>
+    let fetchRequest: NSFetchRequest<LikePostCoreDataModel>
         
-    func setupFetchedResultsController() { //completion: @escaping (NSFetchRequest<LikePostCoreDataModel>) ->Void ) {
+    init() {
         
-        self.context = (UIApplication.shared.delegate as? AppDelegate)?.container?.viewContext
+        self.context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
         
         guard let context = self.context else { fatalError() }
         
-        let fetchRequest = LikePostCoreDataModel.fetchRequest()
+        fetchRequest = LikePostCoreDataModel.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "author", ascending: true)
         fetchRequest.sortDescriptors = [
             sortDescriptor
@@ -33,18 +33,29 @@ final class CoreDataServiceFetchResult {
             managedObjectContext: context,
             sectionNameKeyPath: nil,
             cacheName: nil)
-       
-        
-//        completion(fetchRequest)
-//        completion(fetchedResultsController?.fetchedObjects)
     }
     
-     func fetchLikePosts() {
+    
+    func fetchLikePosts() {
         do {
-            try self.fetchedResultsController?.performFetch()
+            try self.fetchedResultsController.performFetch()
         } catch {
             fatalError("Can't fetch data from db")
         }
     }
     
+    func addPost(_ profilePost: ProfilePost) {
+        
+        guard
+            let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+        else { return }
+                    
+        let postModel = LikePostCoreDataModel(context: context)
+        postModel.idPost = profilePost.idPost
+        postModel.author = profilePost.author
+        postModel.descriptionPost = profilePost.description
+        postModel.photoPost = profilePost.photoPost
+        postModel.likes = Int64(profilePost.likes)
+        postModel.views = Int64(profilePost.views)
+    }
 }

@@ -14,7 +14,7 @@ class LikePostsView: UIView {
     
     private weak var delegate: LikePostsViewDelegate?
     
-    lazy var tableView: UITableView = {
+    var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemBackground
         tableView.translatesAutoresizingMaskIntoConstraints = false

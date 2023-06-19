@@ -12,7 +12,7 @@ class LikePostsViewController: UIViewController {
     private lazy var likesPostView = LikePostsView(delegate: self)
     
     private let coreDataService: CoreDataServiceFetchResult = CoreDataServiceFetchResult()
-        
+    
     override func loadView() {
         super.loadView()
         
@@ -29,56 +29,10 @@ class LikePostsViewController: UIViewController {
                                                 rightButton: likesPostView.rightButton,
                                                 leftButton: likesPostView.leftButton)
         
-        self.coreDataService.setupFetchedResultsController() //{ value in
-//            guard let model = value else { return }
-//            print("1 🍓", value)
-//        }
-        self.coreDataService.fetchedResultsController?.delegate = self
-        self.coreDataService.fetchLikePosts()
+        self.coreDataService.fetchedResultsController.delegate = self
         
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(postAdded(notification:)),
-                                               name: NSNotification.Name("postAdded"),
-                                               object: nil)
-        
-    }
-    
-//    deinit {
-//
-//    }
-    
-    private func addPost(post: ProfilePost, context: NSManagedObjectContext) {
-        print("🍉1", post)
-        let context = context
-  
-        let postModel = LikePostCoreDataModel(context: context)
-        postModel.idPost = post.idPost
-        postModel.author = post.author
-        postModel.descriptionPost = post.description
-        postModel.photoPost = post.photoPost
-        postModel.likes = Int64(post.likes)
-        postModel.views = Int64(post.views)
-        
-        do {
-            try context.save()
-            print("🍉2", post)
-        } catch {
-            fatalError()
-        }
-    }
-        
-    @objc private func postAdded(notification: Notification) {
-        
-        guard let postTap = notification.userInfo as? [String: ProfilePost] else { return }
-        
-        guard let post = postTap["post"] else { return }
 
-        print("❇️ 1", post)
-        guard let context = self.coreDataService.context else { return print("❌ 5") }
-        print("❇️ 2", post)
-        addPost(post: post, context: context)
-        
+        self.coreDataService.fetchLikePosts()
     }
 }
 
@@ -87,7 +41,7 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = self.coreDataService.fetchedResultsController?.sections else { return 0 }
+        guard let sections = self.coreDataService.fetchedResultsController.sections else { return 0 }
         return sections[section].numberOfObjects
     }
     
@@ -98,7 +52,7 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        guard let post = self.coreDataService.fetchedResultsController?.object(at: indexPath) else { return cell }
+        let post = self.coreDataService.fetchedResultsController.object(at: indexPath)
         
         cell.setupModel(with: post)
         cell.selectionStyle = .none
@@ -110,8 +64,11 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
         let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _, _, _ in
 
             guard let context = self.coreDataService.context else { return }
-            guard let post = self.coreDataService.fetchedResultsController?.object(at: indexPath) else { return }
+            let post = self.coreDataService.fetchedResultsController.object(at: indexPath)
+            
             context.delete(post)
+                
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         }
 
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -123,9 +80,16 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
 extension LikePostsViewController: LikePostsViewDelegate {
 
     func filterPosts() {
+        
+//        let posts = self.coreDataService.fetchedResultsController?.fetchedObjects
+//        print("post", posts)
+//        posts?.forEach({ value in
+//            value.author
+//        })
+//        guard let context = self.coreDataService.context else { return print("❌ 5") }
 //        let posts = Posts().postsArray
-//        addPost(post: posts[0])
-//        addPost(profilePost: posts[1])
+//        addPost(post: posts[1], context: context)
+//        addPost(post: posts[3], context: context)
 //        addPost(profilePost: posts[2])
 //        addPost(profilePost: posts[3])
 
@@ -179,24 +143,19 @@ extension LikePostsViewController: NSFetchedResultsControllerDelegate {
         for type: NSFetchedResultsChangeType,
         newIndexPath: IndexPath?
     ) {
-        print("1 ⚽️", type.rawValue)
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else { return }
-            
             self.likesPostView.tableView.insertRows(at: [newIndexPath], with: .left)
         case .delete:
             guard let indexPath = indexPath else { return }
-            
             self.likesPostView.tableView.deleteRows(at: [indexPath], with: .right)
         case .move:
             guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
-            
             self.likesPostView.tableView.deleteRows(at: [indexPath], with: .right)
             self.likesPostView.tableView.insertRows(at: [newIndexPath], with: .left)
         case .update:
             guard let indexPath = indexPath else { return }
-            
             self.likesPostView.tableView.reloadRows(at: [indexPath], with: .fade)
         @unknown default:
             fatalError()
