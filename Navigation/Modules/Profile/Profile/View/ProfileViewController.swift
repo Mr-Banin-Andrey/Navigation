@@ -75,7 +75,9 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        self.tapGesture()
         self.viewSetupConstraints()
+
         
         #if DEBUG
             self.tableView.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
@@ -179,7 +181,24 @@ class ProfileViewController: UIViewController {
             self.likeLabel.alpha = 1.0
         }
     }
+    
+    private func tapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapEdit(recognizer:)))
+        tapGesture.numberOfTapsRequired = 2
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
+    }
 
+    @objc func tapEdit(recognizer: UITapGestureRecognizer)  {
+        if recognizer.state == UIGestureRecognizer.State.ended {
+            let tapLocation = recognizer.location(in: self.tableView)
+            if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
+                if let tap = self.tableView.cellForRow(at: tapIndexPath) as? PostCustomTableViewCell {
+                    print(tap)
+                }
+            }
+        }
+    }
     
     @objc func zoomPicture(_ gestureRecognizer: UITapGestureRecognizer) {
 
@@ -208,28 +227,18 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
-        self.coreDataService.fetchLikePosts()
-        guard let posts = self.coreDataService.fetchedResultsController.fetchedObjects else { return }
-        print("❌🍊 00", posts)
         
-        if posts.isEmpty {
-            self.coreDataService.addPost(profilePost)
+        let isSuccess = self.coreDataService.addPost(profilePost)
+        
+        if isSuccess {
             (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-
             self.showLikeAnimateLabel()
+            
         } else {
-            posts.forEach { result in
-                
-                if result.idPost == profilePost.idPost {
-                    ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
-                } else {
-                    self.coreDataService.addPost(profilePost)
-                    (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-                    self.showLikeAnimateLabel()
-                }
-            }
+            ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
         }
-        self.coreDataService.fetchLikePosts()
+            
+        self.coreDataService.performFetch()
     }
 }
 

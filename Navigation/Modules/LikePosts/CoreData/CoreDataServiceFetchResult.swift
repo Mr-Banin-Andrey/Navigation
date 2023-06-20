@@ -10,7 +10,7 @@ import UIKit
 
 @available(iOS 15.0, *)
 protocol CoreDataServiceFetchResultDelegate {
-    func addPost(_ profilePost: ProfilePost)
+    func addPost(_ profilePost: ProfilePost) -> Bool
     
 }
 
@@ -18,9 +18,9 @@ protocol CoreDataServiceFetchResultDelegate {
 final class CoreDataServiceFetchResult {
     
     var context: NSManagedObjectContext?
-    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>?
+    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>
     
-    func fetchResultsController() {
+    init() {
         
         self.context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
         
@@ -39,26 +39,20 @@ final class CoreDataServiceFetchResult {
             cacheName: nil)
     }
     
-    func fetchLikePosts() {
-        
-        guard let fetchedResultsController = fetchedResultsController else { return }
-        
+    func performFetch() {
         do {
             try fetchedResultsController.performFetch()
         } catch {
             fatalError("Can't fetch data from db")
         }
     }
-}
     
-@available(iOS 15.0, *)
-extension CoreDataServiceFetchResult: CoreDataServiceFetchResultDelegate {
-    
-    func addPost(_ profilePost: ProfilePost) {
+    func addPostToLikePosts(_ profilePost: ProfilePost) -> Bool {
+        
         guard
             let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-        else { return }
-                    
+        else { return false }
+        
         let postModel = LikePostCoreDataModel(context: context)
         postModel.idPost = profilePost.idPost
         postModel.author = profilePost.author
@@ -66,8 +60,25 @@ extension CoreDataServiceFetchResult: CoreDataServiceFetchResultDelegate {
         postModel.photoPost = profilePost.photoPost
         postModel.likes = Int64(profilePost.likes)
         postModel.views = Int64(profilePost.views)
-        
+        return true
     }
+}
     
+@available(iOS 15.0, *)
+extension CoreDataServiceFetchResult: CoreDataServiceFetchResultDelegate {
     
+    func addPost(_ profilePost: ProfilePost) -> Bool {
+        self.performFetch()
+        guard let posts = fetchedResultsController.fetchedObjects else { return false }
+        
+        print("🍎 ", posts)
+            for post in posts {
+                if post.idPost == profilePost.idPost {
+                    return false
+                } else {
+                    return addPostToLikePosts(profilePost)
+                }
+            }
+        return addPostToLikePosts(profilePost)
+    }
 }

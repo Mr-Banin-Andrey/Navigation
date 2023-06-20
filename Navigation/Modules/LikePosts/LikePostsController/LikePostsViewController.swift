@@ -32,7 +32,7 @@ class LikePostsViewController: UIViewController {
         self.coreDataService.fetchedResultsController.delegate = self
         
 
-        self.coreDataService.fetchLikePosts()
+        self.coreDataService.performFetch()
     }
 }
 
@@ -81,45 +81,7 @@ extension LikePostsViewController: LikePostsViewDelegate {
 
     func filterPosts() {
         
-//        let posts = self.coreDataService.fetchedResultsController?.fetchedObjects
-//        print("post", posts)
-//        posts?.forEach({ value in
-//            value.author
-//        })
-//        guard let context = self.coreDataService.context else { return print("❌ 5") }
-//        let posts = Posts().postsArray
-//        addPost(post: posts[1], context: context)
-//        addPost(post: posts[3], context: context)
-//        addPost(profilePost: posts[2])
-//        addPost(profilePost: posts[3])
 
-//        let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
-//
-//        let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
-//
-//            self.coreDataService.fetch(
-//                LikePostCoreDataModel.self,
-//                predicate: NSPredicate(format: "author == %@", alert.textFields?.first?.text ?? "")
-//            ) { [weak self] result in
-//                guard let self = self else { return }
-//
-//                switch result {
-//                case .success(let fetchedObjects):
-//                    if fetchedObjects.isEmpty == false {
-//                        self.likePosts = fetchedObjects.map({ ProfilePost(likePostCoreDataModel: $0)})
-//                        likesPostView.reload()
-//                    } else {
-//                        ShowAlert().showAlert(vc: self, title: "Ошибка", message: "Автора не существует или автор введен некорректно", titleButton: "Попробовать ещё раз")
-//                        self.likesPostView.leftButton.isHidden = true
-//                    }
-//                case .failure:
-//                    fatalError()
-//                }
-//            }
-//        }
-//
-//        likesPostView.alert(vc: self, alert: alert, createAction: createAction)
-//        self.likesPostView.leftButton.isHidden = false
     }
 
     func cancelFilter() {
@@ -146,16 +108,20 @@ extension LikePostsViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else { return }
+            
             self.likesPostView.tableView.insertRows(at: [newIndexPath], with: .left)
         case .delete:
             guard let indexPath = indexPath else { return }
+            
             self.likesPostView.tableView.deleteRows(at: [indexPath], with: .right)
         case .move:
             guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
+            
             self.likesPostView.tableView.deleteRows(at: [indexPath], with: .right)
             self.likesPostView.tableView.insertRows(at: [newIndexPath], with: .left)
         case .update:
             guard let indexPath = indexPath else { return }
+            
             self.likesPostView.tableView.reloadRows(at: [indexPath], with: .fade)
         @unknown default:
             fatalError()
