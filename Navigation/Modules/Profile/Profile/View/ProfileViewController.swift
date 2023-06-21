@@ -227,6 +227,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecognizerDelegate {
     func tapLikePost(_ profilePost: ProfilePost) {
         
+//        self.coreDataService.fetchResultsController()
         
         let isSuccess = self.coreDataService.addPost(profilePost)
         
@@ -237,8 +238,9 @@ extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecog
         } else {
             ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
         }
-            
+        self.coreDataService.fetchResultsController()
         self.coreDataService.performFetch()
+        
     }
 }
 

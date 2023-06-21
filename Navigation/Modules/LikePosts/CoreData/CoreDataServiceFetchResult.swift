@@ -18,10 +18,10 @@ protocol CoreDataServiceFetchResultDelegate {
 final class CoreDataServiceFetchResult {
     
     var context: NSManagedObjectContext?
-    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>
+    var fetchedResultsController: NSFetchedResultsController<LikePostCoreDataModel>?
     
-    init() {
-        
+
+    func fetchResultsController() {
         self.context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
         
         guard let context = self.context else { fatalError() }
@@ -39,7 +39,30 @@ final class CoreDataServiceFetchResult {
             cacheName: nil)
     }
     
+    func searchFetchResultsController(author: String) {
+        self.context = (UIApplication.shared.delegate as?  AppDelegate)?.persistentContainer.viewContext
+        
+        guard let context = self.context else { fatalError() }
+        
+        let predicate = NSPredicate(format: "author == %@", author)
+        let fetchRequest = LikePostCoreDataModel.fetchRequest()
+        
+        fetchRequest.predicate = predicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "author", ascending: true)
+        fetchRequest.sortDescriptors = [
+            sortDescriptor
+        ]
+        
+        fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+    }
+    
     func performFetch() {
+        guard let fetchedResultsController = fetchedResultsController else { return }
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -68,17 +91,19 @@ final class CoreDataServiceFetchResult {
 extension CoreDataServiceFetchResult: CoreDataServiceFetchResultDelegate {
     
     func addPost(_ profilePost: ProfilePost) -> Bool {
+        self.fetchResultsController()
         self.performFetch()
-        guard let posts = fetchedResultsController.fetchedObjects else { return false }
+        guard let posts = fetchedResultsController?.fetchedObjects else { return false }
         
         print("🍎 ", posts)
-            for post in posts {
-                if post.idPost == profilePost.idPost {
-                    return false
-                } else {
-                    return addPostToLikePosts(profilePost)
-                }
+        var varibleArray = [LikePostCoreDataModel]()
+        posts.forEach{ post in
+            if post.idPost == profilePost.idPost {
+                varibleArray.append(post)
             }
+        }
+        guard varibleArray.isEmpty == true else { return false }
+        
         return addPostToLikePosts(profilePost)
     }
 }

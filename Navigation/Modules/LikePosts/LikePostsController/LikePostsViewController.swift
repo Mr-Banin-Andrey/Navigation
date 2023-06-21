@@ -29,9 +29,8 @@ class LikePostsViewController: UIViewController {
                                                 rightButton: likesPostView.rightButton,
                                                 leftButton: likesPostView.leftButton)
         
-        self.coreDataService.fetchedResultsController.delegate = self
-        
-
+        self.coreDataService.fetchResultsController()
+        self.coreDataService.fetchedResultsController?.delegate = self
         self.coreDataService.performFetch()
     }
 }
@@ -41,7 +40,7 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = self.coreDataService.fetchedResultsController.sections else { return 0 }
+        guard let sections = self.coreDataService.fetchedResultsController?.sections else { return 0 }
         return sections[section].numberOfObjects
     }
     
@@ -51,8 +50,9 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
             return cell
         }
-        
-        let post = self.coreDataService.fetchedResultsController.object(at: indexPath)
+        guard
+            let post = self.coreDataService.fetchedResultsController?.object(at: indexPath)
+        else { return cell }
         
         cell.setupModel(with: post)
         cell.selectionStyle = .none
@@ -63,12 +63,15 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _, _, _ in
 
-            guard let context = self.coreDataService.context else { return }
-            let post = self.coreDataService.fetchedResultsController.object(at: indexPath)
-            
+            guard
+                let context = self.coreDataService.context,
+                let post = self.coreDataService.fetchedResultsController?.object(at: indexPath)
+            else { return }
+                    
             context.delete(post)
                 
             (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+            
         }
 
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -81,12 +84,45 @@ extension LikePostsViewController: LikePostsViewDelegate {
 
     func filterPosts() {
         
+    
+        let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
 
+        let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
+            
+            let author = alert.textFields?.first?.text ?? ""
+
+            self.coreDataService.fetchResultsController()
+            self.coreDataService.performFetch()
+            guard let posts = self.coreDataService.fetchedResultsController?.fetchedObjects else { return }
+            
+            print("🍋 0 ", posts)
+            var varibleArray = [LikePostCoreDataModel]()
+            print("🍋 1 ", varibleArray)
+            posts.forEach{ post in
+                if post.author == author {
+                    varibleArray.append(post)
+                    print("🍋 2 ", varibleArray)
+                }
+            }
+            print("🍋 3 ", varibleArray.isEmpty)
+            if varibleArray.isEmpty {
+                ShowAlert().showAlert(vc: self, title: "Ошибка", message: "Автора не существует или автор введен некорректно", titleButton: "Попробовать ещё раз")
+                self.likesPostView.leftButton.isHidden = true
+            } else {
+                self.coreDataService.searchFetchResultsController(author: author)
+                self.coreDataService.performFetch()
+                self.likesPostView.reload()
+            }
+        }
+        likesPostView.alert(vc: self, alert: alert, createAction: createAction)
+        self.likesPostView.leftButton.isHidden = false
     }
 
     func cancelFilter() {
-//        fetchPosts()
-//        likesPostView.leftButton.isHidden = true
+        self.coreDataService.fetchResultsController()
+        self.coreDataService.performFetch()
+        self.likesPostView.reload()
+        self.likesPostView.leftButton.isHidden = true
     }
 }
 
