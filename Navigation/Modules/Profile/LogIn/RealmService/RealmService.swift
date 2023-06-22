@@ -10,21 +10,57 @@ protocol RealmServiceProtocol: AnyObject {
 
 final class RealmService {
     
+    func createKey() -> Data {
+        var key = Data(count: 64)
+        
+        _ = key.withUnsafeMutableBytes { bytes in
+            SecRandomCopyBytes(kSecRandomDefault, 64, bytes)
+        }
+        print("🍐 1 key - ", key)
+        return key
+        
+//        var config = Realm.Configuration(encryptionKey: key)
+    }
+    
+    func keyEncoder(key: Data) -> [String] {
+        
+        if let encoderData = key.description.data(using: .utf8)  {
+            let arrayOfHex = encoderData
+                .map { String(format: "0x%02x", $0) }
+            print("🍐 2 encoderData - ", encoderData)
+            print("🍐 3 arrayOfHex - ", arrayOfHex)
+            return arrayOfHex
+        }
+        return []
+    }
+    
+    
+    
 }
 
 extension RealmService: RealmServiceProtocol {
     
     func createUser(user: LogInUser) -> Bool {
+        
+//        var config = Realm.Configuration(encryptionKey: key)
+        
         do {
             
             let realm = try Realm()
             
+            let objects = realm.objects(UserRealmModel.self)
+            
+            guard let userRealmModel = Array(objects) as? [UserRealmModel] else {
+                return false
+            }
+            print("🥃 userRealmModel ", userRealmModel)
+            guard userRealmModel.isEmpty else { return false }
+
             try realm.write {
                 realm.create(
                     UserRealmModel.self,
                     value: user.keyedValues
                 )
-                
             }
             return true
         } catch {

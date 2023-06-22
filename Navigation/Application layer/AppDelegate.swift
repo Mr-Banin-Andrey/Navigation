@@ -13,7 +13,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
         
-
+        let realm = RealmService()
+        let userDefault = UserDefaultsKeyRealm()
+        
+        let key = realm.createKey()
+        
+        let keyEncoder = realm.keyEncoder(key: key)
+        
+        var abs = RealmToken(key: keyEncoder)
+        
+//        userDefault.tokenEncoder(arrayToken: abs)
+        
+        
+        let userDefaultDecoder = userDefault.tokenDecoder()
+        print("0-0 ⚽️", key)
+        print("0 ⚽️", abs)
+        print("1 ⚽️", keyEncoder)
+        
+        print("2 ⚽️", userDefaultDecoder)
+        
         
         return true
     }
