@@ -1,9 +1,3 @@
-//
-//  CoreDataServiceFetchResult.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 17.6.23..
-//
 
 import CoreData
 import UIKit
@@ -44,7 +38,7 @@ final class CoreDataServiceFetchResult {
         
         guard let context = self.context else { fatalError() }
         
-        let predicate = NSPredicate(format: "author == %@", author)
+        let predicate = NSPredicate(format: "author CONTAINS %@", author)
         let fetchRequest = LikePostCoreDataModel.fetchRequest()
         
         fetchRequest.predicate = predicate

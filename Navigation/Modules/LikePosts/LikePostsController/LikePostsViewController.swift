@@ -84,36 +84,16 @@ extension LikePostsViewController: LikePostsViewDelegate {
 
     func filterPosts() {
         
-    
         let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
-
         let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
             
             let author = alert.textFields?.first?.text ?? ""
 
-            self.coreDataService.fetchResultsController()
+            self.coreDataService.searchFetchResultsController(author: author)
             self.coreDataService.performFetch()
-            guard let posts = self.coreDataService.fetchedResultsController?.fetchedObjects else { return }
-            
-            print("🍋 0 ", posts)
-            var varibleArray = [LikePostCoreDataModel]()
-            print("🍋 1 ", varibleArray)
-            posts.forEach{ post in
-                if post.author == author {
-                    varibleArray.append(post)
-                    print("🍋 2 ", varibleArray)
-                }
-            }
-            print("🍋 3 ", varibleArray.isEmpty)
-            if varibleArray.isEmpty {
-                ShowAlert().showAlert(vc: self, title: "Ошибка", message: "Автора не существует или автор введен некорректно", titleButton: "Попробовать ещё раз")
-                self.likesPostView.leftButton.isHidden = true
-            } else {
-                self.coreDataService.searchFetchResultsController(author: author)
-                self.coreDataService.performFetch()
-                self.likesPostView.reload()
-            }
+            self.likesPostView.reload()
         }
+        
         likesPostView.alert(vc: self, alert: alert, createAction: createAction)
         self.likesPostView.leftButton.isHidden = false
     }
