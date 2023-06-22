@@ -13,6 +13,7 @@ struct DocumentsFileManager {
                                                in: .userDomainMask,
                                                appropriateFor: nil,
                                                create: false)
+            print("🧩documentsUrl", documentsUrl)
             return documentsUrl
         } catch let error {
             print(error, "error")

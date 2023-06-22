@@ -43,6 +43,7 @@
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
 		9D63D13B29FBCC130090C859 /* Songs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13A29FBCC130090C859 /* Songs.swift */; };
 		9D6706492A2F73B200438374 /* DocumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6706482A2F73B200438374 /* DocumentsModel.swift */; };
+		9D7D89A82A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D89A72A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift */; };
 		9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */; };
 		9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */; };
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
@@ -166,6 +167,7 @@
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		9D63D13A29FBCC130090C859 /* Songs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Songs.swift; sourceTree = "<group>"; };
 		9D6706482A2F73B200438374 /* DocumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsModel.swift; sourceTree = "<group>"; };
+		9D7D89A72A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceFetchResult.swift; sourceTree = "<group>"; };
 		9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 			children = (
 				9D99C0AC2A34EEB1008968FB /* CoreDataNavigation.xcdatamodeld */,
 				9D99C0AF2A34F5C2008968FB /* CoreDataService.swift */,
+				9D7D89A72A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1046,6 +1049,7 @@
 				9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */,
 				9DC9D04F29F9555700D9791A /* ShowAlert.swift in Sources */,
 				9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */,
+				9D7D89A82A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift in Sources */,
 				9D99C0B02A34F5C2008968FB /* CoreDataService.swift in Sources */,
 				9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */,
 				9DBD5C5F29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift in Sources */,

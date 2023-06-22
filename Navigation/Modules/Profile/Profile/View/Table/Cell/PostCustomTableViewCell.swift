@@ -131,6 +131,21 @@ class PostCustomTableViewCell: UITableViewCell {
         namePhoto = profilePost.photoPost
     }
     
+    func setupModel(with likePostsCoreDataModel: LikePostCoreDataModel) {
+        
+        self.authorLabel.text = likePostsCoreDataModel.author
+        self.descriptionLabel.text = likePostsCoreDataModel.descriptionPost
+        self.imagePhotoView.image = likePostsCoreDataModel.photoPost?.photoPost
+        self.viewsAmountLabel.text = String(likePostsCoreDataModel.views)
+        self.likesAmountLabel.text = String(likePostsCoreDataModel.likes)
+        
+        
+        self.idPost = likePostsCoreDataModel.idPost ?? ""
+        
+        namePhoto = likePostsCoreDataModel.photoPost ?? ""
+    }
+    
+    
     private func setupConstraints() {
         
         self.contentView.addSubview(self.authorLabel)
