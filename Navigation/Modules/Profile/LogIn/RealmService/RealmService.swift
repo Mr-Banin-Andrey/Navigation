@@ -10,31 +10,24 @@ protocol RealmServiceProtocol: AnyObject {
 
 final class RealmService {
     
+
+    
     func createKey() -> Data {
-        var key = Data(count: 64)
         
+        var key = Data(count: 64)
+        print("🍐 0 key - ", key)
         _ = key.withUnsafeMutableBytes { bytes in
             SecRandomCopyBytes(kSecRandomDefault, 64, bytes)
         }
         print("🍐 1 key - ", key)
+        print("🍐 2 key.description.utf8 - ", key.description.utf8)
+        UserDefaultsKeyRealm().tokenEncoder(data: key)
         return key
         
-//        var config = Realm.Configuration(encryptionKey: key)
-    }
-    
-    func keyEncoder(key: Data) -> [String] {
-        
-        if let encoderData = key.description.data(using: .utf8)  {
-            let arrayOfHex = encoderData
-                .map { String(format: "0x%02x", $0) }
-            print("🍐 2 encoderData - ", encoderData)
-            print("🍐 3 arrayOfHex - ", arrayOfHex)
-            return arrayOfHex
-        }
-        return []
     }
     
     
+
     
 }
 
@@ -42,11 +35,20 @@ extension RealmService: RealmServiceProtocol {
     
     func createUser(user: LogInUser) -> Bool {
         
-//        var config = Realm.Configuration(encryptionKey: key)
+        let key = UserDefaultsKeyRealm().tokenDecoder()
+        var varibleKey: Data = Data()
+        
+        if key.isEmpty {
+            varibleKey = createKey()
+        } else {
+            varibleKey = key
+        }
+
+        let config = Realm.Configuration(encryptionKey: varibleKey)
         
         do {
             
-            let realm = try Realm()
+            let realm = try Realm(configuration: config)
             
             let objects = realm.objects(UserRealmModel.self)
             
@@ -63,14 +65,21 @@ extension RealmService: RealmServiceProtocol {
                 )
             }
             return true
-        } catch {
+        } catch let error {
+            print("❌ Error -", error)
             return false
         }
     }
     
     func fetch() -> [LogInUser] {
+        
+        let key = UserDefaultsKeyRealm().tokenDecoder()
+        
+        let config = Realm.Configuration(encryptionKey: key)
+
         do {
-            let realm = try Realm()
+            
+            let realm = try Realm(configuration: config)
             
             let objects = realm.objects(UserRealmModel.self)
             
@@ -78,14 +87,21 @@ extension RealmService: RealmServiceProtocol {
                 return []
             }
             return userRealmModel.map { LogInUser(userRealmModel: $0) }
-        } catch {
+        } catch let error{
+            print("❌ Error -", error)
             return []
         }
     }
     
     func removeUser(user: LogInUser) -> Bool {
+        
+        let key = UserDefaultsKeyRealm().tokenDecoder()
+        
+        let config = Realm.Configuration(encryptionKey: key)
+
         do {
-            let realm = try Realm()
+            
+            let realm = try Realm(configuration: config)
             
             let objects = realm.objects(UserRealmModel.self).filter { $0.login == user.login }
             let handler: () -> Void = {

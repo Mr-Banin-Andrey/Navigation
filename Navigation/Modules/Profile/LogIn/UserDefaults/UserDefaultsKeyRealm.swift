@@ -2,40 +2,25 @@
 
 import Foundation
 
-
-struct RealmToken: Codable {
-    let key: [String]
-}
-
 struct UserDefaultsKeyRealm {
     
 
-    func tokenEncoder(arrayToken: RealmToken) {
-        do {
-            let data = try JSONEncoder().encode(arrayToken.key)
-            UserDefaults.standard.set(data, forKey: "tokenUserDefaults")
-            print("🍓 1 UserDefaults data -", data)
-            print("закодирован key Realm")
-        } catch let error {
-            print(error)
-        }
+    func tokenEncoder(data: Data) {
         
+        UserDefaults.standard.set(data, forKey: "tokenUserDefaults")
+        print("🍓 1 добавлен key в Realm")
     }
     
     
-    func tokenDecoder() -> [String] {
-        print("🍓 00 раскодирован key Realm")
-        if let tokenUser = UserDefaults().data(forKey: "tokenUserDefaults") {
-            do {
-                let arrayToken = try JSONDecoder().decode(RealmToken.self, from: tokenUser)
-                print("🍓 2 раскодирован key Realm -", arrayToken.key)
-                print("🍓 2/2 раскодирован key Realm -", arrayToken)
-                return arrayToken.key
-            } catch let error {
-                print(error, "error")
-            }
-        }
-        return []
+    func tokenDecoder() -> Data {
+
+        guard
+            let tokenUser = UserDefaults().data(forKey: "tokenUserDefaults")  
+        else { return Data() }
+        
+        print("🍓 2 извлечен key из Realm", tokenUser)
+        
+        return tokenUser
     }
     
 }

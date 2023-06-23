@@ -13,24 +13,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
         
-        let realm = RealmService()
-        let userDefault = UserDefaultsKeyRealm()
+//        let realm = RealmService()
+//        let userDefault = UserDefaultsKeyRealm()
         
-        let key = realm.createKey()
+        // 1 создал ключ
+//        let key = realm.createKey()
+//        print("1 ⚽️", key)
         
-        let keyEncoder = realm.keyEncoder(key: key)
+        // 2 закодировал ключ
+//        let keyEncoder = realm.keyEncoder(key: key)
+//        print("2 ⚽️", keyEncoder)
         
-        var abs = RealmToken(key: keyEncoder)
+        // 3 засунул в юзер дефолтс
         
-//        userDefault.tokenEncoder(arrayToken: abs)
+//        userDefault.tokenEncoder(arrayToken: keyEncoder)
+//        
+//        let userDefaultDecoder = userDefault.tokenDecoder()
+//        
+//                
+//        print("2 ⚽️", userDefaultDecoder)
         
-        
-        let userDefaultDecoder = userDefault.tokenDecoder()
-        print("0-0 ⚽️", key)
-        print("0 ⚽️", abs)
-        print("1 ⚽️", keyEncoder)
-        
-        print("2 ⚽️", userDefaultDecoder)
         
         
         return true

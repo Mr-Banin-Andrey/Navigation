@@ -517,13 +517,13 @@
 			path = FeedModel;
 			sourceTree = "<group>";
 		};
-		9DB5FA2F29B3B10600A6D424 /* Application layer */ = {
+		9DB5FA2F29B3B10600A6D424 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
 				9DBD55B428FF1A1800454D01 /* AppDelegate.swift */,
 				9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */,
 			);
-			path = "Application layer";
+			path = ApplicationLayer;
 			sourceTree = "<group>";
 		};
 		9DBD55A828FF1A1800454D01 = {
@@ -551,7 +551,7 @@
 		9DBD55B328FF1A1800454D01 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				9DB5FA2F29B3B10600A6D424 /* Application layer */,
+				9DB5FA2F29B3B10600A6D424 /* ApplicationLayer */,
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
 				9DA94F7029D5BB4E0095D94B /* Modules */,
