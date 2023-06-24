@@ -8,32 +8,9 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
-        
-//        let realm = RealmService()
-//        let userDefault = UserDefaultsKeyRealm()
-        
-        // 1 создал ключ
-//        let key = realm.createKey()
-//        print("1 ⚽️", key)
-        
-        // 2 закодировал ключ
-//        let keyEncoder = realm.keyEncoder(key: key)
-//        print("2 ⚽️", keyEncoder)
-        
-        // 3 засунул в юзер дефолтс
-        
-//        userDefault.tokenEncoder(arrayToken: keyEncoder)
-//        
-//        let userDefaultDecoder = userDefault.tokenDecoder()
-//        
-//                
-//        print("2 ⚽️", userDefaultDecoder)
-        
-        
         
         return true
     }

@@ -87,7 +87,6 @@
 		9DC9D05229FB00E900D9791A /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9D05129FB00E900D9791A /* AudioPlayerViewController.swift */; };
 		9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9D05329FB012000D9791A /* AudioPlayerCoordinator.swift */; };
 		9DD4AD9129E9A5E9002AA212 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */; };
-		9DE244622A44E3FB00FACD44 /* UserDefaultsKeyRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE244612A44E3FB00FACD44 /* UserDefaultsKeyRealm.swift */; };
 		9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */; };
 		9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E4C5293A0E190043E19D /* LogInViewController.swift */; };
 		A4D0C160298A07769FBA2F44 /* Pods_StorageService_StorageServiceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A23AD28F16CCEC0AC653BF /* Pods_StorageService_StorageServiceTests.framework */; };
@@ -213,7 +212,6 @@
 		9DC9D05129FB00E900D9791A /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
 		9DC9D05329FB012000D9791A /* AudioPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerCoordinator.swift; sourceTree = "<group>"; };
 		9DD4AD9029E9A5E9002AA212 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
-		9DE244612A44E3FB00FACD44 /* UserDefaultsKeyRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyRealm.swift; sourceTree = "<group>"; };
 		9DE3E4812926D1F50043E19D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		9DE3E4C5293A0E190043E19D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		A20534FE252B01A8ED78408A /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -583,7 +581,6 @@
 		9DBD5C7D29CD8331009F494C /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
-				9DE244602A44DCDF00FACD44 /* UserDefaults */,
 				9D34F392299F8F85004B91E1 /* CheckLogin */,
 				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
 				9D2444AA2A307FCA00E87108 /* RealmService */,
@@ -720,14 +717,6 @@
 				9D2444B12A30935200E87108 /* UseBruteForce.swift */,
 			);
 			path = BruteForce;
-			sourceTree = "<group>";
-		};
-		9DE244602A44DCDF00FACD44 /* UserDefaults */ = {
-			isa = PBXGroup;
-			children = (
-				9DE244612A44E3FB00FACD44 /* UserDefaultsKeyRealm.swift */,
-			);
-			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		9DE3E47F292671D20043E19D /* Profile */ = {
@@ -1068,7 +1057,6 @@
 				9D99C0AA2A337F00008968FB /* LikePostsCoordinator.swift in Sources */,
 				9DBD5C7429CCF9CA009F494C /* PhotosInCell.swift in Sources */,
 				9D2444AE2A308EEF00E87108 /* UserRealmModel.swift in Sources */,
-				9DE244622A44E3FB00FACD44 /* UserDefaultsKeyRealm.swift in Sources */,
 				9DBD5C6829CC61D7009F494C /* Users.swift in Sources */,
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
 				9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */,
