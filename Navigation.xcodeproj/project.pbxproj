@@ -30,6 +30,9 @@
 		9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B42A309BE800E87108 /* LogInUser.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
 		9D34F39E29A3DCCD004B91E1 /* CheckPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */; };
+		9D3C51152A48B76F00D625B3 /* MapKitCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3C51142A48B76E00D625B3 /* MapKitCoordinator.swift */; };
+		9D3C511A2A48C26300D625B3 /* MapKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3C51192A48C26300D625B3 /* MapKitViewController.swift */; };
+		9D3C511C2A48C2D400D625B3 /* MapKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3C511B2A48C2D400D625B3 /* MapKitView.swift */; };
 		9D4E1DBA2A09158500573EC4 /* CharacterOfPlanet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */; };
 		9D4E1DBC2A09963400573EC4 /* NamesOfResidents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */; };
 		9D4E1DBF2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4E1DBE2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift */; };
@@ -154,6 +157,9 @@
 		9D2444B42A309BE800E87108 /* LogInUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUser.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		9D34F39D29A3DCCD004B91E1 /* CheckPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPassword.swift; sourceTree = "<group>"; };
+		9D3C51142A48B76E00D625B3 /* MapKitCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitCoordinator.swift; sourceTree = "<group>"; };
+		9D3C51192A48C26300D625B3 /* MapKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitViewController.swift; sourceTree = "<group>"; };
+		9D3C511B2A48C2D400D625B3 /* MapKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitView.swift; sourceTree = "<group>"; };
 		9D4E1DB92A09158500573EC4 /* CharacterOfPlanet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOfPlanet.swift; sourceTree = "<group>"; };
 		9D4E1DBB2A09963400573EC4 /* NamesOfResidents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesOfResidents.swift; sourceTree = "<group>"; };
 		9D4E1DBE2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleJsonSerializationSingleton.swift; sourceTree = "<group>"; };
@@ -336,6 +342,31 @@
 			path = CheckLogin;
 			sourceTree = "<group>";
 		};
+		9D3C51162A48B7AC00D625B3 /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				9D3C51182A48C23D00D625B3 /* Controller */,
+				9D3C51172A48C22E00D625B3 /* View */,
+			);
+			path = MapKit;
+			sourceTree = "<group>";
+		};
+		9D3C51172A48C22E00D625B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9D3C511B2A48C2D400D625B3 /* MapKitView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9D3C51182A48C23D00D625B3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9D3C51192A48C26300D625B3 /* MapKitViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		9D4E1DB42A0836C400573EC4 /* OrbitalPeriodJsonSingleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -474,6 +505,7 @@
 				9DC9D05029FB00AC00D9791A /* AudioPlayer */,
 				9D13D6232A1B79E5008AF427 /* Documents */,
 				9DE3E480292671E20043E19D /* Feed */,
+				9D3C51162A48B7AC00D625B3 /* MapKit */,
 				9D99C0A12A337E03008968FB /* LikePosts */,
 				9DE3E47F292671D20043E19D /* Profile */,
 			);
@@ -572,6 +604,7 @@
 				9D13D6262A1B7CEC008AF427 /* DocumentsCoordinator.swift */,
 				9DBD5C5E29C79BAE009F494C /* RootTabBarNavigationCoordinator.swift */,
 				9DBD5C5A29C7942A009F494C /* FeedCoordinator.swift */,
+				9D3C51142A48B76E00D625B3 /* MapKitCoordinator.swift */,
 				9DBD5C5C29C79444009F494C /* ProfileCoordinator.swift */,
 				9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */,
 			);
@@ -1030,6 +1063,7 @@
 				9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */,
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
 				9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */,
+				9D3C511C2A48C2D400D625B3 /* MapKitView.swift in Sources */,
 				9D6706492A2F73B200438374 /* DocumentsModel.swift in Sources */,
 				9DBD5C7629CCFBB1009F494C /* PhotosInCellProfile.swift in Sources */,
 				9D99C0A62A337E80008968FB /* LikePostsViewController.swift in Sources */,
@@ -1081,8 +1115,10 @@
 				9D99C0A82A337E89008968FB /* LikePostsView.swift in Sources */,
 				9DD4AD9129E9A5E9002AA212 /* BruteForce.swift in Sources */,
 				9D13D6272A1B7CEC008AF427 /* DocumentsCoordinator.swift in Sources */,
+				9D3C511A2A48C26300D625B3 /* MapKitViewController.swift in Sources */,
 				9D5FBB552A02C613001F7368 /* NetworkService.swift in Sources */,
 				9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */,
+				9D3C51152A48B76F00D625B3 /* MapKitCoordinator.swift in Sources */,
 				9DE3E4C6293A0E190043E19D /* LogInViewController.swift in Sources */,
 				9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */,
 			);
