@@ -1,13 +1,9 @@
-//
-//  ProfileCoordinator.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 19.3.23..
-//
+
 
 import Foundation
 import UIKit
 
+@available(iOS 15.0, *)
 class ProfileCoordinator: AppCoordinator {
     
     weak var parentCoordinator: AppCoordinator?
@@ -48,4 +44,10 @@ class ProfileCoordinator: AppCoordinator {
         navigationController.pushViewController(photosVC, animated: true)
     }
     
+    func showRegistration() {
+        let logInVC = LogInViewController()
+
+        logInVC.coordinator = self
+        navigationController.present(logInVC, animated: true)
+    }
 }

@@ -1,9 +1,4 @@
-//
-//  FeedView.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 5.4.23..
-//
+
 
 import Foundation
 import UIKit
