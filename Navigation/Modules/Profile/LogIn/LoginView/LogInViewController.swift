@@ -248,6 +248,8 @@ class LogInViewController: UIViewController {
         let success = dataBaseRealmService.createUser(user: user)
         if success {
             print("пользователь добавлен в базу Realm")
+        } else {
+            print("пользователь уже есть в базе Realm")
         }
     }
     
