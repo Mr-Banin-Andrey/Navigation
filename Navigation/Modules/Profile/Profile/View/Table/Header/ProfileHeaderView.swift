@@ -1,13 +1,9 @@
-//
-//  ProfileHeaderView.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 17.11.22..
-//
+
 
 import UIKit
 import SnapKit
 
+@available(iOS 15.0, *)
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
     enum StatusError: Error {
@@ -133,7 +129,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    func setup(user: User) {
+    func setup(user: UserReleaseOrTest) {
         nameProfileLabel.text = user.fullName
         imageView.image = user.userPhoto.userPhoto
         statusLabel.text = user.status
@@ -170,11 +166,11 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         } catch {
             switch error as? StatusError {
             case .emptyStatus:
-                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком короткий")
+                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком короткий", titleButton: "Попробовать ещё раз")
                 print("emptyStatus")
                 
             case .longStatus:
-                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком длинный")
+                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком длинный", titleButton: "Попробовать ещё раз")
                 print("longStatus")
                 
             default:

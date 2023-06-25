@@ -1,9 +1,4 @@
-//
-//  FeedModel.swift
-//  Navigation
-//
-//  Created by Андрей Банин on 4.3.23..
-//
+
 
 import Foundation
 import UIKit
