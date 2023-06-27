@@ -23,6 +23,6 @@ class MapKitCoordinator: AppCoordinator {
         let mapKitVc = MapKitViewController()
                 
         mapKitVc.coordinator = self
-        navigationController.pushViewController(mapKitVc, animated: true)
+        navigationController.pushViewController(mapKitVc, animated: false)
     }
 }
