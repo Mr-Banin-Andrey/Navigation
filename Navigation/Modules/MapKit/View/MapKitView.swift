@@ -51,7 +51,7 @@ class MapKitView: UIView {
         navigation.title = title
     }
     
-    func addPoute(destination: CLLocationCoordinate2D) {
+    private func addPoute(destination: CLLocationCoordinate2D) {
         guard let source = locationManager.location?.coordinate else { return }
         
         let request = MKDirections.Request()
@@ -78,7 +78,6 @@ class MapKitView: UIView {
     
     private func configureMapView() {
         self.mapView.showsUserLocation = true
-        
         self.addPin()
     }
     
@@ -95,16 +94,51 @@ class MapKitView: UIView {
         mapView.addGestureRecognizer(longTap)
     }
     
-    @objc func tapEdit(_ longGesture: UIGestureRecognizer) {
+    private func showAlert(coordinators: CLLocationCoordinate2D, pin: MKAnnotation) {
+        
+        var latitude = coordinators.latitude.description
+        var longitude = coordinators.longitude.description
+        
+        let shortLatitude = shortCoordinators(word: latitude)
+        let shortLongitude = shortCoordinators(word: longitude)
+        
+        let alertController = UIAlertController(title: "\(shortLatitude)˚N, \(shortLongitude)˚E", message: "Постороить маршрут или удалить точку", preferredStyle: .actionSheet)
+        
+        let createAction = UIAlertAction(title: "Посторить маршрут", style: .default) { _ in
+            self.addPoute(destination: coordinators)
+            
+        }
+        // нужно обновить вью, для удаления пина, один из вариантов удалять если уже выбрал и построил
+        let cancelAction = UIAlertAction(title: "Удалить отметку", style: .cancel) { _ in
+            self.mapView.removeAnnotation(pin)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(createAction)
+        
+        UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alertController, animated: true)
+    }
+    
+    private func shortCoordinators(word: String) -> String {
+        
+        if word.count <= 9 {
+            return word
+        } else {
+            let countRemove = word.count - 9
+            let result = word.dropLast(countRemove).string
+            return result
+        }
+    }
+    
+    @objc private func tapEdit(_ longGesture: UIGestureRecognizer) {
         let touchPoint = longGesture.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        
 
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
         mapView.addAnnotation(annotation)
         
-        addPoute(destination: newCoordinates)
+        showAlert(coordinators: newCoordinates, pin: annotation)
     }
     
 }
@@ -150,4 +184,9 @@ extension MapKitView: MKMapViewDelegate {
         renderer.lineWidth = 2.5
         return renderer
     }
+    
+}
+
+extension LosslessStringConvertible {
+    var string: String { .init(self) }
 }
