@@ -14,18 +14,19 @@ class MapKitView: UIView {
     
     private let locationManager = CLLocationManager()
     private let mapView = MKMapView()
+        
+    private var varibleRoute = MKMapItem()
     
-    private var varibleCoordinate = CLLocationCoordinate2D()
+    lazy var leftButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
+                                                            target: self,
+                                                            action: #selector(deletePins))
     
     init(delegate: MapKitViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
         
-        
         self.setupMapView()
-        
         self.configureMapView()
-        
         self.longTapGesture()
         
     }
@@ -46,12 +47,17 @@ class MapKitView: UIView {
         ])
     }
     
-    func navigationController(navigation: UINavigationItem, title: String) {
+    func navigationController(navigation: UINavigationItem, leftButton: UIBarButtonItem, title: String) {
         self.backgroundColor = .systemBackground
+        
+        leftButton.tintColor = UIColor(named: "blueColor")
+        
         navigation.title = title
+        navigation.leftBarButtonItems = [leftButton]
+        navigation.leftBarButtonItem = leftButton
     }
     
-    private func addPoute(destination: CLLocationCoordinate2D) {
+    private func addRoute(destination: CLLocationCoordinate2D) {
         guard let source = locationManager.location?.coordinate else { return }
         
         self.mapView.removeOverlays(mapView.overlays)
@@ -71,18 +77,25 @@ class MapKitView: UIView {
                 }
                 return
             }
+            
             if let route = response.routes.first {
                 self.mapView.delegate = self
                 self.mapView.addOverlay(route.polyline)
+                varibleRoute = response.destination
             }
         }
     }
     
     private func configureMapView() {
-        self.mapView.delegate = self
+        
+        locationManager.requestWhenInUseAuthorization()
+        
         self.mapView.showsUserLocation = true
         self.addPin()
         self.mapView.showsCompass = true
+        self.mapView.showsScale = true
+        self.mapView.showsUserLocation = true
+        self.mapView.mapType = .hybridFlyover
     }
     
     private func addPin() {
@@ -105,13 +118,10 @@ class MapKitView: UIView {
         
         let alertController = UIAlertController(title: "\(shortLatitude)˚N, \(shortLongitude)˚E", message: nil, preferredStyle: .actionSheet)
         
-        
-        let addPin = UIAlertAction(title: "Отметить точку", style: .default) { _ in
-
-        }
+        let addPin = UIAlertAction(title: "Отметить точку", style: .default)
         
         let createRoute = UIAlertAction(title: "Посторить маршрут", style: .default) { _ in
-            self.addPoute(destination: coordinators)
+            self.addRoute(destination: coordinators)
         }
         
         let cancelAction = UIAlertAction(title: "Удалить отметку", style: .cancel) { _ in
@@ -142,6 +152,12 @@ class MapKitView: UIView {
         }
     }
     
+    @objc private func deletePins() {
+        self.mapView.removeAnnotations(mapView.annotations)
+        self.addPin()
+        self.mapView.removeOverlays(mapView.overlays)
+    }
+    
     @objc private func tapEdit(_ longGesture: UIGestureRecognizer) {
         let touchPoint = longGesture.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -154,13 +170,17 @@ class MapKitView: UIView {
         annotation.title = "\(shortLatitude)˚N, \(shortLongitude)˚E"
         mapView.addAnnotation(annotation)
         
-        
         showAlert(coordinators: newCoordinates, pin: annotation)
     }
     
 }
 
 extension MapKitView: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let userLocation = locations.first?.coordinate else { return }
+        self.mapView.setCenter(userLocation, animated: true)
+    }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
@@ -179,75 +199,39 @@ extension MapKitView: CLLocationManagerDelegate {
             fatalError("Не обрабатываемый статус")
         }
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        guard let userLocation = locations.first?.coordinate else { return }
-        
-        self.mapView.setCenter(userLocation, animated: true)
-    }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        print("didFailWithError: ", error)
     }
 }
 
 extension MapKitView: MKMapViewDelegate {
-    
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = .cyan
         renderer.lineWidth = 2.5
         return renderer
     }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
-        let shortLatitude = shortCoordinatorsToString(coordinator: annotation.coordinate.latitude)
-        let shortLongitude = shortCoordinatorsToString(coordinator: annotation.coordinate.longitude)
-        var viewMarker: MKMarkerAnnotationView
-        let idView = "marker"
-
-        let refreshAction = UIAction(title: "Remove") { (action) in
-            
-            for annotationX in self.mapView.annotations {
-                if annotationX.title == "\(shortLatitude)˚N, \(shortLongitude)˚E" {
-                    self.mapView.removeAnnotation(annotationX)
-                }
-            }
-        }
-
-        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: idView) as? MKMarkerAnnotationView{
-            view.annotation = annotation
-            viewMarker = view
-        } else {
-            viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
-            viewMarker.canShowCallout = true
-            viewMarker.calloutOffset = CGPoint(x: 0, y: 8)
-            viewMarker.rightCalloutAccessoryView = UIButton(type: .close, primaryAction: refreshAction)
-        }
 
 
-        return viewMarker
-    }
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 
-        guard let annotation = view.annotation else { return }
-        
-        let shortLatitude = shortCoordinatorsToString(coordinator: annotation.coordinate.latitude)
-        let shortLongitude = shortCoordinatorsToString(coordinator: annotation.coordinate.longitude)
-        
-        for annotationX in self.mapView.annotations {
-            if annotationX.title == "\(shortLatitude)˚N, \(shortLongitude)˚E" {
-                self.mapView.removeAnnotation(annotationX)
+        guard let coordinator = view.annotation?.coordinate else { return }
+
+        for annotation in self.mapView.annotations {
+
+            if annotation.coordinate.latitude == coordinator.latitude && annotation.coordinate.longitude == coordinator.longitude {
+
+                self.mapView.removeAnnotation(annotation)
+
+                let routeCoordinate = varibleRoute.placemark.coordinate
+                let annotationCoordinate = annotation.coordinate
+
+                if routeCoordinate.latitude == annotationCoordinate.latitude && routeCoordinate.longitude == annotationCoordinate.longitude {
+                    self.mapView.removeOverlays(mapView.overlays)
+                }
             }
-        }
-        
-        
-        if self.mapView.overlays.isEmpty == false {
-            let request = MKDirections.Request()
-            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
         }
     }
 }

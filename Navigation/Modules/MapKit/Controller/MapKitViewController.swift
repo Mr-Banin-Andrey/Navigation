@@ -20,7 +20,7 @@ class MapKitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mapKitView.navigationController(navigation: navigationItem, title: "Map")        
+        self.mapKitView.navigationController(navigation: navigationItem, leftButton: mapKitView.leftButton, title: "Map")
     }
     
     override func viewDidAppear(_ animated: Bool) {
