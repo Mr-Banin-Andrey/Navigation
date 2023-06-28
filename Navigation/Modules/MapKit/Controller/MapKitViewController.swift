@@ -22,6 +22,12 @@ class MapKitViewController: UIViewController {
         
         self.mapKitView.navigationController(navigation: navigationItem, title: "Map")        
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // после вызова карты, запустить проверку локации
+    }
 
 }
 

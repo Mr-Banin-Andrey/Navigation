@@ -54,6 +54,8 @@ class MapKitView: UIView {
     private func addPoute(destination: CLLocationCoordinate2D) {
         guard let source = locationManager.location?.coordinate else { return }
         
+        self.mapView.removeOverlays(mapView.overlays)
+        
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: source))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
@@ -77,8 +79,10 @@ class MapKitView: UIView {
     }
     
     private func configureMapView() {
+        self.mapView.delegate = self
         self.mapView.showsUserLocation = true
         self.addPin()
+        self.mapView.showsCompass = true
     }
     
     private func addPin() {
@@ -96,30 +100,38 @@ class MapKitView: UIView {
     
     private func showAlert(coordinators: CLLocationCoordinate2D, pin: MKAnnotation) {
         
-        var latitude = coordinators.latitude.description
-        var longitude = coordinators.longitude.description
+        let shortLatitude = shortCoordinatorsToString(coordinator: coordinators.latitude)
+        let shortLongitude = shortCoordinatorsToString(coordinator: coordinators.longitude)
         
-        let shortLatitude = shortCoordinators(word: latitude)
-        let shortLongitude = shortCoordinators(word: longitude)
+        let alertController = UIAlertController(title: "\(shortLatitude)˚N, \(shortLongitude)˚E", message: nil, preferredStyle: .actionSheet)
         
-        let alertController = UIAlertController(title: "\(shortLatitude)˚N, \(shortLongitude)˚E", message: "Постороить маршрут или удалить точку", preferredStyle: .actionSheet)
         
-        let createAction = UIAlertAction(title: "Посторить маршрут", style: .default) { _ in
-            self.addPoute(destination: coordinators)
-            
+        let addPin = UIAlertAction(title: "Отметить точку", style: .default) { _ in
+
         }
-        // нужно обновить вью, для удаления пина, один из вариантов удалять если уже выбрал и построил
+        
+        let createRoute = UIAlertAction(title: "Посторить маршрут", style: .default) { _ in
+            self.addPoute(destination: coordinators)
+        }
+        
         let cancelAction = UIAlertAction(title: "Удалить отметку", style: .cancel) { _ in
-            self.mapView.removeAnnotation(pin)
+            for annotationX in self.mapView.annotations {
+                if annotationX.title == "\(shortLatitude)˚N, \(shortLongitude)˚E" {
+                    self.mapView.removeAnnotation(annotationX)
+                }
+            }
         }
         
         alertController.addAction(cancelAction)
-        alertController.addAction(createAction)
+        alertController.addAction(createRoute)
+        alertController.addAction(addPin)
         
         UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alertController, animated: true)
     }
     
-    private func shortCoordinators(word: String) -> String {
+    private func shortCoordinatorsToString(coordinator: CLLocationDegrees) -> String {
+        
+        let word = coordinator.description
         
         if word.count <= 9 {
             return word
@@ -133,10 +145,15 @@ class MapKitView: UIView {
     @objc private func tapEdit(_ longGesture: UIGestureRecognizer) {
         let touchPoint = longGesture.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-
+        
+        let shortLatitude = shortCoordinatorsToString(coordinator: newCoordinates.latitude)
+        let shortLongitude = shortCoordinatorsToString(coordinator: newCoordinates.longitude)
+        
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
+        annotation.title = "\(shortLatitude)˚N, \(shortLongitude)˚E"
         mapView.addAnnotation(annotation)
+        
         
         showAlert(coordinators: newCoordinates, pin: annotation)
     }
@@ -153,7 +170,6 @@ extension MapKitView: CLLocationManagerDelegate {
             print("У пользователя спросили разрешения использовать геолокацию")
 
         case .authorizedAlways, .authorizedWhenInUse:
-            manager.delegate = self
             manager.requestLocation()
             print("Пользователь разрешил использовать геолокацию")
 
@@ -185,6 +201,55 @@ extension MapKitView: MKMapViewDelegate {
         return renderer
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        let shortLatitude = shortCoordinatorsToString(coordinator: annotation.coordinate.latitude)
+        let shortLongitude = shortCoordinatorsToString(coordinator: annotation.coordinate.longitude)
+        var viewMarker: MKMarkerAnnotationView
+        let idView = "marker"
+
+        let refreshAction = UIAction(title: "Remove") { (action) in
+            
+            for annotationX in self.mapView.annotations {
+                if annotationX.title == "\(shortLatitude)˚N, \(shortLongitude)˚E" {
+                    self.mapView.removeAnnotation(annotationX)
+                }
+            }
+        }
+
+        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: idView) as? MKMarkerAnnotationView{
+            view.annotation = annotation
+            viewMarker = view
+        } else {
+            viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
+            viewMarker.canShowCallout = true
+            viewMarker.calloutOffset = CGPoint(x: 0, y: 8)
+            viewMarker.rightCalloutAccessoryView = UIButton(type: .close, primaryAction: refreshAction)
+        }
+
+
+        return viewMarker
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+
+        guard let annotation = view.annotation else { return }
+        
+        let shortLatitude = shortCoordinatorsToString(coordinator: annotation.coordinate.latitude)
+        let shortLongitude = shortCoordinatorsToString(coordinator: annotation.coordinate.longitude)
+        
+        for annotationX in self.mapView.annotations {
+            if annotationX.title == "\(shortLatitude)˚N, \(shortLongitude)˚E" {
+                self.mapView.removeAnnotation(annotationX)
+            }
+        }
+        
+        
+        if self.mapView.overlays.isEmpty == false {
+            let request = MKDirections.Request()
+            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
+        }
+    }
 }
 
 extension LosslessStringConvertible {
