@@ -51,7 +51,7 @@
 		9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */; };
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
 		9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */; };
-		9D8D663E2A4C6C420055CCDB /* MapKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D663D2A4C6C420055CCDB /* MapKitSettings.swift */; };
+		9D8D663E2A4C6C420055CCDB /* LocationManagerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */; };
 		9D99C0A62A337E80008968FB /* LikePostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A52A337E80008968FB /* LikePostsViewController.swift */; };
 		9D99C0A82A337E89008968FB /* LikePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A72A337E89008968FB /* LikePostsView.swift */; };
 		9D99C0AA2A337F00008968FB /* LikePostsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */; };
@@ -179,7 +179,7 @@
 		9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
-		9D8D663D2A4C6C420055CCDB /* MapKitSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitSettings.swift; sourceTree = "<group>"; };
+		9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerSettings.swift; sourceTree = "<group>"; };
 		9D99C0A52A337E80008968FB /* LikePostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsViewController.swift; sourceTree = "<group>"; };
 		9D99C0A72A337E89008968FB /* LikePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsView.swift; sourceTree = "<group>"; };
 		9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsCoordinator.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				9D3C51182A48C23D00D625B3 /* Controller */,
-				9D8D663F2A4C6C460055CCDB /* MapKitSettings */,
+				9D8D663F2A4C6C460055CCDB /* LocationManagerSettings */,
 				9D3C51172A48C22E00D625B3 /* View */,
 			);
 			path = MapKit;
@@ -458,12 +458,12 @@
 			path = DocumentsModel;
 			sourceTree = "<group>";
 		};
-		9D8D663F2A4C6C460055CCDB /* MapKitSettings */ = {
+		9D8D663F2A4C6C460055CCDB /* LocationManagerSettings */ = {
 			isa = PBXGroup;
 			children = (
-				9D8D663D2A4C6C420055CCDB /* MapKitSettings.swift */,
+				9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */,
 			);
-			path = MapKitSettings;
+			path = LocationManagerSettings;
 			sourceTree = "<group>";
 		};
 		9D99C0A12A337E03008968FB /* LikePosts */ = {
@@ -1072,7 +1072,7 @@
 				9D63D13B29FBCC130090C859 /* Songs.swift in Sources */,
 				9DBD5C5D29C79444009F494C /* ProfileCoordinator.swift in Sources */,
 				9D5FBB572A02C65D001F7368 /* AppConfiguration.swift in Sources */,
-				9D8D663E2A4C6C420055CCDB /* MapKitSettings.swift in Sources */,
+				9D8D663E2A4C6C420055CCDB /* LocationManagerSettings.swift in Sources */,
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
 				9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */,
 				9D3C511C2A48C2D400D625B3 /* MapKitView.swift in Sources */,

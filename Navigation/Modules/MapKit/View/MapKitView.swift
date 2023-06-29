@@ -2,7 +2,6 @@
 import Foundation
 import UIKit
 import MapKit
-import CoreLocation
 
 protocol MapKitViewDelegate: AnyObject {
     
@@ -12,7 +11,6 @@ class MapKitView: UIView {
     
     private weak var delegate: MapKitViewDelegate?
     
-    private let locationManager = CLLocationManager()
     private let mapView = MKMapView()
         
     private var varibleRoute = MKMapItem()
@@ -21,6 +19,8 @@ class MapKitView: UIView {
                                                             target: self,
                                                             action: #selector(deletePins))
     
+    private lazy var locationManager: LocationManagerSettings = LocationManagerSettings.shared
+    
     init(delegate: MapKitViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
@@ -28,7 +28,6 @@ class MapKitView: UIView {
         self.setupMapView()
         self.configureMapView()
         self.longTapGesture()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -57,8 +56,7 @@ class MapKitView: UIView {
         navigation.leftBarButtonItem = leftButton
     }
     
-    private func addRoute(destination: CLLocationCoordinate2D) {
-        guard let source = locationManager.location?.coordinate else { return }
+    private func addRoute(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) {
         
         self.mapView.removeOverlays(mapView.overlays)
         
@@ -87,9 +85,6 @@ class MapKitView: UIView {
     }
     
     private func configureMapView() {
-        
-        locationManager.requestWhenInUseAuthorization()
-        
         self.mapView.showsUserLocation = true
         self.addPin()
         self.mapView.showsCompass = true
@@ -113,15 +108,16 @@ class MapKitView: UIView {
     
     private func showAlert(coordinators: CLLocationCoordinate2D, pin: MKAnnotation) {
         
-        let shortLatitude = shortCoordinatorsToString(coordinator: coordinators.latitude)
-        let shortLongitude = shortCoordinatorsToString(coordinator: coordinators.longitude)
+        let shortLatitude = locationManager.shortCoordinatorsToString(coordinator: coordinators.latitude)
+        let shortLongitude = locationManager.shortCoordinatorsToString(coordinator: coordinators.longitude)
         
         let alertController = UIAlertController(title: "\(shortLatitude)˚N, \(shortLongitude)˚E", message: nil, preferredStyle: .actionSheet)
         
         let addPin = UIAlertAction(title: "Отметить точку", style: .default)
         
         let createRoute = UIAlertAction(title: "Посторить маршрут", style: .default) { _ in
-            self.addRoute(destination: coordinators)
+            guard let source = self.locationManager.giveUserLocation() else { return }
+            self.addRoute(source: source, destination: coordinators)
         }
         
         let cancelAction = UIAlertAction(title: "Удалить отметку", style: .cancel) { _ in
@@ -139,19 +135,6 @@ class MapKitView: UIView {
         UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alertController, animated: true)
     }
     
-    private func shortCoordinatorsToString(coordinator: CLLocationDegrees) -> String {
-        
-        let word = coordinator.description
-        
-        if word.count <= 9 {
-            return word
-        } else {
-            let countRemove = word.count - 9
-            let result = word.dropLast(countRemove).string
-            return result
-        }
-    }
-    
     @objc private func deletePins() {
         self.mapView.removeAnnotations(mapView.annotations)
         self.addPin()
@@ -162,8 +145,8 @@ class MapKitView: UIView {
         let touchPoint = longGesture.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
-        let shortLatitude = shortCoordinatorsToString(coordinator: newCoordinates.latitude)
-        let shortLongitude = shortCoordinatorsToString(coordinator: newCoordinates.longitude)
+        let shortLatitude = locationManager.shortCoordinatorsToString(coordinator: newCoordinates.latitude)
+        let shortLongitude = locationManager.shortCoordinatorsToString(coordinator: newCoordinates.longitude)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
@@ -175,35 +158,6 @@ class MapKitView: UIView {
     
 }
 
-extension MapKitView: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let userLocation = locations.first?.coordinate else { return }
-        self.mapView.setCenter(userLocation, animated: true)
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-            print("У пользователя спросили разрешения использовать геолокацию")
-
-        case .authorizedAlways, .authorizedWhenInUse:
-            manager.requestLocation()
-            print("Пользователь разрешил использовать геолокацию")
-
-        case .denied, .restricted:
-            print("Попросить пользователя зайти в настройки")
-        @unknown default:
-            fatalError("Не обрабатываемый статус")
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError: ", error)
-    }
-}
 
 extension MapKitView: MKMapViewDelegate {
 
@@ -213,7 +167,6 @@ extension MapKitView: MKMapViewDelegate {
         renderer.lineWidth = 2.5
         return renderer
     }
-
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
 
@@ -234,8 +187,4 @@ extension MapKitView: MKMapViewDelegate {
             }
         }
     }
-}
-
-extension LosslessStringConvertible {
-    var string: String { .init(self) }
 }
