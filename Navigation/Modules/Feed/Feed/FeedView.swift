@@ -103,7 +103,9 @@ class FeedView: UIView {
             
             textCheck.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             textCheck.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 200),
-            textCheck.widthAnchor.constraint(equalToConstant: 150),
+//            textCheck.widthAnchor.constraint(equalToConstant: 200),
+            textCheck.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
+            textCheck.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             textCheck.heightAnchor.constraint(equalToConstant: 30),
             
             checkGuessButton.topAnchor.constraint(equalTo: textCheck.bottomAnchor, constant: 25),

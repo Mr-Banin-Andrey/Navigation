@@ -76,7 +76,7 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         likePostsNC.tabBarItem = likePostsItem
         mapKitNc.tabBarItem = mapKitItem
         
-        tabBarCont.viewControllers = [feedNC, profileNC, likePostsNC, audioPlayerNC, mapKitNc]
+        tabBarCont.viewControllers = [feedNC, mapKitNc, profileNC, likePostsNC, audioPlayerNC]
         navigationController.pushViewController(tabBarCont, animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
         

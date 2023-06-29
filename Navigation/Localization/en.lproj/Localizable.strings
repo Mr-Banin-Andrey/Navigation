@@ -52,7 +52,6 @@
 "firebase.checkerService.alert.accountDoesNotExist.message" = "Account with such data does not exist";
 "firebase.checkerService.alert.cellEmpty.message" = "Fill in all the fields";
 
-
 "loginVC.passwordTextField.placeholder" = "Password";
 "loginVC.logInButton.setTitle" = "Log In";
 "loginVC.alert.message" = "User saved";
