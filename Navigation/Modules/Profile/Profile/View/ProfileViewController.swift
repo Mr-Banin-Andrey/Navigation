@@ -236,7 +236,12 @@ extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecog
             self.showLikeAnimateLabel()
             
         } else {
-            ShowAlert().showAlert(vc: self, title: "Ошибка - пост есть в понравившимся", message: "Выберите другой пост", titleButton: "ну ладно")
+            ShowAlert().showAlert(
+                vc: self,
+                title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
+                message: NSLocalizedString("profileVC.tapLikePost.alert.message", comment: ""),
+                titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+            )
         }
         self.coreDataService.fetchResultsController()
         self.coreDataService.performFetch()

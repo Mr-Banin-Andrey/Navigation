@@ -96,7 +96,7 @@ class MapKitView: UIView {
     private func addPin() {
         let pin = MKPointAnnotation()
         pin.coordinate = CLLocationCoordinate2D(latitude: 42.278356, longitude: 18.838163)
-        pin.title = "Old Town Budva"
+        pin.title = NSLocalizedString("mapKitVC.pin.title", comment: "")
         
         mapView.addAnnotation(pin)
     }
@@ -111,21 +111,32 @@ class MapKitView: UIView {
         let shortLatitude = locationManager.shortCoordinatorsToString(coordinator: coordinators.latitude)
         let shortLongitude = locationManager.shortCoordinatorsToString(coordinator: coordinators.longitude)
         
-        let alertController = UIAlertController(title: "\(shortLatitude)˚N, \(shortLongitude)˚E", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(
+            title: "\(shortLatitude)\(NSLocalizedString("mapKitVC.pinTitle.title.latitude", comment: "")), \(shortLongitude)\(NSLocalizedString("mapKitVC.pinTitle.title.longitude", comment: ""))",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         
-        let addPin = UIAlertAction(title: "Отметить точку", style: .default)
+        let addPin = UIAlertAction(
+            title: NSLocalizedString("mapKitVC.alertAction.addPin.title", comment: ""),
+            style: .default
+        )
         
-        let createRoute = UIAlertAction(title: "Посторить маршрут", style: .default) { _ in
-            guard let source = self.locationManager.giveUserLocation() else { return }
-            self.addRoute(source: source, destination: coordinators)
+        let createRoute = UIAlertAction(
+            title: NSLocalizedString("mapKitVC.alertAction.createRoute.title", comment: ""),
+            style: .default) { _ in
+                guard let source = self.locationManager.giveUserLocation() else { return }
+                self.addRoute(source: source, destination: coordinators)
         }
         
-        let cancelAction = UIAlertAction(title: "Удалить отметку", style: .cancel) { _ in
-            for annotationX in self.mapView.annotations {
-                if annotationX.title == "\(shortLatitude)˚N, \(shortLongitude)˚E" {
-                    self.mapView.removeAnnotation(annotationX)
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("mapKitVC.alertAction.cancelAction.title", comment: ""),
+            style: .cancel) { _ in
+                for annotationX in self.mapView.annotations {
+                    if annotationX.title == "\(shortLatitude)\(NSLocalizedString("mapKitVC.pinTitle.title.latitude", comment: "")), \(shortLongitude)\(NSLocalizedString("mapKitVC.pinTitle.title.longitude", comment: ""))" {
+                        self.mapView.removeAnnotation(annotationX)
+                    }
                 }
-            }
         }
         
         alertController.addAction(cancelAction)
@@ -150,7 +161,7 @@ class MapKitView: UIView {
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
-        annotation.title = "\(shortLatitude)˚N, \(shortLongitude)˚E"
+        annotation.title = "\(shortLatitude)\(NSLocalizedString("mapKitVC.pinTitle.title.latitude", comment: "")), \(shortLongitude)\(NSLocalizedString("mapKitVC.pinTitle.title.longitude", comment: ""))"
         mapView.addAnnotation(annotation)
         
         showAlert(coordinators: newCoordinates, pin: annotation)

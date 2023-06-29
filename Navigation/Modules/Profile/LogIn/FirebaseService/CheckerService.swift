@@ -42,10 +42,20 @@ class CheckerService {
         if let error = response.error {
             if error.localizedDescription == "The password is invalid or the user does not have a password." {
                 let showAlert = ShowAlert()
-                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Неверный логин или пароль", titleButton: "Попробовать ещё раз")
+                showAlert.showAlert(
+                    vc: vc,
+                    title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
+                    message: NSLocalizedString("firebase.checkerService.alert.accountExists.message", comment: ""),
+                    titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+                )
             } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
                 let showAlert = ShowAlert()
-                showAlert.showAlert(vc: vc, title: "Ошибка", message: "Аккаунта с такими данными не существует", titleButton: "Попробовать ещё раз")
+                showAlert.showAlert(
+                    vc: vc,
+                    title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
+                    message: NSLocalizedString("firebase.checkerService.alert.accountDoesNotExist.message", comment: ""),
+                    titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+                )
             }
             
             useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
@@ -72,12 +82,16 @@ class CheckerService {
     ) -> Bool {
         if email.isEmpty || password.isEmpty {
             let showAlert = ShowAlert()
-            showAlert.showAlert(vc: vc, title: "Ошибка", message: "Заполните все поля", titleButton: "Попробовать ещё раз")
+            showAlert.showAlert(
+                vc: vc,
+                title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
+                message: NSLocalizedString("firebase.checkerService.alert.cellEmpty.message", comment: ""),
+                titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+            )
             return true
         }
         return false
     }
-    
     
 }
 
@@ -93,8 +107,9 @@ extension CheckerService: CheckerServiceProtocol {
             vc: vc,
             email: email,
             password: password,
-            title: "Ошибка",
-            message: "Заполните все поля")
+            title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
+            message: NSLocalizedString("firebase.checkerService.alert.cellEmpty.message", comment: "")
+        )
         
         if isEmpty == false {
             Auth.auth().createUser(
@@ -102,8 +117,10 @@ extension CheckerService: CheckerServiceProtocol {
                 password: password
             ) { [weak self] (authData, error) in
                 self?.responseHendler(
-                    (authData: authData, error: error), vc: vc,
-                    completion: completion)
+                    (authData: authData, error: error),
+                    vc: vc,
+                    completion: completion
+                )
             }
         }
     }
@@ -118,8 +135,9 @@ extension CheckerService: CheckerServiceProtocol {
             vc: vc,
             email: email,
             password: password,
-            title: "Ошибка",
-            message: "Заполните все поля")
+            title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
+            message: NSLocalizedString("firebase.checkerService.alert.cellEmpty.message", comment: "")
+        )
         
         if isEmpty == false {
             Auth.auth().signIn(
@@ -127,8 +145,10 @@ extension CheckerService: CheckerServiceProtocol {
                 password: password
             ) { [weak self] (authData, error) in
                 self?.responseHendler(
-                    (authData: authData, error: error), vc: vc,
-                    completion: completion)
+                    (authData: authData, error: error),
+                    vc: vc,
+                    completion: completion
+                )
             }
         }
     }

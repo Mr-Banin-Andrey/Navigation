@@ -69,9 +69,10 @@ class LogInViewController: UIViewController {
         return login
     }()
     
+    
     private lazy var passwordTextField: UITextField = {
         let password = UITextField()
-        password.placeholder = "Password"
+        password.placeholder = NSLocalizedString("loginVC.passwordTextField.placeholder", comment: "")
         password.font = UIFont.systemFont(ofSize: 16)
         password.autocapitalizationType = .none
         password.textColor = .black
@@ -82,7 +83,8 @@ class LogInViewController: UIViewController {
     
     lazy var logInButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Log In", for: .normal)
+        button.setTitle(NSLocalizedString("loginVC.logInButton.setTitle", comment: ""),
+                        for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
@@ -100,18 +102,27 @@ class LogInViewController: UIViewController {
     }()
         
     private lazy var alertController: UIAlertController = {
-        let alert = UIAlertController(title: "", message: "Пользователь сохранен", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "войти", style: .default, handler: { _ in
-            self.dismiss(animated: true)
-            self.coordinator?.showProfileVC()
-            print("alert Пользователь сохранен")
-        }))
+        let alert = UIAlertController(
+            title: "",
+            message: NSLocalizedString("loginVC.alert.message", comment: ""),
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("loginVC.logInButton.setTitle", comment: ""),
+            style: .default,
+            handler: { _ in
+                self.dismiss(animated: true)
+                self.coordinator?.showProfileVC()
+                print("alert Пользователь сохранен")
+            })
+        )
         return alert
     }()
     
+    
     lazy var singUpButton: CustomButton = {
         let button = CustomButton(
-            title: "Регистрация",
+            title: NSLocalizedString("loginVC.singUpButton.title", comment: ""),
             bgColor: UIColor(named: "blueColor") ?? UIColor.red
         ) { [unowned self] in
             self.coordinator?.showRegistration()
@@ -239,9 +250,10 @@ class LogInViewController: UIViewController {
     
     private func viewPresent() {
         self.singUpButton.isHidden = true
-        self.logInButton.setTitle("Сохранить", for: .normal)
-        self.passwordTextField.placeholder = "пароль не менее 6 символов"
-        self.loginTextField.placeholder = "ваш e-mail"
+        self.logInButton.setTitle(NSLocalizedString("loginVC.modalPresent.logInButton.title", comment: ""),
+                                  for: .normal)
+        self.passwordTextField.placeholder = NSLocalizedString("loginVC.modalPresent.passwordTextField.placeholder", comment: "")
+        self.loginTextField.placeholder = NSLocalizedString("loginVC.modalPresent.loginTextField.placeholder", comment: "")
     }
     
     private func createUserRealm(user: LogInUser) {

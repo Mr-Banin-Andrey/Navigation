@@ -52,6 +52,7 @@
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
 		9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */; };
 		9D8D663E2A4C6C420055CCDB /* LocationManagerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */; };
+		9D8D66432A4D6D780055CCDB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8D66452A4D6D780055CCDB /* Localizable.strings */; };
 		9D99C0A62A337E80008968FB /* LikePostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A52A337E80008968FB /* LikePostsViewController.swift */; };
 		9D99C0A82A337E89008968FB /* LikePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A72A337E89008968FB /* LikePostsView.swift */; };
 		9D99C0AA2A337F00008968FB /* LikePostsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */; };
@@ -180,6 +181,9 @@
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerSettings.swift; sourceTree = "<group>"; };
+		9D8D66442A4D6D780055CCDB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9D8D66462A4D6D910055CCDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9D8D66472A4D6D910055CCDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9D99C0A52A337E80008968FB /* LikePostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsViewController.swift; sourceTree = "<group>"; };
 		9D99C0A72A337E89008968FB /* LikePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsView.swift; sourceTree = "<group>"; };
 		9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsCoordinator.swift; sourceTree = "<group>"; };
@@ -466,6 +470,14 @@
 			path = LocationManagerSettings;
 			sourceTree = "<group>";
 		};
+		9D8D66402A4D6D010055CCDB /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				9D8D66452A4D6D780055CCDB /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		9D99C0A12A337E03008968FB /* LikePosts */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +604,7 @@
 		9DBD55B328FF1A1800454D01 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				9D8D66402A4D6D010055CCDB /* Localization */,
 				9DB5FA2F29B3B10600A6D424 /* ApplicationLayer */,
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
@@ -909,6 +922,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 9DBD55A828FF1A1800454D01;
 			packageReferences = (
@@ -950,6 +964,7 @@
 				9D4E1DC82A0D84AE00573EC4 /* GoogleService-Info.plist in Resources */,
 				9DBD55C128FF1A1900454D01 /* LaunchScreen.storyboard in Resources */,
 				9DB8172F29FB4F0100988937 /* Король и шут.mp3 in Resources */,
+				9D8D66432A4D6D780055CCDB /* Localizable.strings in Resources */,
 				9DB8172D29FB4F0100988937 /* Linkin park.mp3 in Resources */,
 				9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */,
 				9D01F5362A004220009BD65E /* Justin Timberlake.mp3 in Resources */,
@@ -1157,10 +1172,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9D8D66452A4D6D780055CCDB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9D8D66442A4D6D780055CCDB /* en */,
+				9D8D66472A4D6D910055CCDB /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9DBD55C028FF1A1900454D01 /* Base */,
+				9D8D66462A4D6D910055CCDB /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1292,6 +1317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1352,6 +1378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

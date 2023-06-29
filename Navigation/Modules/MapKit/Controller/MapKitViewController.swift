@@ -24,7 +24,11 @@ class MapKitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mapKitView.navigationController(navigation: navigationItem, leftButton: mapKitView.leftButton, title: "Map")
+        self.mapKitView.navigationController(
+            navigation: navigationItem,
+            leftButton: mapKitView.leftButton,
+            title: NSLocalizedString("mapKitVC.navigationController.title", comment: "")
+        )
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,4 +71,4 @@ extension MapKitViewController: CLLocationManagerDelegate {
     }
 }
 
-
+//"mapKitVC.navigationController.title" = "Map"

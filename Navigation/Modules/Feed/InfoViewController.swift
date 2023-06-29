@@ -6,7 +6,7 @@ class InfoViewController: UIViewController {
     
     //MARK: - 1. Properties
     private lazy var button: CustomButton = {
-        let button = CustomButton(title: "click", bgColor: .blue) { [unowned self] in
+        let button = CustomButton(title: NSLocalizedString("infoVC.button.title", comment: ""), bgColor: .blue) { [unowned self] in
             self.present(alertController, animated: true, completion: nil)
         }
         return button
@@ -35,7 +35,11 @@ class InfoViewController: UIViewController {
         return table
     }()
     
-    let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
+    let alertController = UIAlertController(
+        title: NSLocalizedString("infoVC.alert.title", comment: ""),
+        message: NSLocalizedString("infoVC.alert.message", comment: ""),
+        preferredStyle: .alert
+    )
     
     weak var coordinator: FeedCoordinator?
     
@@ -74,7 +78,7 @@ class InfoViewController: UIViewController {
         TitleJsonSerialization.shared.loadJson { [weak self] value in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.titleLabel.text = "Title: \(value)"
+                self.titleLabel.text = "\(NSLocalizedString("infoVC.titleLabel.text", comment: "")) \(value)"
                 print(value, "TitleJsonSerialization")
             }
         }
@@ -82,7 +86,7 @@ class InfoViewController: UIViewController {
         OrbitalPeriodJsonSingleton.shared.loadJson { [weak self] value in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.orbitalPeriodLabel.text = "Период обращения планеты: \(value)"
+                self.orbitalPeriodLabel.text = "\(NSLocalizedString("infoVC.orbitalPeriodLabel.text", comment: "")) \(value)"
                 print(value, "OrbitalPeriodJsonSingleton")
             }
         }
@@ -104,7 +108,7 @@ class InfoViewController: UIViewController {
             }
         }
     }
-            
+    
     func setupConstraints() {
         view.addSubview(button)
         view.addSubview(self.titleLabel)
@@ -129,12 +133,20 @@ class InfoViewController: UIViewController {
     }
     
     func setupAlertController() {
-        alertController.addAction(UIAlertAction(title: "red", style: .default, handler: { _ in
-            print("left button")
-        }))
-        alertController.addAction(UIAlertAction(title: "blue", style: .default, handler: { _ in
-            print("right button")
-        }))
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("infoVC.alert.action.leftButton.title", comment: ""),
+            style: .default,
+            handler: { _ in
+                print("left button")
+            })
+        )
+        alertController.addAction(UIAlertAction(
+            title: NSLocalizedString("infoVC.alert.action.rightButton.title", comment: ""),
+            style: .default,
+            handler: { _ in
+                print("right button")
+            })
+        )
     }
     
     private func timerStart() {
@@ -167,7 +179,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
         
         if namesOfResidentsArray.isEmpty == true {
-            cell.textLabel?.text = "empty"
+            cell.textLabel?.text = NSLocalizedString("infoVC.cell.textLabel.text", comment: "")
         } else {
             cell.textLabel?.text = namesOfResidentsArray[indexPath.row]
         }
