@@ -19,7 +19,7 @@ class FeedView: UIView {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Feed"
+        label.text = "viewController.title.feed".localized
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -34,7 +34,7 @@ class FeedView: UIView {
     }()
     
     private lazy var firstButton: CustomButton = {
-        let button = CustomButton(title: "Show Post", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(title: "feedVC.button.firstButton.showPost.title".localized, bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
             delegate?.showPostVCon()
             tapAction?()
         }
@@ -42,7 +42,7 @@ class FeedView: UIView {
     }()
     
     private lazy var secondButton: CustomButton = {
-        let button = CustomButton(title: "Show Info", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(title: "feedVC.button.secondButton.showPost.title".localized, bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
             delegate?.showInfoVCon()
             tapAction?()
         }
@@ -51,7 +51,7 @@ class FeedView: UIView {
     
     lazy var textCheck: UITextField = {
         let textStatus = UITextField()
-        textStatus.placeholder = " Text Check "
+        textStatus.placeholder = "feedVC.textCheckField.placeholder".localized
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textStatus.backgroundColor = .white
         textStatus.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class FeedView: UIView {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "Check guess", bgColor: .blue) { [unowned self] in
+        let button = CustomButton(title: "feedVC.checkGuessButton.title".localized, bgColor: .blue) { [unowned self] in
             delegate?.guessWord()
             tapAction?()
         }
@@ -103,7 +103,9 @@ class FeedView: UIView {
             
             textCheck.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             textCheck.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 200),
-            textCheck.widthAnchor.constraint(equalToConstant: 150),
+//            textCheck.widthAnchor.constraint(equalToConstant: 200),
+            textCheck.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
+            textCheck.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             textCheck.heightAnchor.constraint(equalToConstant: 30),
             
             checkGuessButton.topAnchor.constraint(equalTo: textCheck.bottomAnchor, constant: 25),
@@ -115,5 +117,4 @@ class FeedView: UIView {
         ])
     }
 }
-
 

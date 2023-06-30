@@ -69,9 +69,10 @@ class LogInViewController: UIViewController {
         return login
     }()
     
+    
     private lazy var passwordTextField: UITextField = {
         let password = UITextField()
-        password.placeholder = "Password"
+        password.placeholder = "loginVC.passwordTextField.placeholder".localized
         password.font = UIFont.systemFont(ofSize: 16)
         password.autocapitalizationType = .none
         password.textColor = .black
@@ -82,7 +83,8 @@ class LogInViewController: UIViewController {
     
     lazy var logInButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Log In", for: .normal)
+        button.setTitle("loginVC.logInButton.setTitle".localized,
+                        for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
@@ -100,18 +102,27 @@ class LogInViewController: UIViewController {
     }()
         
     private lazy var alertController: UIAlertController = {
-        let alert = UIAlertController(title: "", message: "Пользователь сохранен", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "войти", style: .default, handler: { _ in
-            self.dismiss(animated: true)
-            self.coordinator?.showProfileVC()
-            print("alert Пользователь сохранен")
-        }))
+        let alert = UIAlertController(
+            title: "",
+            message: "loginVC.alert.message".localized,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: "loginVC.logInButton.setTitle".localized,
+            style: .default,
+            handler: { _ in
+                self.dismiss(animated: true)
+                self.coordinator?.showProfileVC()
+                print("alert Пользователь сохранен")
+            })
+        )
         return alert
     }()
     
+    
     lazy var singUpButton: CustomButton = {
         let button = CustomButton(
-            title: "Регистрация",
+            title: "loginVC.singUpButton.title".localized,
             bgColor: UIColor(named: "blueColor") ?? UIColor.red
         ) { [unowned self] in
             self.coordinator?.showRegistration()
@@ -239,9 +250,10 @@ class LogInViewController: UIViewController {
     
     private func viewPresent() {
         self.singUpButton.isHidden = true
-        self.logInButton.setTitle("Сохранить", for: .normal)
-        self.passwordTextField.placeholder = "пароль не менее 6 символов"
-        self.loginTextField.placeholder = "ваш e-mail"
+        self.logInButton.setTitle("loginVC.modalPresent.logInButton.title".localized,
+                                  for: .normal)
+        self.passwordTextField.placeholder = "loginVC.modalPresent.passwordTextField.placeholder".localized
+        self.loginTextField.placeholder = "loginVC.modalPresent.loginTextField.placeholder".localized
     }
     
     private func createUserRealm(user: LogInUser) {

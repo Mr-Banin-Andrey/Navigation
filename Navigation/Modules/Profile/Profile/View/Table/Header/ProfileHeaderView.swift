@@ -41,7 +41,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var showStatusButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
-        button.setTitle("Показать мысли чайки", for: .normal)
+        button.setTitle("profileHV.showStatusButton.setTitle".localized,
+                        for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -52,6 +53,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
+    
+    
     
     private lazy var textStatusField: UITextField = {
         let textStatus = UITextField()
@@ -166,11 +169,21 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         } catch {
             switch error as? StatusError {
             case .emptyStatus:
-                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком короткий", titleButton: "Попробовать ещё раз")
+                alert.showAlert(
+                    vc: ProfileViewController(),
+                    title: "universalMeaning.alert.title".localized,
+                    message: "profileHV.alert.message.short".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
                 print("emptyStatus")
                 
             case .longStatus:
-                alert.showAlert(vc: ProfileViewController(), title: "Ошибка", message: "статус слишком длинный", titleButton: "Попробовать ещё раз")
+                alert.showAlert(
+                    vc: ProfileViewController(),
+                    title: "universalMeaning.alert.title",
+                    message: "profileHV.alert.message.long".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
                 print("longStatus")
                 
             default:
@@ -183,3 +196,4 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
 extension String {
     var userPhoto: UIImage? { get { return UIImage(named: self) } }
 }
+

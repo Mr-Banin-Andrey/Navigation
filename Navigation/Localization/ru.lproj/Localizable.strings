@@ -1,0 +1,69 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Андрей Банин on 29.6.23..
+  
+*/
+"universalMeaning.Button.tryAgain" = "Попробовать ещё раз";
+"universalMeaning.alert.title" = "Ошибка";
+
+"viewController.title.feed" = "Лента";
+"tabBarItem.title.profile" = "Профиль";
+"tabBarItem.title.audioPlayer" = "Музыка";
+"viewController.title.likePosts" = "Понравившиеся";
+"viewController.title.maps" = "Карты";
+
+"feedModel.isCheckResult.true" = "ВЕРНО ✔️";
+"feedModel.isCheckResult.false" = "НЕВЕРНО ✖️";
+
+"feedVC.button.firstButton.showPost.title" = "Открыть Пост";
+"feedVC.button.secondButton.showPost.title" = "Открыть Инфо";
+"feedVC.textCheckField.placeholder" = " Введите слово для проверки ";
+"feedVC.checkGuessButton.title" = "Проверить слово";
+
+"infoVC.button.title" = "жмак";
+"infoVC.alert.title" = "Вопрос";
+"infoVC.alert.message" = "красная или синия";
+"infoVC.titleLabel.text" = "Заголовок:";
+"infoVC.orbitalPeriodLabel.text" = "Период обращения планеты:";
+"infoVC.alert.action.leftButton.title" = "красная";
+"infoVC.alert.action.rightButton.title" = "синия";
+"infoVC.cell.textLabel.text" = "пусто";
+
+"postVC.titleView.PostTitle.title" = "Пост";
+
+"mapKitVC.navigationController.title" = "Карта";
+"mapKitVC.pin.title" = "Старый город Будва";
+"mapKitVC.pinTitle.title.latitude" = "˚с. ш.";
+"mapKitVC.pinTitle.title.longitude" = "˚в. д.";
+"mapKitVC.alertAction.addPin.title" = "Добавить отметку";
+"mapKitVC.alertAction.createRoute.title" = "Построить маршрут";
+"mapKitVC.alertAction.cancelAction.title" = "Удалить отметку";
+
+"likePostsVC.tableView.swipe.action.title" = "Удалить";
+"likePostsVC.alertController.title" = "Фильтр по автору";
+"likePostsVC.action.createAction.title" = "Применить";
+
+"likePostsView.alert.placeholder" = "Введите автора";
+"likePostsView.alert.action.title" = "Отменить";
+
+"firebase.checkerService.alert.accountExists.message" = "Неверный логин или пароль";
+"firebase.checkerService.alert.accountDoesNotExist.message" = "Аккаунта с такими данными не существует";
+"firebase.checkerService.alert.cellEmpty.message" = "Заполните все поля";
+
+"loginVC.passwordTextField.placeholder" = "Пароль";
+"loginVC.logInButton.setTitle" = "Войти";
+"loginVC.alert.message" = "Пользователь сохранен";
+"loginVC.singUpButton.title" = "Регистрация";
+"loginVC.modalPresent.logInButton.title" = "Сохранить";
+"loginVC.modalPresent.passwordTextField.placeholder" = "Пароль не менее 6 символов";
+"loginVC.modalPresent.loginTextField.placeholder" = "Ваш e-mail";
+
+"photosVC.navigationController.title" = "Фотогалерея";
+
+"profileHV.showStatusButton.setTitle" = "Показать статус";
+"profileHV.alert.message.long" = "статус слишком длинный";
+"profileHV.alert.message.short" = "статус слишком короткий";
+
+"profileVC.tapLikePost.alert.message" = "Пост находится в папке избранное. Выбрать другой пост";

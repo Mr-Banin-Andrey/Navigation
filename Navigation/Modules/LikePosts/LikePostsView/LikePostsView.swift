@@ -77,10 +77,13 @@ class LikePostsView: UIView {
     func alert(vc: UIViewController, alert: UIAlertController, createAction: UIAlertAction) {
         
         alert.addTextField() {
-            $0.placeholder = "Введите автора"
+            $0.placeholder = "likePostsView.alert.placeholder".localized
         }
         
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { _ in
+        let cancelAction = UIAlertAction(
+            title: "likePostsView.alert.action.title".localized,
+            style: .cancel
+        ) { _ in
             self.leftButton.isHidden = true
         }
         
@@ -109,3 +112,4 @@ class LikePostsView: UIView {
     }
 
 }
+

@@ -58,7 +58,7 @@ class PhotosViewController: UIViewController {
     //MARK: - 3. Methods
     private func navigationBarFunc() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.title = "Photo Gallery"
+        self.navigationItem.title = "photosVC.navigationController.title".localized
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
@@ -138,4 +138,3 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
 extension String {
     var stringToUiImage: UIImage? { get { return UIImage(named: self) } }
 }
-

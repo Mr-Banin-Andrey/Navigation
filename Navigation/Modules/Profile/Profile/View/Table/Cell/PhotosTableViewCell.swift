@@ -6,7 +6,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     private lazy var photosLabel: UILabel = {
         let label = UILabel()
-        label.text = "Photos"
+        label.text = "photosVC.navigationController.title".localized
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false

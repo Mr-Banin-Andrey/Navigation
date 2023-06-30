@@ -24,7 +24,7 @@ class LikePostsViewController: UIViewController {
         
         self.likesPostView.configurationTableView(dataSourse: self,
                                                   delegate: self)
-        self.likesPostView.navigationController(title: "Like Posts",
+        self.likesPostView.navigationController(title: "viewController.title.likePosts".localized,
                                                 navigation: navigationItem,
                                                 rightButton: likesPostView.rightButton,
                                                 leftButton: likesPostView.leftButton)
@@ -61,7 +61,10 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { _, _, _ in
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "likePostsVC.tableView.swipe.action.title".localized
+        ) { _, _, _ in
 
             guard
                 let context = self.coreDataService.context,
@@ -84,8 +87,15 @@ extension LikePostsViewController: LikePostsViewDelegate {
 
     func filterPosts() {
         
-        let alert = UIAlertController(title: "Фильтр по автору", message: nil, preferredStyle: .alert)
-        let createAction =  UIAlertAction(title: "Применить", style: .default) { _ in
+        let alert = UIAlertController(
+            title: "likePostsVC.alertController.title".localized,
+            message: nil,
+            preferredStyle: .alert
+        )
+        let createAction =  UIAlertAction(
+            title: "likePostsVC.action.createAction.title".localized,
+            style: .default
+        ) { _ in
             
             let author = alert.textFields?.first?.text ?? ""
 

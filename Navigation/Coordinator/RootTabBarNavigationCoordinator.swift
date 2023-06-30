@@ -50,25 +50,33 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         likePostsCoordinator.parentCoordinator = parentCoordinator
         mapKitCoordinator.parentCoordinator = parentCoordinator
         
-        let userFeed = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
-        let userProfile = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
-        let audioPlayer = UITabBarItem(title: "Music", image: UIImage(systemName: "music.quarternote.3"), tag: 2)
-//        let documents = UITabBarItem(title: "Documents", image: UIImage(systemName: "doc.text"), tag: 3)
-        let likePosts = UITabBarItem(title: "Like Posts", image: UIImage(systemName: "hand.thumbsup"), tag: 4)
-        let mapKit = UITabBarItem(title: "Maps", image: UIImage(systemName: "map"), tag: 5)
+        
+        let feed = "viewController.title.feed".localized
+        let profile = "tabBarItem.title.profile".localized
+        let music = "tabBarItem.title.audioPlayer".localized
+        let likePosts = "viewController.title.likePosts".localized
+        let maps = "viewController.title.maps".localized
+        
+        
+        let userFeedItem = UITabBarItem(title: feed, image: UIImage(systemName: "newspaper"), tag: 0)
+        let userProfileItem = UITabBarItem(title: profile, image: UIImage(systemName: "person"), tag: 1)
+        let audioPlayerItem = UITabBarItem(title: music, image: UIImage(systemName: "music.quarternote.3"), tag: 2)
+//        let documentsItem = UITabBarItem(title: "Documents", image: UIImage(systemName: "doc.text"), tag: 3)
+        let likePostsItem = UITabBarItem(title: likePosts, image: UIImage(systemName: "hand.thumbsup"), tag: 4)
+        let mapKitItem = UITabBarItem(title: maps, image: UIImage(systemName: "map"), tag: 5)
         
         UITabBar.appearance().tintColor = #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
         UITabBar.appearance().backgroundColor = #colorLiteral(red: 0.9154649377, green: 0.9269897342, blue: 0.9267870188, alpha: 1)
         
         
-        feedNC.tabBarItem = userFeed
-        profileNC.tabBarItem = userProfile
-        audioPlayerNC.tabBarItem = audioPlayer
-//        documentsNC.tabBarItem = documents
-        likePostsNC.tabBarItem = likePosts
-        mapKitNc.tabBarItem = mapKit
+        feedNC.tabBarItem = userFeedItem
+        profileNC.tabBarItem = userProfileItem
+        audioPlayerNC.tabBarItem = audioPlayerItem
+//        documentsNC.tabBarItem = documentsItem
+        likePostsNC.tabBarItem = likePostsItem
+        mapKitNc.tabBarItem = mapKitItem
         
-        tabBarCont.viewControllers = [feedNC, profileNC, likePostsNC, audioPlayerNC, mapKitNc]
+        tabBarCont.viewControllers = [feedNC, mapKitNc, profileNC, likePostsNC, audioPlayerNC]
         navigationController.pushViewController(tabBarCont, animated: true)
         navigationController.setNavigationBarHidden(true, animated: true)
         

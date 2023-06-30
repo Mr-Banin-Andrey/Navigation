@@ -25,7 +25,7 @@
 		9D2444A92A2FAD3C00E87108 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2444A82A2FAD3C00E87108 /* RealmSwift */; };
 		9D2444AC2A30801700E87108 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AB2A30801700E87108 /* RealmService.swift */; };
 		9D2444AE2A308EEF00E87108 /* UserRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */; };
-		9D2444B02A3090B000E87108 /* ModalOrNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AF2A3090B000E87108 /* ModalOrNot.swift */; };
+		9D2444B02A3090B000E87108 /* extensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AF2A3090B000E87108 /* extensionViewController.swift */; };
 		9D2444B22A30935200E87108 /* UseBruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B12A30935200E87108 /* UseBruteForce.swift */; };
 		9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B42A309BE800E87108 /* LogInUser.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
@@ -52,6 +52,8 @@
 		9D8BBB46295A43FB00F7130E /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */; };
 		9D8BBB48295AFDDA00F7130E /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */; };
 		9D8D663E2A4C6C420055CCDB /* LocationManagerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */; };
+		9D8D66432A4D6D780055CCDB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D8D66452A4D6D780055CCDB /* Localizable.strings */; };
+		9D8D664A2A4E146E0055CCDB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 9D8D664C2A4E146E0055CCDB /* Localizable.stringsdict */; };
 		9D99C0A62A337E80008968FB /* LikePostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A52A337E80008968FB /* LikePostsViewController.swift */; };
 		9D99C0A82A337E89008968FB /* LikePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A72A337E89008968FB /* LikePostsView.swift */; };
 		9D99C0AA2A337F00008968FB /* LikePostsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */; };
@@ -66,6 +68,7 @@
 		9DB8172E29FB4F0100988937 /* Eminem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172A29FB4F0100988937 /* Eminem.mp3 */; };
 		9DB8172F29FB4F0100988937 /* Король и шут.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172B29FB4F0100988937 /* Король и шут.mp3 */; };
 		9DB8173029FB4F0100988937 /* Nirvana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172C29FB4F0100988937 /* Nirvana.mp3 */; };
+		9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0A2A4EF69500F57180 /* extensionString.swift */; };
 		9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B428FF1A1800454D01 /* AppDelegate.swift */; };
 		9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */; };
 		9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BD28FF1A1900454D01 /* Assets.xcassets */; };
@@ -153,7 +156,7 @@
 		9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsFileManager.swift; sourceTree = "<group>"; };
 		9D2444AB2A30801700E87108 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmModel.swift; sourceTree = "<group>"; };
-		9D2444AF2A3090B000E87108 /* ModalOrNot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOrNot.swift; sourceTree = "<group>"; };
+		9D2444AF2A3090B000E87108 /* extensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionViewController.swift; sourceTree = "<group>"; };
 		9D2444B12A30935200E87108 /* UseBruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseBruteForce.swift; sourceTree = "<group>"; };
 		9D2444B42A309BE800E87108 /* LogInUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUser.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -180,6 +183,11 @@
 		9D8BBB45295A43FB00F7130E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		9D8BBB47295AFDDA00F7130E /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		9D8D663D2A4C6C420055CCDB /* LocationManagerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerSettings.swift; sourceTree = "<group>"; };
+		9D8D66442A4D6D780055CCDB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9D8D66462A4D6D910055CCDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9D8D66472A4D6D910055CCDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9D8D664B2A4E146E0055CCDB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		9D8D664D2A4E14710055CCDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		9D99C0A52A337E80008968FB /* LikePostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsViewController.swift; sourceTree = "<group>"; };
 		9D99C0A72A337E89008968FB /* LikePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsView.swift; sourceTree = "<group>"; };
 		9D99C0A92A337F00008968FB /* LikePostsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostsCoordinator.swift; sourceTree = "<group>"; };
@@ -193,6 +201,7 @@
 		9DB8172A29FB4F0100988937 /* Eminem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eminem.mp3; sourceTree = "<group>"; };
 		9DB8172B29FB4F0100988937 /* Король и шут.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Король и шут.mp3"; sourceTree = "<group>"; };
 		9DB8172C29FB4F0100988937 /* Nirvana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Nirvana.mp3; sourceTree = "<group>"; };
+		9DB90D0A2A4EF69500F57180 /* extensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionString.swift; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -466,6 +475,15 @@
 			path = LocationManagerSettings;
 			sourceTree = "<group>";
 		};
+		9D8D66402A4D6D010055CCDB /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				9D8D664C2A4E146E0055CCDB /* Localizable.stringsdict */,
+				9D8D66452A4D6D780055CCDB /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		9D99C0A12A337E03008968FB /* LikePosts */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,6 +585,15 @@
 			path = ApplicationLayer;
 			sourceTree = "<group>";
 		};
+		9DB90D092A4EF63D00F57180 /* extentionSystemValue */ = {
+			isa = PBXGroup;
+			children = (
+				9DB90D0A2A4EF69500F57180 /* extensionString.swift */,
+				9D2444AF2A3090B000E87108 /* extensionViewController.swift */,
+			);
+			path = extentionSystemValue;
+			sourceTree = "<group>";
+		};
 		9DBD55A828FF1A1800454D01 = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +619,8 @@
 		9DBD55B328FF1A1800454D01 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				9DB90D092A4EF63D00F57180 /* extentionSystemValue */,
+				9D8D66402A4D6D010055CCDB /* Localization */,
 				9DB5FA2F29B3B10600A6D424 /* ApplicationLayer */,
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
 				9DBD5C5929C793E3009F494C /* Coordinator */,
@@ -749,7 +778,6 @@
 				9DB8172929FB4F0100988937 /* Linkin park.mp3 */,
 				9DB8172B29FB4F0100988937 /* Король и шут.mp3 */,
 				9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */,
-				9D2444AF2A3090B000E87108 /* ModalOrNot.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -909,6 +937,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 9DBD55A828FF1A1800454D01;
 			packageReferences = (
@@ -949,7 +978,9 @@
 				9DB8173029FB4F0100988937 /* Nirvana.mp3 in Resources */,
 				9D4E1DC82A0D84AE00573EC4 /* GoogleService-Info.plist in Resources */,
 				9DBD55C128FF1A1900454D01 /* LaunchScreen.storyboard in Resources */,
+				9D8D664A2A4E146E0055CCDB /* Localizable.stringsdict in Resources */,
 				9DB8172F29FB4F0100988937 /* Король и шут.mp3 in Resources */,
+				9D8D66432A4D6D780055CCDB /* Localizable.strings in Resources */,
 				9DB8172D29FB4F0100988937 /* Linkin park.mp3 in Resources */,
 				9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */,
 				9D01F5362A004220009BD65E /* Justin Timberlake.mp3 in Resources */,
@@ -1107,8 +1138,9 @@
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
 				9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */,
 				9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */,
+				9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
-				9D2444B02A3090B000E87108 /* ModalOrNot.swift in Sources */,
+				9D2444B02A3090B000E87108 /* extensionViewController.swift in Sources */,
 				9D13D62C2A1B8107008AF427 /* DocumentsView.swift in Sources */,
 				9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */,
 				9D2444AC2A30801700E87108 /* RealmService.swift in Sources */,
@@ -1157,10 +1189,29 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9D8D66452A4D6D780055CCDB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9D8D66442A4D6D780055CCDB /* en */,
+				9D8D66472A4D6D910055CCDB /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		9D8D664C2A4E146E0055CCDB /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9D8D664B2A4E146E0055CCDB /* en */,
+				9D8D664D2A4E14710055CCDB /* ru */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
 		9DBD55BF28FF1A1900454D01 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9DBD55C028FF1A1900454D01 /* Base */,
+				9D8D66462A4D6D910055CCDB /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1292,6 +1343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1352,6 +1404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

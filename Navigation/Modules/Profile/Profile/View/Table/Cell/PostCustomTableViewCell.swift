@@ -117,6 +117,8 @@ class PostCustomTableViewCell: UITableViewCell {
     
     func setup(with profilePost: ProfilePost) {
         
+        likesAmountLabel.isHidden = true
+        
         let viewsAmountText = String(profilePost.views)
         let likesAmountText = String(profilePost.likes)
         
@@ -129,9 +131,17 @@ class PostCustomTableViewCell: UITableViewCell {
         self.idPost = profilePost.idPost
         
         namePhoto = profilePost.photoPost
+        
+        let localizableLikes = NSLocalizedString("any.likes", comment: "")
+        let formattedLikes = String(format: localizableLikes, profilePost.likes)
+        
+        self.likesLabel.text = formattedLikes
+        
     }
     
     func setupModel(with likePostsCoreDataModel: LikePostCoreDataModel) {
+        
+//        likesAmountLabel.isHidden = true
         
         self.authorLabel.text = likePostsCoreDataModel.author
         self.descriptionLabel.text = likePostsCoreDataModel.descriptionPost
@@ -192,7 +202,6 @@ class PostCustomTableViewCell: UITableViewCell {
     }
     
     @objc func tapEdit(_ sender: UITapGestureRecognizer) {
-        
         guard
             let views = viewsAmountLabel.text,
             let likes = likesAmountLabel.text
