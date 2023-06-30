@@ -9,7 +9,7 @@ class PostViewController: UIViewController {
     weak var coordinator: FeedCoordinator?
     
     //MARK: - 1. Properties
-    var titleView = PostTitle(title: NSLocalizedString("postVC.titleView.PostTitle.title", comment: ""))
+    var titleView = PostTitle(title: "postVC.titleView.PostTitle.title".localized)
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()

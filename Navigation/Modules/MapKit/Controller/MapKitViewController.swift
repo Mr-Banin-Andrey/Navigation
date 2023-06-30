@@ -27,7 +27,7 @@ class MapKitViewController: UIViewController {
         self.mapKitView.navigationController(
             navigation: navigationItem,
             leftButton: mapKitView.leftButton,
-            title: NSLocalizedString("mapKitVC.navigationController.title", comment: "")
+            title: "mapKitVC.navigationController.title".localized
         )
     }
     

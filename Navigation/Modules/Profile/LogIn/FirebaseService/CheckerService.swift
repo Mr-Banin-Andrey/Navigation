@@ -44,17 +44,17 @@ class CheckerService {
                 let showAlert = ShowAlert()
                 showAlert.showAlert(
                     vc: vc,
-                    title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-                    message: NSLocalizedString("firebase.checkerService.alert.accountExists.message", comment: ""),
-                    titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+                    title: "universalMeaning.alert.title".localized,
+                    message: "firebase.checkerService.alert.accountExists.message".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
                 )
             } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
                 let showAlert = ShowAlert()
                 showAlert.showAlert(
                     vc: vc,
-                    title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-                    message: NSLocalizedString("firebase.checkerService.alert.accountDoesNotExist.message", comment: ""),
-                    titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+                    title: "universalMeaning.alert.title".localized,
+                    message: "firebase.checkerService.alert.accountDoesNotExist.message".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
                 )
             }
             
@@ -84,9 +84,9 @@ class CheckerService {
             let showAlert = ShowAlert()
             showAlert.showAlert(
                 vc: vc,
-                title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-                message: NSLocalizedString("firebase.checkerService.alert.cellEmpty.message", comment: ""),
-                titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+                title: "universalMeaning.alert.title".localized,
+                message: "firebase.checkerService.alert.cellEmpty.message".localized,
+                titleButton: "universalMeaning.Button.tryAgain".localized
             )
             return true
         }
@@ -107,8 +107,8 @@ extension CheckerService: CheckerServiceProtocol {
             vc: vc,
             email: email,
             password: password,
-            title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-            message: NSLocalizedString("firebase.checkerService.alert.cellEmpty.message", comment: "")
+            title: "universalMeaning.alert.title".localized,
+            message: "firebase.checkerService.alert.cellEmpty.message".localized
         )
         
         if isEmpty == false {
@@ -135,8 +135,8 @@ extension CheckerService: CheckerServiceProtocol {
             vc: vc,
             email: email,
             password: password,
-            title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-            message: NSLocalizedString("firebase.checkerService.alert.cellEmpty.message", comment: "")
+            title: "universalMeaning.alert.title".localized,
+            message: "firebase.checkerService.alert.cellEmpty.message".localized
         )
         
         if isEmpty == false {

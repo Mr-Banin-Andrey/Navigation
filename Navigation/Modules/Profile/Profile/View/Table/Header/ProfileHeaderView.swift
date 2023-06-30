@@ -41,7 +41,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var showStatusButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
-        button.setTitle(NSLocalizedString("profileHV.showStatusButton.setTitle", comment: ""),
+        button.setTitle("profileHV.showStatusButton.setTitle".localized,
                         for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 4
@@ -171,17 +171,19 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             case .emptyStatus:
                 alert.showAlert(
                     vc: ProfileViewController(),
-                    title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-                    message: NSLocalizedString("profileHV.alert.message.short", comment: ""),
-                    titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: ""))
+                    title: "universalMeaning.alert.title".localized,
+                    message: "profileHV.alert.message.short".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
                 print("emptyStatus")
                 
             case .longStatus:
                 alert.showAlert(
                     vc: ProfileViewController(),
-                    title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-                    message: NSLocalizedString("profileHV.alert.message.long", comment: ""),
-                    titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: ""))
+                    title: "universalMeaning.alert.title",
+                    message: "profileHV.alert.message.long".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
                 print("longStatus")
                 
             default:

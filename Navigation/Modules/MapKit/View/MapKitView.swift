@@ -96,7 +96,7 @@ class MapKitView: UIView {
     private func addPin() {
         let pin = MKPointAnnotation()
         pin.coordinate = CLLocationCoordinate2D(latitude: 42.278356, longitude: 18.838163)
-        pin.title = NSLocalizedString("mapKitVC.pin.title", comment: "")
+        pin.title = "mapKitVC.pin.title".localized
         
         mapView.addAnnotation(pin)
     }
@@ -112,28 +112,28 @@ class MapKitView: UIView {
         let shortLongitude = locationManager.shortCoordinatorsToString(coordinator: coordinators.longitude)
         
         let alertController = UIAlertController(
-            title: "\(shortLatitude)\(NSLocalizedString("mapKitVC.pinTitle.title.latitude", comment: "")), \(shortLongitude)\(NSLocalizedString("mapKitVC.pinTitle.title.longitude", comment: ""))",
+            title: "\(shortLatitude)\("mapKitVC.pinTitle.title.latitude".localized), \(shortLongitude)\("mapKitVC.pinTitle.title.longitude".localized)",
             message: nil,
             preferredStyle: .actionSheet
         )
         
         let addPin = UIAlertAction(
-            title: NSLocalizedString("mapKitVC.alertAction.addPin.title", comment: ""),
+            title: "mapKitVC.alertAction.addPin.title".localized,
             style: .default
         )
         
         let createRoute = UIAlertAction(
-            title: NSLocalizedString("mapKitVC.alertAction.createRoute.title", comment: ""),
+            title: "mapKitVC.alertAction.createRoute.title".localized,
             style: .default) { _ in
                 guard let source = self.locationManager.giveUserLocation() else { return }
                 self.addRoute(source: source, destination: coordinators)
         }
         
         let cancelAction = UIAlertAction(
-            title: NSLocalizedString("mapKitVC.alertAction.cancelAction.title", comment: ""),
+            title: "mapKitVC.alertAction.cancelAction.title".localized,
             style: .cancel) { _ in
                 for annotationX in self.mapView.annotations {
-                    if annotationX.title == "\(shortLatitude)\(NSLocalizedString("mapKitVC.pinTitle.title.latitude", comment: "")), \(shortLongitude)\(NSLocalizedString("mapKitVC.pinTitle.title.longitude", comment: ""))" {
+                    if annotationX.title == "\(shortLatitude)\("mapKitVC.pinTitle.title.latitude".localized), \(shortLongitude)\("mapKitVC.pinTitle.title.longitude".localized)" {
                         self.mapView.removeAnnotation(annotationX)
                     }
                 }
@@ -161,7 +161,7 @@ class MapKitView: UIView {
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
-        annotation.title = "\(shortLatitude)\(NSLocalizedString("mapKitVC.pinTitle.title.latitude", comment: "")), \(shortLongitude)\(NSLocalizedString("mapKitVC.pinTitle.title.longitude", comment: ""))"
+        annotation.title = "\(shortLatitude)\("mapKitVC.pinTitle.title.latitude".localized), \(shortLongitude)\("mapKitVC.pinTitle.title.longitude".localized)"
         mapView.addAnnotation(annotation)
         
         showAlert(coordinators: newCoordinates, pin: annotation)

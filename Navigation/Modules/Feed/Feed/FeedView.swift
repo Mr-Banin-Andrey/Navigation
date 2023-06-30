@@ -19,7 +19,7 @@ class FeedView: UIView {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString("viewController.title.feed", comment: "")
+        label.text = "viewController.title.feed".localized
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -34,7 +34,7 @@ class FeedView: UIView {
     }()
     
     private lazy var firstButton: CustomButton = {
-        let button = CustomButton(title: NSLocalizedString("feedVC.button.firstButton.showPost.title", comment: ""), bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(title: "feedVC.button.firstButton.showPost.title".localized, bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
             delegate?.showPostVCon()
             tapAction?()
         }
@@ -42,7 +42,7 @@ class FeedView: UIView {
     }()
     
     private lazy var secondButton: CustomButton = {
-        let button = CustomButton(title: NSLocalizedString("feedVC.button.secondButton.showPost.title", comment: ""), bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(title: "feedVC.button.secondButton.showPost.title".localized, bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
             delegate?.showInfoVCon()
             tapAction?()
         }
@@ -51,7 +51,7 @@ class FeedView: UIView {
     
     lazy var textCheck: UITextField = {
         let textStatus = UITextField()
-        textStatus.placeholder = NSLocalizedString("feedVC.textCheckField.placeholder", comment: "")
+        textStatus.placeholder = "feedVC.textCheckField.placeholder".localized
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textStatus.backgroundColor = .white
         textStatus.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class FeedView: UIView {
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: NSLocalizedString("feedVC.checkGuessButton.title", comment: ""), bgColor: .blue) { [unowned self] in
+        let button = CustomButton(title: "feedVC.checkGuessButton.title".localized, bgColor: .blue) { [unowned self] in
             delegate?.guessWord()
             tapAction?()
         }

@@ -72,7 +72,7 @@ class LogInViewController: UIViewController {
     
     private lazy var passwordTextField: UITextField = {
         let password = UITextField()
-        password.placeholder = NSLocalizedString("loginVC.passwordTextField.placeholder", comment: "")
+        password.placeholder = "loginVC.passwordTextField.placeholder".localized
         password.font = UIFont.systemFont(ofSize: 16)
         password.autocapitalizationType = .none
         password.textColor = .black
@@ -83,7 +83,7 @@ class LogInViewController: UIViewController {
     
     lazy var logInButton: UIButton = {
         let button = UIButton()
-        button.setTitle(NSLocalizedString("loginVC.logInButton.setTitle", comment: ""),
+        button.setTitle("loginVC.logInButton.setTitle".localized,
                         for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "blueColor")
@@ -104,11 +104,11 @@ class LogInViewController: UIViewController {
     private lazy var alertController: UIAlertController = {
         let alert = UIAlertController(
             title: "",
-            message: NSLocalizedString("loginVC.alert.message", comment: ""),
+            message: "loginVC.alert.message".localized,
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(
-            title: NSLocalizedString("loginVC.logInButton.setTitle", comment: ""),
+            title: "loginVC.logInButton.setTitle".localized,
             style: .default,
             handler: { _ in
                 self.dismiss(animated: true)
@@ -122,7 +122,7 @@ class LogInViewController: UIViewController {
     
     lazy var singUpButton: CustomButton = {
         let button = CustomButton(
-            title: NSLocalizedString("loginVC.singUpButton.title", comment: ""),
+            title: "loginVC.singUpButton.title".localized,
             bgColor: UIColor(named: "blueColor") ?? UIColor.red
         ) { [unowned self] in
             self.coordinator?.showRegistration()
@@ -250,10 +250,10 @@ class LogInViewController: UIViewController {
     
     private func viewPresent() {
         self.singUpButton.isHidden = true
-        self.logInButton.setTitle(NSLocalizedString("loginVC.modalPresent.logInButton.title", comment: ""),
+        self.logInButton.setTitle("loginVC.modalPresent.logInButton.title".localized,
                                   for: .normal)
-        self.passwordTextField.placeholder = NSLocalizedString("loginVC.modalPresent.passwordTextField.placeholder", comment: "")
-        self.loginTextField.placeholder = NSLocalizedString("loginVC.modalPresent.loginTextField.placeholder", comment: "")
+        self.passwordTextField.placeholder = "loginVC.modalPresent.passwordTextField.placeholder".localized
+        self.loginTextField.placeholder = "loginVC.modalPresent.loginTextField.placeholder".localized
     }
     
     private func createUserRealm(user: LogInUser) {

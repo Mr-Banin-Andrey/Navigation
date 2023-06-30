@@ -58,7 +58,7 @@ class PhotosViewController: UIViewController {
     //MARK: - 3. Methods
     private func navigationBarFunc() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.title = NSLocalizedString("photosVC.navigationController.title", comment: "")
+        self.navigationItem.title = "photosVC.navigationController.title".localized
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]

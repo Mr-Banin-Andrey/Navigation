@@ -24,7 +24,7 @@ class LikePostsViewController: UIViewController {
         
         self.likesPostView.configurationTableView(dataSourse: self,
                                                   delegate: self)
-        self.likesPostView.navigationController(title: NSLocalizedString("viewController.title.likePosts", comment: ""),
+        self.likesPostView.navigationController(title: "viewController.title.likePosts".localized,
                                                 navigation: navigationItem,
                                                 rightButton: likesPostView.rightButton,
                                                 leftButton: likesPostView.leftButton)
@@ -63,7 +63,7 @@ extension LikePostsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let deleteAction = UIContextualAction(
             style: .destructive,
-            title: NSLocalizedString("likePostsVC.tableView.swipe.action.title", comment: "")
+            title: "likePostsVC.tableView.swipe.action.title".localized
         ) { _, _, _ in
 
             guard
@@ -88,12 +88,12 @@ extension LikePostsViewController: LikePostsViewDelegate {
     func filterPosts() {
         
         let alert = UIAlertController(
-            title: NSLocalizedString("likePostsVC.alertController.title", comment: ""),
+            title: "likePostsVC.alertController.title".localized,
             message: nil,
             preferredStyle: .alert
         )
         let createAction =  UIAlertAction(
-            title: NSLocalizedString("likePostsVC.action.createAction.title", comment: ""),
+            title: "likePostsVC.action.createAction.title".localized,
             style: .default
         ) { _ in
             

@@ -51,11 +51,11 @@ class RootTabBarNavigationCoordinator: AppCoordinator {
         mapKitCoordinator.parentCoordinator = parentCoordinator
         
         
-        let feed = NSLocalizedString("viewController.title.feed", comment: "")
-        let profile = NSLocalizedString("tabBarItem.title.profile", comment: "")
-        let music = NSLocalizedString("tabBarItem.title.audioPlayer", comment: "")
-        let likePosts = NSLocalizedString("viewController.title.likePosts", comment: "")
-        let maps = NSLocalizedString("viewController.title.maps", comment: "")
+        let feed = "viewController.title.feed".localized
+        let profile = "tabBarItem.title.profile".localized
+        let music = "tabBarItem.title.audioPlayer".localized
+        let likePosts = "viewController.title.likePosts".localized
+        let maps = "viewController.title.maps".localized
         
         
         let userFeedItem = UITabBarItem(title: feed, image: UIImage(systemName: "newspaper"), tag: 0)

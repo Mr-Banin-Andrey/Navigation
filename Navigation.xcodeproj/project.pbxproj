@@ -25,7 +25,7 @@
 		9D2444A92A2FAD3C00E87108 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9D2444A82A2FAD3C00E87108 /* RealmSwift */; };
 		9D2444AC2A30801700E87108 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AB2A30801700E87108 /* RealmService.swift */; };
 		9D2444AE2A308EEF00E87108 /* UserRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */; };
-		9D2444B02A3090B000E87108 /* ModalOrNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AF2A3090B000E87108 /* ModalOrNot.swift */; };
+		9D2444B02A3090B000E87108 /* extensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444AF2A3090B000E87108 /* extensionViewController.swift */; };
 		9D2444B22A30935200E87108 /* UseBruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B12A30935200E87108 /* UseBruteForce.swift */; };
 		9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2444B42A309BE800E87108 /* LogInUser.swift */; };
 		9D34F391299F81FB004B91E1 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D34F390299F81FB004B91E1 /* Checker.swift */; };
@@ -68,6 +68,7 @@
 		9DB8172E29FB4F0100988937 /* Eminem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172A29FB4F0100988937 /* Eminem.mp3 */; };
 		9DB8172F29FB4F0100988937 /* Король и шут.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172B29FB4F0100988937 /* Король и шут.mp3 */; };
 		9DB8173029FB4F0100988937 /* Nirvana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172C29FB4F0100988937 /* Nirvana.mp3 */; };
+		9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0A2A4EF69500F57180 /* extensionString.swift */; };
 		9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B428FF1A1800454D01 /* AppDelegate.swift */; };
 		9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */; };
 		9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BD28FF1A1900454D01 /* Assets.xcassets */; };
@@ -155,7 +156,7 @@
 		9D13D62F2A1BC489008AF427 /* DocumentsFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsFileManager.swift; sourceTree = "<group>"; };
 		9D2444AB2A30801700E87108 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		9D2444AD2A308EEF00E87108 /* UserRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmModel.swift; sourceTree = "<group>"; };
-		9D2444AF2A3090B000E87108 /* ModalOrNot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOrNot.swift; sourceTree = "<group>"; };
+		9D2444AF2A3090B000E87108 /* extensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionViewController.swift; sourceTree = "<group>"; };
 		9D2444B12A30935200E87108 /* UseBruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseBruteForce.swift; sourceTree = "<group>"; };
 		9D2444B42A309BE800E87108 /* LogInUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUser.swift; sourceTree = "<group>"; };
 		9D34F390299F81FB004B91E1 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -200,6 +201,7 @@
 		9DB8172A29FB4F0100988937 /* Eminem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eminem.mp3; sourceTree = "<group>"; };
 		9DB8172B29FB4F0100988937 /* Король и шут.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Король и шут.mp3"; sourceTree = "<group>"; };
 		9DB8172C29FB4F0100988937 /* Nirvana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Nirvana.mp3; sourceTree = "<group>"; };
+		9DB90D0A2A4EF69500F57180 /* extensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionString.swift; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -583,6 +585,15 @@
 			path = ApplicationLayer;
 			sourceTree = "<group>";
 		};
+		9DB90D092A4EF63D00F57180 /* extentionSystemValue */ = {
+			isa = PBXGroup;
+			children = (
+				9DB90D0A2A4EF69500F57180 /* extensionString.swift */,
+				9D2444AF2A3090B000E87108 /* extensionViewController.swift */,
+			);
+			path = extentionSystemValue;
+			sourceTree = "<group>";
+		};
 		9DBD55A828FF1A1800454D01 = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +619,7 @@
 		9DBD55B328FF1A1800454D01 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				9DB90D092A4EF63D00F57180 /* extentionSystemValue */,
 				9D8D66402A4D6D010055CCDB /* Localization */,
 				9DB5FA2F29B3B10600A6D424 /* ApplicationLayer */,
 				9DD4AD8F29E97F4B002AA212 /* BruteForce */,
@@ -766,7 +778,6 @@
 				9DB8172929FB4F0100988937 /* Linkin park.mp3 */,
 				9DB8172B29FB4F0100988937 /* Король и шут.mp3 */,
 				9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */,
-				9D2444AF2A3090B000E87108 /* ModalOrNot.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1127,8 +1138,9 @@
 				9D9F8E09299ACAD5002CB078 /* UserService.swift in Sources */,
 				9D4E1DCB2A0E4CD300573EC4 /* CheckerService.swift in Sources */,
 				9DC9D05429FB012000D9791A /* AudioPlayerCoordinator.swift in Sources */,
+				9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */,
 				9DBD55CD28FF4A3800454D01 /* PostViewController.swift in Sources */,
-				9D2444B02A3090B000E87108 /* ModalOrNot.swift in Sources */,
+				9D2444B02A3090B000E87108 /* extensionViewController.swift in Sources */,
 				9D13D62C2A1B8107008AF427 /* DocumentsView.swift in Sources */,
 				9DBD5C5B29C7942A009F494C /* FeedCoordinator.swift in Sources */,
 				9D2444AC2A30801700E87108 /* RealmService.swift in Sources */,

@@ -238,9 +238,9 @@ extension ProfileViewController: PostCustomTableViewCellDelegate, UIGestureRecog
         } else {
             ShowAlert().showAlert(
                 vc: self,
-                title: NSLocalizedString("universalMeaning.alert.title", comment: ""),
-                message: NSLocalizedString("profileVC.tapLikePost.alert.message", comment: ""),
-                titleButton: NSLocalizedString("universalMeaning.Button.tryAgain", comment: "")
+                title: "universalMeaning.alert.title".localized,
+                message: "profileVC.tapLikePost.alert.message".localized,
+                titleButton: "universalMeaning.Button.tryAgain".localized
             )
         }
         self.coreDataService.fetchResultsController()

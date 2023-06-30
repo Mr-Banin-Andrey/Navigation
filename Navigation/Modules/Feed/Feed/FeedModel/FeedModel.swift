@@ -14,8 +14,8 @@ final class FeedModel {
     let emptyValue: String = ""
     
     public let arrayValue: [Value] = [
-        Value(text: " \(NSLocalizedString("feedModel.isCheckResult.true", comment: "")) ", color: UIColor.systemGreen),
-        Value(text: "  \(NSLocalizedString("feedModel.isCheckResult.false", comment: "")) ", color: UIColor.systemRed)
+        Value(text: " \("feedModel.isCheckResult.true".localized) ", color: UIColor.systemGreen),
+        Value(text: "  \("feedModel.isCheckResult.false".localized) ", color: UIColor.systemRed)
     ]
     
     public func isCheck(word: String, completion: @escaping ((Result<[Value], Error>) -> Void)) -> Value {
