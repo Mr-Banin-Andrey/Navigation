@@ -20,7 +20,7 @@ class FeedView: UIView {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "viewController.title.feed".localized
-        label.textColor = .black
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -53,7 +53,7 @@ class FeedView: UIView {
         let textStatus = UITextField()
         textStatus.placeholder = "feedVC.textCheckField.placeholder".localized
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textStatus.backgroundColor = .white
+        textStatus.backgroundColor = .tertiarySystemBackground
         textStatus.translatesAutoresizingMaskIntoConstraints = false
         return textStatus
     }()
@@ -76,7 +76,7 @@ class FeedView: UIView {
         self.delegate = delegate
         super.init(frame: .zero)
         
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .secondarySystemBackground
         setupConstraints()
     }
     

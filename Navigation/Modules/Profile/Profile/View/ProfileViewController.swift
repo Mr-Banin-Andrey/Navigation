@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photosId")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultId")
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .secondarySystemBackground
         return tableView
     }()
     
@@ -74,16 +75,16 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        self.view.backgroundColor = .secondarySystemBackground
         self.tapGesture()
         self.viewSetupConstraints()
 
         
-        #if DEBUG
-            self.tableView.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        #else
-            self.view.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        #endif
+//        #if DEBUG
+//            self.tableView.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+//        #else
+//            self.view.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+//        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {

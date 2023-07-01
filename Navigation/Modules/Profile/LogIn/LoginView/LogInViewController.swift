@@ -29,6 +29,7 @@ class LogInViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .secondarySystemBackground
         return scrollView
     }()
     
@@ -41,9 +42,10 @@ class LogInViewController: UIViewController {
     
     private lazy var loginPasswordView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .tertiarySystemBackground
         view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.lightGray.cgColor
+//        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderColor = UIColor.separator.cgColor
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -63,9 +65,10 @@ class LogInViewController: UIViewController {
         login.placeholder = "E-mail"
         login.font = UIFont.systemFont(ofSize: 16)
         login.autocapitalizationType = .none
-        login.textColor = .black
+//        login.textColor = .black
         login.translatesAutoresizingMaskIntoConstraints = false
         login.keyboardType = .emailAddress
+        login.backgroundColor = .tertiarySystemBackground
         return login
     }()
     
@@ -75,9 +78,10 @@ class LogInViewController: UIViewController {
         password.placeholder = "loginVC.passwordTextField.placeholder".localized
         password.font = UIFont.systemFont(ofSize: 16)
         password.autocapitalizationType = .none
-        password.textColor = .black
+//        password.textColor = .black
         password.isSecureTextEntry = true
         password.translatesAutoresizingMaskIntoConstraints = false
+        password.backgroundColor = .tertiarySystemBackground
         return password
     }()
     
@@ -85,7 +89,7 @@ class LogInViewController: UIViewController {
         let button = UIButton()
         button.setTitle("loginVC.logInButton.setTitle".localized,
                         for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white, for: .normal) // QUESTION???
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +100,7 @@ class LogInViewController: UIViewController {
     private lazy var lineView: UIView = {
         let line = UIView()
         line.layer.borderWidth = 0.5
-        line.layer.borderColor = UIColor.lightGray.cgColor
+        line.layer.borderColor = UIColor.separator.cgColor
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()
@@ -147,7 +151,7 @@ class LogInViewController: UIViewController {
             self.viewPresent()
         }
                 
-        view.backgroundColor = .white
+        view.backgroundColor = .secondarySystemBackground
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()

@@ -16,7 +16,7 @@ class LikePostsView: UIView {
     
     var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = .secondarySystemBackground
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
