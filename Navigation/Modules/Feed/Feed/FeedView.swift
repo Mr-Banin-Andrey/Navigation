@@ -20,7 +20,7 @@ class FeedView: UIView {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "viewController.title.feed".localized
-        label.textColor = .black
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +34,11 @@ class FeedView: UIView {
     }()
     
     private lazy var firstButton: CustomButton = {
-        let button = CustomButton(title: "feedVC.button.firstButton.showPost.title".localized, bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(
+            title: "feedVC.button.firstButton.showPost.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
+        ) { [unowned self] in
             delegate?.showPostVCon()
             tapAction?()
         }
@@ -42,7 +46,11 @@ class FeedView: UIView {
     }()
     
     private lazy var secondButton: CustomButton = {
-        let button = CustomButton(title: "feedVC.button.secondButton.showPost.title".localized, bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(
+            title: "feedVC.button.secondButton.showPost.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
+        ) { [unowned self] in
             delegate?.showInfoVCon()
             tapAction?()
         }
@@ -53,13 +61,17 @@ class FeedView: UIView {
         let textStatus = UITextField()
         textStatus.placeholder = "feedVC.textCheckField.placeholder".localized
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textStatus.backgroundColor = .white
+        textStatus.backgroundColor = .tertiarySystemBackground
         textStatus.translatesAutoresizingMaskIntoConstraints = false
         return textStatus
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "feedVC.checkGuessButton.title".localized, bgColor: .blue) { [unowned self] in
+        let button = CustomButton(
+            title: "feedVC.checkGuessButton.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: .blue
+        ) { [unowned self] in
             delegate?.guessWord()
             tapAction?()
         }
@@ -69,6 +81,7 @@ class FeedView: UIView {
     lazy var checkLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         return label
     }()
     
@@ -76,7 +89,7 @@ class FeedView: UIView {
         self.delegate = delegate
         super.init(frame: .zero)
         
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .secondarySystemBackground
         setupConstraints()
     }
     

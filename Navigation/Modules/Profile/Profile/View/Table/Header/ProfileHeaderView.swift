@@ -15,7 +15,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var nameProfileLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = .black
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,7 +33,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray
+        label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -43,7 +43,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
         button.setTitle("profileHV.showStatusButton.setTitle".localized,
                         for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.createColor(lightMode: .white, darkMode: .black),
+                             for: .normal)
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
@@ -60,7 +61,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let textStatus = UITextField()
         textStatus.placeholder = "..."
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textStatus.backgroundColor = .white
+        textStatus.backgroundColor = .tertiarySystemBackground
         textStatus.translatesAutoresizingMaskIntoConstraints = false
         return textStatus
     }()
@@ -68,9 +69,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var viewTextStatus: UIView = {
         let viewText = UIView()
         viewText.layer.borderWidth = 1
-        viewText.layer.borderColor = UIColor.black.cgColor
+        viewText.layer.borderColor = UIColor.opaqueSeparator.cgColor
         viewText.layer.cornerRadius = 12
-        viewText.backgroundColor = .white
+        viewText.backgroundColor = .tertiarySystemBackground
         viewText.translatesAutoresizingMaskIntoConstraints = false
         return viewText
     }()
@@ -79,8 +80,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     //MARK: - 2. Life cycle
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-                
-
+        
         self.setupConstraints()
     }
     

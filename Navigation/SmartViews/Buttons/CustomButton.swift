@@ -7,12 +7,13 @@ final class CustomButton: UIButton {
 
     var buttonAction: Action
     
-    init(title: String, titleColor: UIColor = .white, bgColor: UIColor, action: @escaping Action) {
+    init(title: String, titleColor: UIColor, bgColor: UIColor, action: @escaping Action) {
         buttonAction = action
         super.init(frame: .zero)
         
         setTitle("  \(title)  ", for: .normal)
         backgroundColor = bgColor
+        setTitleColor(titleColor, for: .normal)
         layer.cornerRadius = 9
         translatesAutoresizingMaskIntoConstraints = false
         
