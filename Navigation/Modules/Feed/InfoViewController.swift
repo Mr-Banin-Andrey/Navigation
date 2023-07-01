@@ -6,7 +6,11 @@ class InfoViewController: UIViewController {
     
     //MARK: - 1. Properties
     private lazy var button: CustomButton = {
-        let button = CustomButton(title: "infoVC.button.title".localized, bgColor: .blue) { [unowned self] in
+        let button = CustomButton(
+            title: "infoVC.button.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: .blue
+        ) { [unowned self] in
             self.present(alertController, animated: true, completion: nil)
         }
         return button
@@ -15,12 +19,14 @@ class InfoViewController: UIViewController {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .createColor(lightMode: .white, darkMode: .black)
         return label
     }()
     
     lazy var orbitalPeriodLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .createColor(lightMode: .white, darkMode: .black)
         return label
     }()
     
@@ -53,7 +59,7 @@ class InfoViewController: UIViewController {
         
         self.loadJson()
         
-        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        view.backgroundColor = UIColor.appTintColorOrange
         
         setupConstraints()
         setupAlertController()

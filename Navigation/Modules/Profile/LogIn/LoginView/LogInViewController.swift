@@ -44,8 +44,7 @@ class LogInViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .tertiarySystemBackground
         view.layer.borderWidth = 0.5
-//        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderColor = UIColor.separator.cgColor
+        view.layer.borderColor = UIColor.opaqueSeparator.cgColor
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -65,7 +64,6 @@ class LogInViewController: UIViewController {
         login.placeholder = "E-mail"
         login.font = UIFont.systemFont(ofSize: 16)
         login.autocapitalizationType = .none
-//        login.textColor = .black
         login.translatesAutoresizingMaskIntoConstraints = false
         login.keyboardType = .emailAddress
         login.backgroundColor = .tertiarySystemBackground
@@ -78,7 +76,6 @@ class LogInViewController: UIViewController {
         password.placeholder = "loginVC.passwordTextField.placeholder".localized
         password.font = UIFont.systemFont(ofSize: 16)
         password.autocapitalizationType = .none
-//        password.textColor = .black
         password.isSecureTextEntry = true
         password.translatesAutoresizingMaskIntoConstraints = false
         password.backgroundColor = .tertiarySystemBackground
@@ -89,7 +86,8 @@ class LogInViewController: UIViewController {
         let button = UIButton()
         button.setTitle("loginVC.logInButton.setTitle".localized,
                         for: .normal)
-        button.setTitleColor(.white, for: .normal) // QUESTION???
+        button.setTitleColor(UIColor.createColor(lightMode: .white, darkMode: .black)
+                             , for: .normal)
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +98,7 @@ class LogInViewController: UIViewController {
     private lazy var lineView: UIView = {
         let line = UIView()
         line.layer.borderWidth = 0.5
-        line.layer.borderColor = UIColor.separator.cgColor
+        line.layer.borderColor = UIColor.opaqueSeparator.cgColor
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()
@@ -127,6 +125,7 @@ class LogInViewController: UIViewController {
     lazy var singUpButton: CustomButton = {
         let button = CustomButton(
             title: "loginVC.singUpButton.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
             bgColor: UIColor(named: "blueColor") ?? UIColor.red
         ) { [unowned self] in
             self.coordinator?.showRegistration()

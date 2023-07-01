@@ -43,7 +43,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         button.backgroundColor = #colorLiteral(red: 0, green: 0.4781241417, blue: 0.9985476136, alpha: 1)
         button.setTitle("profileHV.showStatusButton.setTitle".localized,
                         for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.createColor(lightMode: .white, darkMode: .black),
+                             for: .normal)
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
@@ -79,9 +80,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     //MARK: - 2. Life cycle
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
-//        self.backgroundView?.backgroundColor = .secondarySystemBackground
-        self.backgroundView?.tintColor = .secondarySystemBackground
         
         self.setupConstraints()
     }

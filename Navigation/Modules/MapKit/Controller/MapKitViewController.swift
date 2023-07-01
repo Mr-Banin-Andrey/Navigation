@@ -70,5 +70,3 @@ extension MapKitViewController: CLLocationManagerDelegate {
         print("didFailWithError: ", error)
     }
 }
-
-//"mapKitVC.navigationController.title" = "Map"

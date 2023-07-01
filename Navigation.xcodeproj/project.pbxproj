@@ -69,6 +69,7 @@
 		9DB8172F29FB4F0100988937 /* Король и шут.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172B29FB4F0100988937 /* Король и шут.mp3 */; };
 		9DB8173029FB4F0100988937 /* Nirvana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172C29FB4F0100988937 /* Nirvana.mp3 */; };
 		9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0A2A4EF69500F57180 /* extensionString.swift */; };
+		9DB90D0D2A50339F00F57180 /* extensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0C2A50339F00F57180 /* extensionUIColor.swift */; };
 		9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B428FF1A1800454D01 /* AppDelegate.swift */; };
 		9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */; };
 		9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BD28FF1A1900454D01 /* Assets.xcassets */; };
@@ -202,6 +203,7 @@
 		9DB8172B29FB4F0100988937 /* Король и шут.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Король и шут.mp3"; sourceTree = "<group>"; };
 		9DB8172C29FB4F0100988937 /* Nirvana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Nirvana.mp3; sourceTree = "<group>"; };
 		9DB90D0A2A4EF69500F57180 /* extensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionString.swift; sourceTree = "<group>"; };
+		9DB90D0C2A50339F00F57180 /* extensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUIColor.swift; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -590,6 +592,7 @@
 			children = (
 				9DB90D0A2A4EF69500F57180 /* extensionString.swift */,
 				9D2444AF2A3090B000E87108 /* extensionViewController.swift */,
+				9DB90D0C2A50339F00F57180 /* extensionUIColor.swift */,
 			);
 			path = extentionSystemValue;
 			sourceTree = "<group>";
@@ -1149,6 +1152,7 @@
 				9D2444B22A30935200E87108 /* UseBruteForce.swift in Sources */,
 				9DBD5C7A29CD0034009F494C /* PhotoCollectionViewCell.swift in Sources */,
 				9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */,
+				9DB90D0D2A50339F00F57180 /* extensionUIColor.swift in Sources */,
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,

@@ -22,7 +22,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        view.backgroundColor = .cyan
+        view.backgroundColor = .appTintColorCyan
         setupConstraints()
         titleLabel.text = titleView.title
         
