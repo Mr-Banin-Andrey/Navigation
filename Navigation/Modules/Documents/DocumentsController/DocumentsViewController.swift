@@ -35,9 +35,7 @@ class DocumentsViewController: UIViewController {
         self.documentsView.configureTableView(dataSource: self,
                                               delegate: self)
         
-        self.documentsView.navigationController(navigation: navigationItem,
-                                                rightButton: documentsView.rightButton,
-                                                title: "Documents")
+        self.documentsView.navigationController(navigation: navigationItem, title: "Documents")
     }
     
 }
