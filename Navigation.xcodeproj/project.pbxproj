@@ -74,6 +74,7 @@
 		9DB90D222A52C96700F57180 /* FeedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D212A52C96700F57180 /* FeedViewModelTests.swift */; };
 		9DB90D242A52C97800F57180 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D232A52C97800F57180 /* LoginViewModelTests.swift */; };
 		9DB90D272A52C9CE00F57180 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D262A52C9CE00F57180 /* LogInView.swift */; };
+		9DB90D312A54565400F57180 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D302A54565400F57180 /* LogInViewModel.swift */; };
 		9DBD55B528FF1A1800454D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B428FF1A1800454D01 /* AppDelegate.swift */; };
 		9DBD55B728FF1A1800454D01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */; };
 		9DBD55BE28FF1A1900454D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD55BD28FF1A1900454D01 /* Assets.xcassets */; };
@@ -220,6 +221,7 @@
 		9DB90D212A52C96700F57180 /* FeedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModelTests.swift; sourceTree = "<group>"; };
 		9DB90D232A52C97800F57180 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		9DB90D262A52C9CE00F57180 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		9DB90D302A54565400F57180 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		9DBD55B128FF1A1800454D01 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBD55B428FF1A1800454D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DBD55B628FF1A1800454D01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -646,6 +648,24 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		9DB90D2E2A54520C00F57180 /* LogInViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9DB90D302A54565400F57180 /* LogInViewModel.swift */,
+			);
+			path = LogInViewModel;
+			sourceTree = "<group>";
+		};
+		9DB90D2F2A54558A00F57180 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9D2444AA2A307FCA00E87108 /* RealmService */,
+				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
+				9D34F392299F8F85004B91E1 /* CheckLogin */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		9DBD55A828FF1A1800454D01 = {
 			isa = PBXGroup;
 			children = (
@@ -708,11 +728,10 @@
 		9DBD5C7D29CD8331009F494C /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
-				9D34F392299F8F85004B91E1 /* CheckLogin */,
-				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
-				9D2444AA2A307FCA00E87108 /* RealmService */,
+				9DB90D2F2A54558A00F57180 /* Services */,
 				9D2444B32A309BA200E87108 /* LoginModel */,
-				9DBD5C8729CD85C4009F494C /* LogInViewController */,
+				9DBD5C8729CD85C4009F494C /* LogInView */,
+				9DB90D2E2A54520C00F57180 /* LogInViewModel */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -798,13 +817,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		9DBD5C8729CD85C4009F494C /* LogInViewController */ = {
+		9DBD5C8729CD85C4009F494C /* LogInView */ = {
 			isa = PBXGroup;
 			children = (
 				9DB90D282A52C9EB00F57180 /* Controller */,
 				9DB90D252A52C9B500F57180 /* View */,
 			);
-			path = LogInViewController;
+			path = LogInView;
 			sourceTree = "<group>";
 		};
 		9DBD5C8829CD85E2009F494C /* View */ = {
@@ -1249,6 +1268,7 @@
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,
+				9DB90D312A54565400F57180 /* LogInViewModel.swift in Sources */,
 				9D4E1DBF2A0A28FC00573EC4 /* TitleJsonSerializationSingleton.swift in Sources */,
 				9D13D6302A1BC489008AF427 /* DocumentsFileManager.swift in Sources */,
 				9DA94F7D29DDF75A0095D94B /* FeedView.swift in Sources */,
@@ -1617,9 +1637,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Banin-Andrey.Navigation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1647,9 +1670,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Banin-Andrey.Navigation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

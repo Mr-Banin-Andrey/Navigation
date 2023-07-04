@@ -22,11 +22,13 @@ class ProfileCoordinator: AppCoordinator {
     }
     
     func showLogInVC() {
+        let viewModel = LogInViewModel()
         let logInVC = LogInViewController()
         let myLF = MyLoginFactory()
-
+        
+        logInVC.viewModel = viewModel
         logInVC.loginDelegate = myLF.makeLoginInspector()
-        logInVC.coordinator = self
+        viewModel.coordinator = self
         navigationController.pushViewController(logInVC, animated: false)
     }
     
@@ -45,9 +47,11 @@ class ProfileCoordinator: AppCoordinator {
     }
     
     func showRegistration() {
+        let viewModel = LogInViewModel()
         let logInVC = LogInViewController()
 
-        logInVC.coordinator = self
+        logInVC.viewModel = viewModel
+        viewModel.coordinator = self
         navigationController.present(logInVC, animated: true)
     }
 }

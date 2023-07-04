@@ -77,6 +77,7 @@ extension FeedViewController: FeedViewDelegate {
     }
     
     func guessWord() {
-        viewModel.updateState(viewInput: .guessWord(word: feedView.textCheck.text!))
+        guard let word = feedView.textCheck.text else { return }
+        viewModel.updateState(viewInput: .guessWord(word: word))
     }
 }
