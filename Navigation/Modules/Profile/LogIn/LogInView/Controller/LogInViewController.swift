@@ -36,10 +36,27 @@ class LogInViewController: UIViewController {
                 switch state {
                 case .waitingForEntry:
                     print("waitingForEntry")
-                case .checkedUser:
-                    print("checkedUser")
-                case .createNewUser:
-                    print("createNewUser")
+                
+                case .userIsAuthorized:
+                    print("userIsAuthorized")
+                    showAlert()
+//                    logInView.autoAuth()
+                    
+                case .userIsNotAuthorized:
+                    print("userIsNotAuthorized")
+                
+                case .newUserRegistration:
+                    print("newUserRegistration 🍉")
+                    logInView.viewPresent(
+                        hidden: true,
+                        buttonTitle: "loginVC.modalPresent.logInButton.title".localized,
+                        loginPlaceholder: "loginVC.modalPresent.loginTextField.placeholder".localized,
+                        passwordPlaceholder: "loginVC.modalPresent.passwordTextField.placeholder".localized
+                    )
+                
+                case .userIsLoggedIn:
+                    print("log In ❤️‍🩹")
+                    
                 case .error(let error):
                     print(error)
                 }
@@ -57,7 +74,7 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setup()
+        self.setupUi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,21 +91,13 @@ class LogInViewController: UIViewController {
     
 //MARK: - 3.Methods
     
-    private func setup() {
-        if isModal {
-            self.logInView.viewPresent(
-                hidden: true,
-                buttonTitle: "loginVC.modalPresent.logInButton.title".localized,
-                loginPlaceholder: "loginVC.modalPresent.loginTextField.placeholder".localized,
-                passwordPlaceholder: "loginVC.modalPresent.passwordTextField.placeholder".localized
-            )
-        }
-                
+    private func setupUi() {
+        
         self.view.backgroundColor = .secondarySystemBackground
         self.navigationController?.navigationBar.isHidden = true
         
         self.setupGestures()
-        self.logInView.autoAuth()
+        
     }
     
     private func setupGestures() {
@@ -96,14 +105,7 @@ class LogInViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestures)
     }
     
-    private func createUserRealm(user: LogInUser) {
-        let success = dataBaseRealmService.createUser(user: user)
-        if success {
-            print("пользователь добавлен в базу Realm")
-        } else {
-            print("пользователь уже есть в базе Realm")
-        }
-    }
+    
     
     private func showAlert() {
         let alertController = UIAlertController(
@@ -117,7 +119,7 @@ class LogInViewController: UIViewController {
             style: .default,
             handler: { _ in
                 self.dismiss(animated: true)
-                self.coordinator?.showProfileVC()
+//                self.coordinator?.showProfileVC()
                 print("alert Пользователь сохранен")
             }
         )
@@ -167,39 +169,44 @@ extension LogInViewController: LogInViewDelegate {
         )
 
        if isModal {
-           checkerService.singUp(
-                withEmail: user.login,
-                password: user.password,
-                vc: self
-           ) { result in
-               switch result {
-               case .success:
-                   print("пользователь добавлен в firebase")
-                   self.createUserRealm(user: user)
-                   self.showAlert()
-               case .failure(let error):
-                   print("ошибка в firebase: ", error)
-               }
-           }
+           self.viewModel?.updateState(viewInput: .newUserRegistration(user: user))
+
+//           self.viewModel?.updateState(viewInput: .singIn(user: user))
+//           checkerService.singUp(
+//                withEmail: user.login,
+//                password: user.password,
+//                vc: self
+//           ) { result in
+//               switch result {
+//               case .success:
+//                   print("пользователь добавлен в firebase")
+//                   self.createUserRealm(user: user)
+//                   self.showAlert()
+//               case .failure(let error):
+//                   print("ошибка в firebase: ", error)
+//               }
+//           }
        } else {
-           checkerService.checkCredentials(
-                withEmail: user.login,
-                password: user.password,
-                vc: self
-           ) { result in
-               switch result {
-               case .success:
-                   print("логин и пароль верные -> открытие профиля")
-                   self.createUserRealm(user: user)
-                   self.coordinator?.showProfileVC()
-               case .failure(let error):
-                   print("ошибка в логине или пароле", error)
-               }
-           }
+//           checkerService.checkCredentials(
+//                withEmail: user.login,
+//                password: user.password,
+//                vc: self
+//           ) { result in
+//               switch result {
+//               case .success:
+//                   print("логин и пароль верные -> открытие профиля")
+//                   self.createUserRealm(user: user)
+//                   self.coordinator?.showProfileVC()
+           self.viewModel?.updateState(viewInput: .singIn(user: user))
+        
+//               case .failure(let error):
+//                   print("ошибка в логине или пароле", error)
+//               }
+//           }
        }
     }
     
     func showRegistration() {
-        self.coordinator?.showRegistration()
+        viewModel?.updateState(viewInput: .showRegistration)
     }
 }

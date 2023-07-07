@@ -38,7 +38,8 @@ class FeedViewModel: FeedViewModelProtocol {
             coordinator?.showInfoVC()
         
         case let .guessWord(word):
-           let isCheck = FeedModel().isCheck(word: word) { result in
+          
+            let isCheck = FeedModel().isCheck(word: word) { result in
                 switch result {
                 case .success:
                     print("success")
@@ -47,6 +48,7 @@ class FeedViewModel: FeedViewModelProtocol {
                 }
             }
             state = .checking(check: isCheck)
+            
         }
     }
 }

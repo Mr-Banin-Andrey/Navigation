@@ -13,16 +13,22 @@ class LogInViewModel: LogInViewModelProtocol {
     
     enum State {
         case waitingForEntry
-        case checkedUser
-        case createNewUser
+        case userIsAuthorized
+        case userIsNotAuthorized
+        case newUserRegistration
+        case userIsLoggedIn
         case error(Error)
     }
     
     enum ViewInput {
-        case singIn
-        case createUser
+        case singIn(user: LogInUser)
+        case newUserRegistration(user: LogInUser)
+        case showRegistration
     }
     
+    private let checkerService = CheckerService()
+    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
+
     var coordinator: ProfileCoordinator?
     
     var onStateDidChange: ((State) -> Void)?
@@ -33,13 +39,60 @@ class LogInViewModel: LogInViewModelProtocol {
         }
     }
     
+    private func createUserRealm(user: LogInUser) {
+        let success = dataBaseRealmService.createUser(user: user)
+        if success {
+            print("пользователь добавлен в базу Realm")
+        } else {
+            print("пользователь уже есть в базе Realm")
+        }
+    }
+    
     func updateState(viewInput: ViewInput) {
         switch viewInput {
-        case .singIn:
+        case let .singIn(user):
+            
             print("singIn")
-            self.coordinator?.showProfileVC()
-        case .createUser:
+            
+            checkerService.checkCredentials(
+                 withEmail: user.login,
+                 password: user.password,
+                 vc: LogInViewController()
+            ) { result in
+                switch result {
+                case .success:
+                    print("логин и пароль верные -> открытие профиля")
+                    self.createUserRealm(user: user)
+                    self.coordinator?.showProfileVC()
+                case .failure(let error):
+                    print("ошибка в логине или пароле", error)
+                }
+            }
+            state = .userIsLoggedIn
+            
+        case .showRegistration:
             print("createUser")
+            self.coordinator?.showRegistration()
+            state = .newUserRegistration
+
+        case let .newUserRegistration(user):
+            print("newUserRegistration")
+            checkerService.singUp(
+                 withEmail: user.login,
+                 password: user.password,
+                 vc: LogInViewController()
+            ) { result in
+                switch result {
+                case .success:
+                    print("пользователь добавлен в firebase")
+                    self.createUserRealm(user: user)
+                    self.state = .userIsAuthorized
+//                    self.showAlert()
+                case .failure(let error):
+                    print("ошибка в firebase: ", error)
+                }
+            }
+            
         }
     }
 }
