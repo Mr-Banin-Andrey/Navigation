@@ -46,7 +46,7 @@ class LogInView: UIView {
     
     private lazy var loginTextField: UITextField = {
         let login = UITextField()
-        login.placeholder = "E-mail"
+//        login.placeholder = "E-mail"
         login.font = UIFont.systemFont(ofSize: 16)
         login.autocapitalizationType = .none
         login.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class LogInView: UIView {
     
     private lazy var passwordTextField: UITextField = {
         let password = UITextField()
-        password.placeholder = "loginVC.passwordTextField.placeholder".localized
+//        password.placeholder = "loginVC.passwordTextField.placeholder".localized
         password.font = UIFont.systemFont(ofSize: 16)
         password.autocapitalizationType = .none
         password.isSecureTextEntry = true
@@ -68,10 +68,10 @@ class LogInView: UIView {
     
     private lazy var logInButton: UIButton = {
         let button = UIButton()
-        button.setTitle("loginVC.logInButton.setTitle".localized,
-                        for: .normal)
-        button.setTitleColor(UIColor.createColor(lightMode: .white, darkMode: .black)
-                             , for: .normal)
+//        button.setTitle("loginVC.logInButton.setTitle".localized,
+//                        for: .normal)
+        button.setTitleColor(UIColor.createColor(lightMode: .white, darkMode: .black),
+                             for: .normal)
         button.backgroundColor = UIColor(named: "blueColor")
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -171,7 +171,8 @@ class LogInView: UIView {
         ])
     }
     
-    func viewPresent(hidden: Bool, buttonTitle: String, loginPlaceholder: String, passwordPlaceholder: String) {
+    
+    func setupTitleAndPlaceholder(hidden: Bool, buttonTitle: String, loginPlaceholder: String, passwordPlaceholder: String) {
         self.singUpButton.isHidden = hidden
         self.logInButton.setTitle(buttonTitle, for: .normal)
         self.passwordTextField.placeholder = passwordPlaceholder
@@ -231,6 +232,4 @@ class LogInView: UIView {
     @objc private func showRegistration() {
         delegate?.showRegistration()
     }
-    
-    
 }

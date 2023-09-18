@@ -1,9 +1,8 @@
 
-
 import Foundation
 
 @available(iOS 15.0, *)
-protocol LogInViewModelProtocol {
+protocol LogInViewModelProtocol: ViewModelProtocol {
     var onStateDidChange: ((LogInViewModel.State) -> Void)? { get set }
     func updateState(viewInput: LogInViewModel.ViewInput)
 }
@@ -22,8 +21,9 @@ class LogInViewModel: LogInViewModelProtocol {
     
     enum ViewInput {
         case singIn(user: LogInUser)
-        case newUserRegistration(user: LogInUser)
-        case showRegistration
+        case showWindowRegistration
+        case willNewUserRegistration(user: LogInUser)
+        case didNewUserRegistration
     }
     
     private let checkerService = CheckerService()
@@ -48,16 +48,15 @@ class LogInViewModel: LogInViewModelProtocol {
         }
     }
     
-    func updateState(viewInput: ViewInput) {
+    func updateState(viewInput: LogInViewModel.ViewInput) {
         switch viewInput {
+        
         case let .singIn(user):
-            
             print("singIn")
-            
             checkerService.checkCredentials(
                  withEmail: user.login,
                  password: user.password,
-                 vc: LogInViewController()
+                 vc: LogInViewController(logInViewModelProtocol: self)
             ) { result in
                 switch result {
                 case .success:
@@ -70,17 +69,17 @@ class LogInViewModel: LogInViewModelProtocol {
             }
             state = .userIsLoggedIn
             
-        case .showRegistration:
+        case .showWindowRegistration:
             print("createUser")
             self.coordinator?.showRegistration()
-            state = .newUserRegistration
+//            state = .newUserRegistration
 
-        case let .newUserRegistration(user):
+        case let .willNewUserRegistration(user):
             print("newUserRegistration")
             checkerService.singUp(
                  withEmail: user.login,
                  password: user.password,
-                 vc: LogInViewController()
+                 vc: LogInViewController(logInViewModelProtocol: self)
             ) { result in
                 switch result {
                 case .success:
@@ -92,7 +91,9 @@ class LogInViewModel: LogInViewModelProtocol {
                     print("ошибка в firebase: ", error)
                 }
             }
-            
+        case .didNewUserRegistration:
+            print("didNewUserRegistration")
+            self.coordinator?.showProfileVC()
         }
     }
 }

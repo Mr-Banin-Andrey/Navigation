@@ -17,7 +17,7 @@ struct LoginInspector: LoginViewControllerDelegate {
 @available(iOS 15.0, *)
 class LogInViewController: UIViewController {
     
-//MARK: - 1. Properties
+//MARK: - Properties
 
     var loginDelegate: LoginViewControllerDelegate?
     
@@ -25,45 +25,23 @@ class LogInViewController: UIViewController {
     
     private let checkerService = CheckerService()
     
-    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
-        
+//    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
     
-    var viewModel: LogInViewModelProtocol? {
-        didSet {
-            self.viewModel?.onStateDidChange = { [weak self] state in
-                guard let self = self else { return }
-                
-                switch state {
-                case .waitingForEntry:
-                    print("waitingForEntry")
-                
-                case .userIsAuthorized:
-                    print("userIsAuthorized")
-                    showAlert()
-//                    logInView.autoAuth()
-                    
-                case .userIsNotAuthorized:
-                    print("userIsNotAuthorized")
-                
-                case .newUserRegistration:
-                    print("newUserRegistration 🍉")
-                    logInView.viewPresent(
-                        hidden: true,
-                        buttonTitle: "loginVC.modalPresent.logInButton.title".localized,
-                        loginPlaceholder: "loginVC.modalPresent.loginTextField.placeholder".localized,
-                        passwordPlaceholder: "loginVC.modalPresent.passwordTextField.placeholder".localized
-                    )
-                
-                case .userIsLoggedIn:
-                    print("log In ❤️‍🩹")
-                    
-                case .error(let error):
-                    print(error)
-                }
-            }
-        }
+    private let viewModel: LogInViewModelProtocol
+
+    
+//MARK: - Initiation
+    
+    init(logInViewModelProtocol: LogInViewModelProtocol) {
+        self.viewModel = logInViewModelProtocol
+        super.init(nibName: nil, bundle: nil)
     }
-//MARK: - 2.Life cycle
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+//MARK: - Life cycle
     
     override func loadView() {
         super.loadView()
@@ -74,11 +52,13 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupUi()
+        print("🔋viewDidLoad")
+        self.setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.didShowKeyboard),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -89,22 +69,62 @@ class LogInViewController: UIViewController {
                                                object: nil)
     }
     
-//MARK: - 3.Methods
+//MARK: - Private methods
     
-    private func setupUi() {
-        
-        self.view.backgroundColor = .secondarySystemBackground
-        self.navigationController?.navigationBar.isHidden = true
-        
+    private func setup() {
         self.setupGestures()
+        self.view.backgroundColor = .secondarySystemBackground
+        self.bindViewModel()
         
+        if isModal {
+            logInView.setupTitleAndPlaceholder(
+                hidden: true,
+                buttonTitle: "loginVC.modalPresent.logInButton.title".localized,
+                loginPlaceholder: "loginVC.modalPresent.loginTextField.placeholder".localized,
+                passwordPlaceholder: "loginVC.modalPresent.passwordTextField.placeholder".localized
+            )
+        } else {
+            logInView.setupTitleAndPlaceholder(
+                hidden: false,
+                buttonTitle: "loginVC.logInButton.setTitle".localized,
+                loginPlaceholder: "E-mail",
+                passwordPlaceholder: "loginVC.passwordTextField.placeholder".localized
+            )
+            logInView.autoAuth()
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.onStateDidChange = { [weak self] state in
+            guard let self = self else { return }
+            
+            switch state {
+            case .waitingForEntry:
+                print("waitingForEntry")
+                
+            case .userIsNotAuthorized:
+                print("userIsNotAuthorized")
+            case .userIsAuthorized:
+                print("userIsAuthorized")
+                showAlert()
+                
+            case .userIsLoggedIn:
+                print("userIsLoggedIn")
+            
+            case .newUserRegistration:
+                print("newUserRegistration")
+            
+            case let .error(error):
+                print("Error state: \(error)")
+                
+            }
+        }
     }
     
     private func setupGestures() {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(self.forcedHidingKeyboard))
         self.view.addGestureRecognizer(tapGestures)
     }
-    
     
     
     private func showAlert() {
@@ -120,6 +140,7 @@ class LogInViewController: UIViewController {
             handler: { _ in
                 self.dismiss(animated: true)
 //                self.coordinator?.showProfileVC()
+                self.viewModel.updateState(viewInput: .didNewUserRegistration)
                 print("alert Пользователь сохранен")
             }
         )
@@ -169,44 +190,13 @@ extension LogInViewController: LogInViewDelegate {
         )
 
        if isModal {
-           self.viewModel?.updateState(viewInput: .newUserRegistration(user: user))
-
-//           self.viewModel?.updateState(viewInput: .singIn(user: user))
-//           checkerService.singUp(
-//                withEmail: user.login,
-//                password: user.password,
-//                vc: self
-//           ) { result in
-//               switch result {
-//               case .success:
-//                   print("пользователь добавлен в firebase")
-//                   self.createUserRealm(user: user)
-//                   self.showAlert()
-//               case .failure(let error):
-//                   print("ошибка в firebase: ", error)
-//               }
-//           }
+           self.viewModel.updateState(viewInput: .willNewUserRegistration(user: user))
        } else {
-//           checkerService.checkCredentials(
-//                withEmail: user.login,
-//                password: user.password,
-//                vc: self
-//           ) { result in
-//               switch result {
-//               case .success:
-//                   print("логин и пароль верные -> открытие профиля")
-//                   self.createUserRealm(user: user)
-//                   self.coordinator?.showProfileVC()
-           self.viewModel?.updateState(viewInput: .singIn(user: user))
-        
-//               case .failure(let error):
-//                   print("ошибка в логине или пароле", error)
-//               }
-//           }
+           self.viewModel.updateState(viewInput: .singIn(user: user))
        }
     }
     
     func showRegistration() {
-        viewModel?.updateState(viewInput: .showRegistration)
+        viewModel.updateState(viewInput: .showWindowRegistration)
     }
 }

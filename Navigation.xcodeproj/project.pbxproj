@@ -46,6 +46,7 @@
 		9D63D13929FBCC0A0090C859 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13829FBCC0A0090C859 /* Song.swift */; };
 		9D63D13B29FBCC130090C859 /* Songs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D13A29FBCC130090C859 /* Songs.swift */; };
 		9D6706492A2F73B200438374 /* DocumentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6706482A2F73B200438374 /* DocumentsModel.swift */; };
+		9D7D37FB2AB8909400C26175 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D37FA2AB8909400C26175 /* ViewModelProtocol.swift */; };
 		9D7D89A82A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D89A72A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift */; };
 		9D85D8902948BE44008A97E8 /* PostCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */; };
 		9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */; };
@@ -190,6 +191,7 @@
 		9D63D13829FBCC0A0090C859 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		9D63D13A29FBCC130090C859 /* Songs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Songs.swift; sourceTree = "<group>"; };
 		9D6706482A2F73B200438374 /* DocumentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsModel.swift; sourceTree = "<group>"; };
+		9D7D37FA2AB8909400C26175 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		9D7D89A72A3E3A3C00CB0ED0 /* CoreDataServiceFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceFetchResult.swift; sourceTree = "<group>"; };
 		9D85D88F2948BE44008A97E8 /* PostCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomTableViewCell.swift; sourceTree = "<group>"; };
 		9D8BBB43295621B400F7130E /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
@@ -564,6 +566,7 @@
 				9D3C51162A48B7AC00D625B3 /* MapKit */,
 				9D99C0A12A337E03008968FB /* LikePosts */,
 				9DE3E47F292671D20043E19D /* Profile */,
+				9D7D37FA2AB8909400C26175 /* ViewModelProtocol.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1220,6 +1223,7 @@
 				9D8D663E2A4C6C420055CCDB /* LocationManagerSettings.swift in Sources */,
 				9D8BBB44295621B400F7130E /* PhotosTableViewCell.swift in Sources */,
 				9D4E1DC12A0A55F000573EC4 /* OrbitalPeriodJsonDecoderSingleton.swift in Sources */,
+				9D7D37FB2AB8909400C26175 /* ViewModelProtocol.swift in Sources */,
 				9D3C511C2A48C2D400D625B3 /* MapKitView.swift in Sources */,
 				9DB90D272A52C9CE00F57180 /* LogInView.swift in Sources */,
 				9D6706492A2F73B200438374 /* DocumentsModel.swift in Sources */,
