@@ -5,11 +5,17 @@ import Foundation
 struct Value {
     let text: String
     let color: String
+    
+    static func == (lhs: Value, rhs: Value) -> Bool {
+        return lhs.text == rhs.text && lhs.color == rhs.color
+    }
 }
 
 enum CheckError: Error {
     case wrong(value: Value)
     case emptyValue(value: Value)
+    
+    
 }
 
 

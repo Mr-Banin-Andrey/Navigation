@@ -9,11 +9,25 @@ protocol FeedViewModelProtocol: ViewModelProtocol {
 
 class FeedViewModel: FeedViewModelProtocol {
 
-    enum State {
+    enum State: Equatable {
+        
         case initial
         case checking
         case checked(Value)
         case error(CheckError)
+        
+        static func == (lhs: FeedViewModel.State, rhs: FeedViewModel.State) -> Bool {
+            switch (lhs, rhs) {
+            case ( .checked(_), .checked(_)):
+                return true
+            case (.error(.emptyValue(value: _)), .error(.emptyValue(value: _))):
+                return true
+            case (.error(.wrong(value: _)), .error(.wrong(value: _))):
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     enum ViewInput {

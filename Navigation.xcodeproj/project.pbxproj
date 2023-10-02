@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6BC015D5618EE86C0C0673AE /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A20534FE252B01A8ED78408A /* Pods_Navigation.framework */; };
 		9D01F5362A004220009BD65E /* Justin Timberlake.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */; };
+		9D0B867D2ACB6133009E4048 /* LogInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B867C2ACB6133009E4048 /* LogInViewModelTests.swift */; };
 		9D0EC510298C1EC400A98E06 /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 9D0EC50F298C1EC400A98E06 /* StorageService.docc */; };
 		9D0EC51E298C1EC400A98E06 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0EC50E298C1EC400A98E06 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0EC521298C1EC400A98E06 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D0EC50C298C1EC400A98E06 /* StorageService.framework */; };
@@ -139,6 +140,7 @@
 		83A23AD28F16CCEC0AC653BF /* Pods_StorageService_StorageServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService_StorageServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8773939726F50516093446AB /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
 		9D01F5352A004220009BD65E /* Justin Timberlake.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Justin Timberlake.mp3"; sourceTree = "<group>"; };
+		9D0B867C2ACB6133009E4048 /* LogInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModelTests.swift; sourceTree = "<group>"; };
 		9D0EC50C298C1EC400A98E06 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D0EC50E298C1EC400A98E06 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		9D0EC50F298C1EC400A98E06 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				9DECAB0F2AC2EE6C001EFC06 /* FeedViewModelTests.swift */,
+				9D0B867C2ACB6133009E4048 /* LogInViewModelTests.swift */,
 			);
 			path = NavigationTests;
 			sourceTree = "<group>";
@@ -1101,6 +1104,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D0B867D2ACB6133009E4048 /* LogInViewModelTests.swift in Sources */,
 				9DECAB102AC2EE6C001EFC06 /* FeedViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
