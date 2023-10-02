@@ -14,8 +14,8 @@ class LogInViewModel: LogInViewModelProtocol {
         case waitingForEntry
         case userIsAuthorized
         case userIsNotAuthorized
-        case newUserRegistration
-        case userIsLoggedIn
+//        case newUserRegistration
+//        case userIsLoggedIn
         case error(Error)
     }
     
@@ -67,12 +67,11 @@ class LogInViewModel: LogInViewModelProtocol {
                     print("ошибка в логине или пароле", error)
                 }
             }
-            state = .userIsLoggedIn
+//            state = .userIsLoggedIn
             
         case .showWindowRegistration:
             print("createUser")
             self.coordinator?.showRegistration()
-//            state = .newUserRegistration
 
         case let .willNewUserRegistration(user):
             print("newUserRegistration")
@@ -86,7 +85,6 @@ class LogInViewModel: LogInViewModelProtocol {
                     print("пользователь добавлен в firebase")
                     self.createUserRealm(user: user)
                     self.state = .userIsAuthorized
-//                    self.showAlert()
                 case .failure(let error):
                     print("ошибка в firebase: ", error)
                 }

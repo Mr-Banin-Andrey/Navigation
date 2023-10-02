@@ -33,9 +33,20 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9DB90D172A52C92300F57180"
+               BlueprintIdentifier = "9D9647E02ABC5AAC0041B251"
                BuildableName = "NavigationTests.xctest"
                BlueprintName = "NavigationTests"
+               ReferencedContainer = "container:Navigation.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9D9647D32ABC57DB0041B251"
+               BuildableName = "FeedViewModelTests.xctest"
+               BlueprintName = "FeedViewModelTests"
                ReferencedContainer = "container:Navigation.xcodeproj">
             </BuildableReference>
          </TestableReference>

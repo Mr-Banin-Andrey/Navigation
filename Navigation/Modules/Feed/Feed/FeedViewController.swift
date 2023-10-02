@@ -7,22 +7,16 @@ class FeedViewController: UIViewController {
     //MARK: - Properties
     private lazy var feedView = FeedView(delegate: self)
     
-    var viewModel: FeedViewModelProtocol! {
-        didSet {
-            self.viewModel.onStateDidChange = { [weak self] state in
-                guard let self = self else {
-                    return
-                }
-                switch state {
-                case .initial:
-                    self.feedView.checkLabel.text = nil
-                    self.feedView.checkLabel.backgroundColor = nil
-                case let .checking(check):
-                    self.feedView.checkLabel.text = check.text
-                    self.feedView.checkLabel.backgroundColor = check.color
-                }
-            }
-        }
+    private let viewModel: FeedViewModelProtocol
+    
+    //MARK: - init
+    init(viewModel: FeedViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -38,6 +32,7 @@ class FeedViewController: UIViewController {
         
         view.backgroundColor = .secondarySystemBackground
         self.setupGestures()
+        self.bindViewModel()
     }
        
     
@@ -50,6 +45,34 @@ class FeedViewController: UIViewController {
     }
     
     //MARK: - Methods
+    
+    private func bindViewModel() {
+        self.viewModel.onStateDidChange = { [weak self] state in
+            guard let self = self else {
+                return
+            }
+            switch state {
+            case .initial:
+                self.feedView.checkLabel.text = nil
+                self.feedView.checkLabel.backgroundColor = nil
+            case .checking:
+                self.feedView.checkLabel.text = nil
+                self.feedView.checkLabel.backgroundColor = nil
+            case let .checked(check):
+                self.feedView.checkLabel.text = check.text
+                self.feedView.checkLabel.backgroundColor = UIColor(named: check.color)
+            case let .error(error):
+                switch error {
+                case let .emptyValue(error):
+                    self.feedView.checkLabel.text = error.text
+                    self.feedView.checkLabel.backgroundColor = UIColor(named: error.color)
+                case let .wrong(error):
+                    self.feedView.checkLabel.text = error.text
+                    self.feedView.checkLabel.backgroundColor = UIColor(named: error.color)
+                }
+            }
+        }
+    }
     
     private func setupGestures() {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(self.forcedHidingKeyboard))

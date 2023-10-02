@@ -24,9 +24,7 @@ class LogInViewController: UIViewController {
     private lazy var logInView = LogInView(delegate: self)
     
     private let checkerService = CheckerService()
-    
-//    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
-    
+        
     private let viewModel: LogInViewModelProtocol
 
     
@@ -108,11 +106,10 @@ class LogInViewController: UIViewController {
                 print("userIsAuthorized")
                 showAlert()
                 
-            case .userIsLoggedIn:
-                print("userIsLoggedIn")
-            
-            case .newUserRegistration:
-                print("newUserRegistration")
+//            case .userIsLoggedIn:
+//                print("userIsLoggedIn")
+//            case .newUserRegistration:
+//                print("newUserRegistration")
             
             case let .error(error):
                 print("Error state: \(error)")
@@ -139,7 +136,6 @@ class LogInViewController: UIViewController {
             style: .default,
             handler: { _ in
                 self.dismiss(animated: true)
-//                self.coordinator?.showProfileVC()
                 self.viewModel.updateState(viewInput: .didNewUserRegistration)
                 print("alert Пользователь сохранен")
             }
@@ -184,16 +180,13 @@ extension LogInViewController: LogInViewDelegate {
         let login = self.logInView.getLoginAndPassword().0
         let password = self.logInView.getLoginAndPassword().1
         
-        let user = LogInUser(
-            login: login,
-            password: password
-        )
+        let user = LogInUser(login: login,password: password)
 
-       if isModal {
+        if isModal {
            self.viewModel.updateState(viewInput: .willNewUserRegistration(user: user))
-       } else {
+        } else {
            self.viewModel.updateState(viewInput: .singIn(user: user))
-       }
+        }
     }
     
     func showRegistration() {
