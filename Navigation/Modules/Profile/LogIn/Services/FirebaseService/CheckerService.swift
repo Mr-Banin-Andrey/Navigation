@@ -13,13 +13,11 @@ protocol CheckerServiceProtocol: AnyObject {
     func singUp(
         withEmail email: String,
         password: String,
-        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     )
     func checkCredentials(
         withEmail email: String,
         password: String,
-        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     )
     func singOut() throws
@@ -30,7 +28,6 @@ class CheckerService {
     
     private func responseHendler(
         _ response: (authData: AuthDataResult?, error: Error?),
-        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     ) {
         let useDispachQueue: (Result<UserModel, CheckerError>) -> Void = { result in
@@ -41,24 +38,12 @@ class CheckerService {
         
         if let error = response.error {
             if error.localizedDescription == "The password is invalid or the user does not have a password." {
-                let showAlert = ShowAlert()
-                showAlert.showAlert(
-                    vc: vc,
-                    title: "universalMeaning.alert.title".localized,
-                    message: "firebase.checkerService.alert.accountExists.message".localized,
-                    titleButton: "universalMeaning.Button.tryAgain".localized
-                )
+                useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
+                return
             } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
-                let showAlert = ShowAlert()
-                showAlert.showAlert(
-                    vc: vc,
-                    title: "universalMeaning.alert.title".localized,
-                    message: "firebase.checkerService.alert.accountDoesNotExist.message".localized,
-                    titleButton: "universalMeaning.Button.tryAgain".localized
-                )
+                useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
+                return
             }
-            
-            useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
         }
         
         guard
@@ -69,29 +54,9 @@ class CheckerService {
         }
 
         let user = UserModel(from: firUser)
-
         useDispachQueue(.success(user))
     }
-    
-    private func emptyPasswordOrEmailField(
-        vc: UIViewController,
-        email: String,
-        password: String,
-        title: String,
-        message: String
-    ) -> Bool {
-        if email.isEmpty || password.isEmpty {
-            let showAlert = ShowAlert()
-            showAlert.showAlert(
-                vc: vc,
-                title: "universalMeaning.alert.title".localized,
-                message: "firebase.checkerService.alert.cellEmpty.message".localized,
-                titleButton: "universalMeaning.Button.tryAgain".localized
-            )
-            return true
-        }
-        return false
-    }
+
     
 }
 
@@ -100,56 +65,32 @@ extension CheckerService: CheckerServiceProtocol {
     func singUp(
         withEmail email: String,
         password: String,
-        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     ) {
-        let isEmpty = emptyPasswordOrEmailField(
-            vc: vc,
-            email: email,
-            password: password,
-            title: "universalMeaning.alert.title".localized,
-            message: "firebase.checkerService.alert.cellEmpty.message".localized
-        )
-        
-        if isEmpty == false {
-            Auth.auth().createUser(
-                withEmail: email,
-                password: password
-            ) { [weak self] (authData, error) in
-                self?.responseHendler(
-                    (authData: authData, error: error),
-                    vc: vc,
-                    completion: completion
-                )
-            }
+        Auth.auth().createUser(
+            withEmail: email,
+            password: password
+        ) { [weak self] (authData, error) in
+            self?.responseHendler(
+                (authData: authData, error: error),
+                completion: completion
+            )
         }
     }
     
     func checkCredentials(
         withEmail email: String,
         password: String,
-        vc: UIViewController,
         completion: @escaping (Result<UserModel, CheckerError>) -> Void
     ) {
-        let isEmpty = emptyPasswordOrEmailField(
-            vc: vc,
-            email: email,
-            password: password,
-            title: "universalMeaning.alert.title".localized,
-            message: "firebase.checkerService.alert.cellEmpty.message".localized
-        )
-        
-        if isEmpty == false {
-            Auth.auth().signIn(
-                withEmail: email,
-                password: password
-            ) { [weak self] (authData, error) in
-                self?.responseHendler(
-                    (authData: authData, error: error),
-                    vc: vc,
-                    completion: completion
-                )
-            }
+        Auth.auth().signIn(
+            withEmail: email,
+            password: password
+        ) { [weak self] (authData, error) in
+            self?.responseHendler(
+                (authData: authData, error: error),
+                completion: completion
+            )
         }
     }
     
@@ -162,5 +103,4 @@ extension CheckerService: CheckerServiceProtocol {
         }
         
     }
-
 }

@@ -13,9 +13,8 @@ class LogInViewModel: LogInViewModelProtocol {
     enum State {
         case waitingForEntry
         case userIsAuthorized
-        case userIsNotAuthorized
-//        case newUserRegistration
-//        case userIsLoggedIn
+        case incorrectPassword
+        case userDoesNotExist
         case error(Error)
     }
     
@@ -52,11 +51,9 @@ class LogInViewModel: LogInViewModelProtocol {
         switch viewInput {
         
         case let .singIn(user):
-            print("singIn")
             checkerService.checkCredentials(
                  withEmail: user.login,
-                 password: user.password,
-                 vc: LogInViewController(logInViewModelProtocol: self)
+                 password: user.password
             ) { result in
                 switch result {
                 case .success:
@@ -64,21 +61,28 @@ class LogInViewModel: LogInViewModelProtocol {
                     self.createUserRealm(user: user)
                     self.coordinator?.showProfileVC()
                 case .failure(let error):
-                    print("ошибка в логине или пароле", error)
+                    switch error {
+                    case let .unknownError(reason: error):
+                        if error == "The password is invalid or the user does not have a password." {
+                            print("ошибка пароля")
+                            self.state = .incorrectPassword
+                        } else if error == "There is no user record corresponding to this identifier. The user may have been deleted." {
+                            print("пользователя не существует")
+                            self.state = .userDoesNotExist
+                        }
+                    case .noUserRecord:
+                        self.state = .userDoesNotExist
+                    }
                 }
             }
-//            state = .userIsLoggedIn
             
         case .showWindowRegistration:
-            print("createUser")
             self.coordinator?.showRegistration()
 
         case let .willNewUserRegistration(user):
-            print("newUserRegistration")
             checkerService.singUp(
                  withEmail: user.login,
-                 password: user.password,
-                 vc: LogInViewController(logInViewModelProtocol: self)
+                 password: user.password
             ) { result in
                 switch result {
                 case .success:
@@ -90,7 +94,6 @@ class LogInViewModel: LogInViewModelProtocol {
                 }
             }
         case .didNewUserRegistration:
-            print("didNewUserRegistration")
             self.coordinator?.showProfileVC()
         }
     }

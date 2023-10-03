@@ -184,6 +184,7 @@ class LogInView: UIView {
         return loginButtomBottom
     }
     
+    //вынести во ViewModel
     func autoAuth() {
         let arrayUsers = RealmService().fetch()
         print( arrayUsers )
@@ -201,6 +202,22 @@ class LogInView: UIView {
             let password = self.passwordTextField.text
         else { return ("", "") }
         return (login, password)
+    }
+    
+    func showAlertEmptyFields(vc: UIViewController) {
+        let alertController = UIAlertController(
+            title: "universalMeaning.alert.title".localized,
+            message: "firebase.checkerService.alert.cellEmpty.message".localized,
+            preferredStyle: .alert
+        )
+        
+        let singInAction = UIAlertAction(
+            title: "universalMeaning.Button.tryAgain".localized,
+            style: .default
+        )
+        
+        alertController.addAction(singInAction)
+        vc.present(alertController, animated: true)
     }
     
     private func passwordGuessQueue() {

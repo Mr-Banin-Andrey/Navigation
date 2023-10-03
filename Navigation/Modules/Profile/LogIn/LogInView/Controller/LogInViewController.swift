@@ -50,7 +50,6 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("🔋viewDidLoad")
         self.setup()
     }
     
@@ -75,42 +74,52 @@ class LogInViewController: UIViewController {
         self.bindViewModel()
         
         if isModal {
-            logInView.setupTitleAndPlaceholder(
+            self.logInView.setupTitleAndPlaceholder(
                 hidden: true,
                 buttonTitle: "loginVC.modalPresent.logInButton.title".localized,
                 loginPlaceholder: "loginVC.modalPresent.loginTextField.placeholder".localized,
                 passwordPlaceholder: "loginVC.modalPresent.passwordTextField.placeholder".localized
             )
         } else {
-            logInView.setupTitleAndPlaceholder(
+            self.logInView.setupTitleAndPlaceholder(
                 hidden: false,
                 buttonTitle: "loginVC.logInButton.setTitle".localized,
                 loginPlaceholder: "E-mail",
                 passwordPlaceholder: "loginVC.passwordTextField.placeholder".localized
             )
-            logInView.autoAuth()
+            self.logInView.autoAuth()
         }
     }
     
     private func bindViewModel() {
-        viewModel.onStateDidChange = { [weak self] state in
+        self.viewModel.onStateDidChange = { [weak self] state in
             guard let self = self else { return }
             
             switch state {
             case .waitingForEntry:
                 print("waitingForEntry")
-                
-            case .userIsNotAuthorized:
-                print("userIsNotAuthorized")
             case .userIsAuthorized:
-                print("userIsAuthorized")
-                showAlert()
+                print("state- userIsAuthorized")
+                self.showAlertDidNewUserRegistration()
+            case .incorrectPassword:
+                print("state- incorrectPassword")
+                let showAlert = ShowAlert()
+                showAlert.showAlert(
+                    vc: self,
+                    title: "universalMeaning.alert.title".localized,
+                    message: "firebase.checkerService.alert.accountExists.message".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
+            case .userDoesNotExist:
+                print("state- userDoesNotExist")
+                let showAlert = ShowAlert()
+                showAlert.showAlert(
+                    vc: self,
+                    title: "universalMeaning.alert.title".localized,
+                    message: "firebase.checkerService.alert.accountDoesNotExist.message".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
                 
-//            case .userIsLoggedIn:
-//                print("userIsLoggedIn")
-//            case .newUserRegistration:
-//                print("newUserRegistration")
-            
             case let .error(error):
                 print("Error state: \(error)")
                 
@@ -124,7 +133,7 @@ class LogInViewController: UIViewController {
     }
     
     
-    private func showAlert() {
+    private func showAlertDidNewUserRegistration() {
         let alertController = UIAlertController(
             title: nil,
             message: "loginVC.alert.message".localized,
@@ -142,9 +151,8 @@ class LogInViewController: UIViewController {
         )
         
         alertController.addAction(singInAction)
-        self.present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true)
     }
-    
     
     @objc private func didShowKeyboard(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -176,16 +184,20 @@ class LogInViewController: UIViewController {
 extension LogInViewController: LogInViewDelegate {
     
     func showProfileViewControllerButton() {
-        
+
         let login = self.logInView.getLoginAndPassword().0
         let password = self.logInView.getLoginAndPassword().1
         
-        let user = LogInUser(login: login,password: password)
-
-        if isModal {
-           self.viewModel.updateState(viewInput: .willNewUserRegistration(user: user))
+        if login.isEmpty || password.isEmpty {
+            self.logInView.showAlertEmptyFields(vc: self)
         } else {
-           self.viewModel.updateState(viewInput: .singIn(user: user))
+            let user = LogInUser(login: login,password: password)
+
+            if isModal {
+               self.viewModel.updateState(viewInput: .willNewUserRegistration(user: user))
+            } else {
+               self.viewModel.updateState(viewInput: .singIn(user: user))
+            }
         }
     }
     

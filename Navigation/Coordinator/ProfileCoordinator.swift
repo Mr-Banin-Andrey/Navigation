@@ -26,7 +26,6 @@ class ProfileCoordinator: AppCoordinator {
         let logInVC = LogInViewController(logInViewModelProtocol: viewModel)
         let myLF = MyLoginFactory()
         
-//        logInVC.viewModel = viewModel
         logInVC.loginDelegate = myLF.makeLoginInspector()
         viewModel.coordinator = self
         navigationController.pushViewController(logInVC, animated: false)
@@ -50,7 +49,6 @@ class ProfileCoordinator: AppCoordinator {
         let viewModel = LogInViewModel()
         let logInVC = LogInViewController(logInViewModelProtocol: viewModel)
 
-//        logInVC.viewModel = viewModel
         viewModel.coordinator = self
         navigationController.present(logInVC, animated: true)
     }
