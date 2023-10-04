@@ -37,13 +37,8 @@ class CheckerService {
         }
         
         if let error = response.error {
-            if error.localizedDescription == "The password is invalid or the user does not have a password." {
-                useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
-                return
-            } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
-                useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
-                return
-            }
+            useDispachQueue(.failure(.unknownError(reason: error.localizedDescription)))
+            return
         }
         
         guard

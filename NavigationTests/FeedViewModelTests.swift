@@ -6,11 +6,11 @@ import XCTest
 final class FeedViewModelTests: XCTestCase {
     
     var viewModel: FeedViewModel!
-    var feedViewModelProtocolMock: FeedViewModelProtocolMock!
+    var feedViewModelProtocolMock: FeedModelProtocolMock!
     
     override func setUp() {
         viewModel = FeedViewModel()
-        feedViewModelProtocolMock = FeedViewModelProtocolMock()
+        feedViewModelProtocolMock = FeedModelProtocolMock()
     }
 
     override func tearDown() {
@@ -49,7 +49,7 @@ final class FeedViewModelTests: XCTestCase {
     }
 }
 
-class FeedViewModelProtocolMock: FeedModelProtocol {
+class FeedModelProtocolMock: FeedModelProtocol {
     
     var fakeResult: Result<Value, CheckError>!
     func isCheck(word: String, completion: @escaping ((Result<Value, CheckError>) -> Void)) {

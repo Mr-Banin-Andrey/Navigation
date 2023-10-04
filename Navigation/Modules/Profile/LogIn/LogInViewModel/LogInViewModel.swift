@@ -10,12 +10,25 @@ protocol LogInViewModelProtocol: ViewModelProtocol {
 @available(iOS 15.0, *)
 class LogInViewModel: LogInViewModelProtocol {
     
-    enum State {
+    enum State: Equatable {
         case waitingForEntry
         case userIsAuthorized
         case incorrectPassword
         case userDoesNotExist
         case error(Error)
+        
+        static func == (lhs: LogInViewModel.State, rhs: LogInViewModel.State) -> Bool {
+            switch (lhs, rhs) {
+            case (.userIsAuthorized, .userIsAuthorized):
+                return true
+            case (.incorrectPassword, .incorrectPassword):
+                return true
+            case (.userDoesNotExist, .userDoesNotExist):
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     enum ViewInput {
@@ -25,7 +38,7 @@ class LogInViewModel: LogInViewModelProtocol {
         case didNewUserRegistration
     }
     
-    private let checkerService = CheckerService()
+    var checkerService: CheckerServiceProtocol = CheckerService()
     private let dataBaseRealmService: RealmServiceProtocol = RealmService()
 
     var coordinator: ProfileCoordinator?
