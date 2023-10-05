@@ -50,10 +50,6 @@
 "likePostsView.alert.placeholder" = "Введите автора";
 "likePostsView.alert.action.title" = "Отменить";
 
-"firebase.checkerService.alert.accountExists.message" = "Неверный логин или пароль";
-"firebase.checkerService.alert.accountDoesNotExist.message" = "Аккаунта с такими данными не существует";
-"firebase.checkerService.alert.cellEmpty.message" = "Заполните все поля";
-
 "loginVC.passwordTextField.placeholder" = "Пароль";
 "loginVC.logInButton.setTitle" = "Войти";
 "loginVC.alert.message" = "Пользователь сохранен";
@@ -61,6 +57,10 @@
 "loginVC.modalPresent.logInButton.title" = "Сохранить";
 "loginVC.modalPresent.passwordTextField.placeholder" = "Пароль не менее 6 символов";
 "loginVC.modalPresent.loginTextField.placeholder" = "Ваш e-mail";
+"loginVC.checkerService.alert.accountExists.message" = "Неверный логин или пароль";
+"loginVC.checkerService.alert.accountDoesNotExist.message" = "Аккаунта с такими данными не существует";
+"loginVC.checkerService.alert.cellEmpty.message" = "Заполните все поля";
+"loginVC.alert.failedFaceIdAuthentication.message" = "Неуспешная аутентификация Face ID";
 
 "photosVC.navigationController.title" = "Фотогалерея";
 

@@ -5,6 +5,7 @@ import UIKit
 protocol LogInViewDelegate: AnyObject {
     func showProfileViewControllerButton()
     func showRegistration()
+    func showProfileViewControllerWithFaceIdButton()
 }
 
 class LogInView: UIView {
@@ -105,8 +106,20 @@ class LogInView: UIView {
         return indicator
     }()
     
-    private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
+    private lazy var faceIdButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "faceid"), for: .normal)
+        button.tintColor = UIColor(named: "blueColor")
+//        button.imageView?.contentMode = .scaleToFill
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.contentMode = .scaleToFill
+        button.addTarget(self, action: #selector(showProfileViewControllerWithFaceIdButton), for: .touchUpInside)
+        return button
+    }()
     
+    private lazy var nameQueue = DispatchQueue(label: "ru.navigation", qos: .userInteractive, attributes: [.concurrent])
     
     init(delegate: LogInViewDelegate) {
         self.delegate = delegate
@@ -130,6 +143,7 @@ class LogInView: UIView {
         self.scrollView.addSubview(self.logInButton)
         self.scrollView.addSubview(self.singUpButton)
         self.scrollView.addSubview(self.activityIndicator)
+        self.scrollView.addSubview(self.faceIdButton)
         
         NSLayoutConstraint.activate([
             self.scrollView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -160,14 +174,19 @@ class LogInView: UIView {
             self.logInButton.heightAnchor.constraint(equalToConstant: 50),
             self.logInButton.topAnchor.constraint(equalTo: self.loginPasswordView.bottomAnchor, constant: 16),
             self.logInButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            self.logInButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            self.logInButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -82),
             
             self.singUpButton.heightAnchor.constraint(equalToConstant: 30),
             self.singUpButton.topAnchor.constraint(equalTo: self.logInButton.bottomAnchor, constant: 16),
             self.singUpButton.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             
             self.activityIndicator.bottomAnchor.constraint(equalTo: self.loginPasswordStack.bottomAnchor, constant: -8),
-            self.activityIndicator.leadingAnchor.constraint(equalTo: self.loginPasswordStack.leadingAnchor)
+            self.activityIndicator.leadingAnchor.constraint(equalTo: self.loginPasswordStack.leadingAnchor),
+            
+            self.faceIdButton.heightAnchor.constraint(equalToConstant: 50),
+            self.faceIdButton.widthAnchor.constraint(equalToConstant: 52),
+            self.faceIdButton.leadingAnchor.constraint(equalTo: self.logInButton.trailingAnchor, constant: 14),
+            self.faceIdButton.topAnchor.constraint(equalTo: self.loginPasswordView.bottomAnchor, constant: 16)
         ])
     }
     
@@ -207,7 +226,7 @@ class LogInView: UIView {
     func showAlertEmptyFields(vc: UIViewController) {
         let alertController = UIAlertController(
             title: "universalMeaning.alert.title".localized,
-            message: "firebase.checkerService.alert.cellEmpty.message".localized,
+            message: "loginVC.checkerService.alert.cellEmpty.message".localized,
             preferredStyle: .alert
         )
         
@@ -248,5 +267,9 @@ class LogInView: UIView {
     
     @objc private func showRegistration() {
         delegate?.showRegistration()
+    }
+    
+    @objc private func showProfileViewControllerWithFaceIdButton() {
+        delegate?.showProfileViewControllerWithFaceIdButton()
     }
 }

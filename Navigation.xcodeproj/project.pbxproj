@@ -69,6 +69,7 @@
 		9DB8173029FB4F0100988937 /* Nirvana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172C29FB4F0100988937 /* Nirvana.mp3 */; };
 		9DB8CCEE2ACEAC2F00BAD8D9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB8CCED2ACEAC2F00BAD8D9 /* Realm */; };
 		9DB8CCF02ACEAC2F00BAD8D9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB8CCEF2ACEAC2F00BAD8D9 /* RealmSwift */; };
+		9DB8CCF32ACF0F3400BAD8D9 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8CCF22ACF0F3400BAD8D9 /* LocalAuthorizationService.swift */; };
 		9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0A2A4EF69500F57180 /* extensionString.swift */; };
 		9DB90D0D2A50339F00F57180 /* extensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0C2A50339F00F57180 /* extensionUIColor.swift */; };
 		9DB90D272A52C9CE00F57180 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D262A52C9CE00F57180 /* LogInView.swift */; };
@@ -200,6 +201,7 @@
 		9DB8172A29FB4F0100988937 /* Eminem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eminem.mp3; sourceTree = "<group>"; };
 		9DB8172B29FB4F0100988937 /* Король и шут.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Король и шут.mp3"; sourceTree = "<group>"; };
 		9DB8172C29FB4F0100988937 /* Nirvana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Nirvana.mp3; sourceTree = "<group>"; };
+		9DB8CCF22ACF0F3400BAD8D9 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		9DB90D0A2A4EF69500F57180 /* extensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionString.swift; sourceTree = "<group>"; };
 		9DB90D0C2A50339F00F57180 /* extensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUIColor.swift; sourceTree = "<group>"; };
 		9DB90D262A52C9CE00F57180 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -596,6 +598,14 @@
 			path = ApplicationLayer;
 			sourceTree = "<group>";
 		};
+		9DB8CCF12ACF0F0500BAD8D9 /* AuthorizationService */ = {
+			isa = PBXGroup;
+			children = (
+				9DB8CCF22ACF0F3400BAD8D9 /* LocalAuthorizationService.swift */,
+			);
+			path = AuthorizationService;
+			sourceTree = "<group>";
+		};
 		9DB90D092A4EF63D00F57180 /* extentionSystemValue */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,9 +643,10 @@
 		9DB90D2F2A54558A00F57180 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9D2444AA2A307FCA00E87108 /* RealmService */,
-				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
+				9DB8CCF12ACF0F0500BAD8D9 /* AuthorizationService */,
 				9D34F392299F8F85004B91E1 /* CheckLogin */,
+				9D4E1DC92A0E4CA400573EC4 /* FirebaseService */,
+				9D2444AA2A307FCA00E87108 /* RealmService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1180,6 +1191,7 @@
 				9D2444B52A309BE800E87108 /* LogInUser.swift in Sources */,
 				9DB90D0D2A50339F00F57180 /* extensionUIColor.swift in Sources */,
 				9DBD5C5829C73735009F494C /* AppCoordinator.swift in Sources */,
+				9DB8CCF32ACF0F3400BAD8D9 /* LocalAuthorizationService.swift in Sources */,
 				9DE3E4822926D1F50043E19D /* ProfileHeaderView.swift in Sources */,
 				9DBD55C928FF3ADA00454D01 /* FeedViewController.swift in Sources */,
 				9DB90D312A54565400F57180 /* LogInViewModel.swift in Sources */,
@@ -1485,6 +1497,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Используем Face ID для входа на страницу.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Используем геопозицию для лучшей работы приложения";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Используем геопозицию для лучшей работы приложения";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Используем геопозицию для лучшей работы приложения";
@@ -1518,6 +1531,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Используем Face ID для входа на страницу.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Используем геопозицию для лучшей работы приложения";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Используем геопозицию для лучшей работы приложения";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Используем геопозицию для лучшей работы приложения";
