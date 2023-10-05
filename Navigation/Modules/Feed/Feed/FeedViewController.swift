@@ -70,6 +70,10 @@ class FeedViewController: UIViewController {
                     self.feedView.checkLabel.text = error.text
                     self.feedView.checkLabel.backgroundColor = UIColor(named: error.color)
                 }
+            case .requestAuthorization:
+                UserDefaults.standard.set(true, forKey: "requestAuthorization")
+                self.feedView.registerNotificationButton.isHidden = true
+                self.feedView.registerNotificationLabel.isHidden = true
             }
         }
     }
@@ -90,7 +94,8 @@ class FeedViewController: UIViewController {
 }
 
 
-extension FeedViewController: FeedViewDelegate {    
+extension FeedViewController: FeedViewDelegate {
+    
     func showPostVCon() {
         viewModel.updateState(viewInput: .showPostVC)
     }
@@ -102,5 +107,9 @@ extension FeedViewController: FeedViewDelegate {
     func guessWord() {
         guard let word = feedView.textCheck.text else { return }
         viewModel.updateState(viewInput: .guessWord(word: word))
+    }
+    
+    func registerNotification() {
+        viewModel.updateState(viewInput: .registerNotification)
     }
 }

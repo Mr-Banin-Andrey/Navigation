@@ -21,6 +21,8 @@
 "feedVC.button.secondButton.showPost.title" = "Открыть Инфо";
 "feedVC.textCheckField.placeholder" = " Введите слово для проверки ";
 "feedVC.checkGuessButton.title" = "Проверить слово";
+"feedVC.registerNotificationButton.title" = "Разрешить уведомления";
+"feedVC.registerNotificationLabel.text" = "После нажатия кнопка пропадет";
 
 "infoVC.button.title" = "жмак";
 "infoVC.alert.title" = "Вопрос";

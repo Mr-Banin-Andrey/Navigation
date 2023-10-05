@@ -8,6 +8,7 @@ protocol FeedViewDelegate: AnyObject {
     func showPostVCon()
     func showInfoVCon()
     func guessWord()
+    func registerNotification()
 }
 
 
@@ -85,12 +86,38 @@ class FeedView: UIView {
         return label
     }()
     
+    lazy var registerNotificationButton: CustomButton = {
+        let button = CustomButton(
+            title: "feedVC.registerNotificationButton.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: .blue
+        ) { [unowned self] in
+            delegate?.registerNotification()
+        }
+        return button
+    }()
+    
+    lazy var registerNotificationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.createColor(lightMode: .lightGray, darkMode: .lightGray)
+        label.text = "feedVC.registerNotificationLabel.text".localized
+        return label
+    }()
+    
     init(delegate: FeedViewDelegate) {
         self.delegate = delegate
         super.init(frame: .zero)
         
         self.backgroundColor = .secondarySystemBackground
-        setupConstraints()
+        self.setupConstraints()
+        if UserDefaults.standard.bool(forKey: "requestAuthorization") {
+            registerNotificationButton.isHidden = true
+            registerNotificationLabel.isHidden = true
+        } else {
+            registerNotificationButton.isHidden = false
+            registerNotificationLabel.isHidden = false
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -106,6 +133,8 @@ class FeedView: UIView {
         self.addSubview(self.textCheck)
         self.addSubview(self.checkGuessButton)
         self.addSubview(self.checkLabel)
+        self.addSubview(self.registerNotificationButton)
+        self.addSubview(self.registerNotificationLabel)
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: self.topAnchor, constant: 65),
@@ -126,7 +155,13 @@ class FeedView: UIView {
             
             checkLabel.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 150),
             checkLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            checkLabel.heightAnchor.constraint(equalToConstant: 35)
+            checkLabel.heightAnchor.constraint(equalToConstant: 35),
+            
+            registerNotificationButton.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 75),
+            registerNotificationButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            registerNotificationLabel.topAnchor.constraint(equalTo: registerNotificationButton.bottomAnchor, constant: 5),
+            registerNotificationLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
     }
 }

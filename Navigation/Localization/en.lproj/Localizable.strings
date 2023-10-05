@@ -21,6 +21,8 @@
 "feedVC.button.secondButton.showPost.title" = "Show Info";
 "feedVC.textCheckField.placeholder" = " Enter the word to check ";
 "feedVC.checkGuessButton.title" = "Check word";
+"feedVC.registerNotificationButton.title" = "Allow notifications";
+"feedVC.registerNotificationLabel.text" = "Once clicked, the button will disappear";
 
 "infoVC.button.title" = "click";
 "infoVC.alert.title" = "Question";

@@ -15,6 +15,7 @@ class FeedViewModel: FeedViewModelProtocol {
         case checking
         case checked(Value)
         case error(CheckError)
+        case requestAuthorization
         
         static func == (lhs: FeedViewModel.State, rhs: FeedViewModel.State) -> Bool {
             switch (lhs, rhs) {
@@ -34,6 +35,7 @@ class FeedViewModel: FeedViewModelProtocol {
         case showPostVC
         case showInfoVC
         case guessWord(word: String)
+        case registerNotification
     }
     
     var coordinator: FeedCoordinator?
@@ -46,7 +48,8 @@ class FeedViewModel: FeedViewModelProtocol {
         }
     }
     
-    var delegate: FeedModelProtocol = FeedModel()
+    var feedModelDelegate: FeedModelProtocol = FeedModel()
+    var localNotificationsServiceProtocol: LocalNotificationsServiceProtocol = LocalNotificationsService()
     
     func updateState(viewInput: FeedViewModel.ViewInput) {
         switch viewInput {
@@ -55,8 +58,8 @@ class FeedViewModel: FeedViewModelProtocol {
         case .showInfoVC:
             coordinator?.showInfoVC()
         case let .guessWord(word):
-            state = .checking
-            delegate.isCheck(word: word) { result in
+            self.state = .checking
+            feedModelDelegate.isCheck(word: word) { result in
                 switch result {
                 case let .success(value):
                     self.state = .checked(value)
@@ -69,6 +72,10 @@ class FeedViewModel: FeedViewModelProtocol {
                     }
                 }
             }
+        case .registerNotification:
+            self.localNotificationsServiceProtocol.allowNotifications()
+            self.state = .requestAuthorization
+            print("registerNotification")
         }
     }
 }
