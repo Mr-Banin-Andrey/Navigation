@@ -21,9 +21,8 @@ class FeedCoordinator: AppCoordinator {
     
     func showFeedVC() {
         let viewModel = FeedViewModel()
-        let feedVC = FeedViewController()
+        let feedVC = FeedViewController(viewModel: viewModel)
         
-        feedVC.viewModel = viewModel
         viewModel.coordinator = self
         navigationController.pushViewController(feedVC, animated: false)
     }

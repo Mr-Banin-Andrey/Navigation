@@ -11,6 +11,11 @@ struct UserModel {
         self.name = firUser.displayName ?? ""
         //self.credential = credential
     }
+    
+    init(from name: String) {
+        self.name = name
+    }
+    
 }
 
 //struct CredentialModel {

@@ -18,9 +18,6 @@ class DocumentsView: UIView {
         return tableView
     }()
     
-    lazy var rightButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(addImage))
     
     init(delegate: DocumentsViewDelegate) {
         self.delegate = delegate
@@ -44,7 +41,14 @@ class DocumentsView: UIView {
         tableView.reloadData()
     }
     
-    func navigationController(navigation: UINavigationItem, rightButton: UIBarButtonItem, title: String) {
+    func navigationController(
+        navigation: UINavigationItem,
+        title: String
+    ) {
+        
+        let rightButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                                target: self,
+                                                                action: #selector(addImage))
         
         rightButton.tintColor = UIColor(named: "blueColor")
         
@@ -53,7 +57,7 @@ class DocumentsView: UIView {
         navigation.rightBarButtonItem = rightButton
     }
     
-    func setupUI() {
+    private func setupUI() {
         self.addSubview(self.tableView)
         
         self.tableView.snp.makeConstraints { maker in
@@ -64,7 +68,7 @@ class DocumentsView: UIView {
         }
     }
     
-    @objc func addImage() {
+    @objc private func addImage() {
         delegate?.addImage()
     }
 }

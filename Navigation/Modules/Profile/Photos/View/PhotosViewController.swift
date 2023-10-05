@@ -132,6 +132,10 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
         
         let wight = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insert.left - insert.right
         let itemWight = floor(wight / Constants.numberOfItemsInLine)
+        print("🍉 1 insert", insert)
+        print("🍉 2 interItemSpacing", interItemSpacing)
+        print("🍉 3 wight", wight)
+        print("🍉 4 itemWight", itemWight)
         
         return CGSize(width: itemWight, height: itemWight)
     }
