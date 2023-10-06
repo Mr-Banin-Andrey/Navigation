@@ -50,10 +50,6 @@
 "likePostsView.alert.placeholder" = "Enter Author";
 "likePostsView.alert.action.title" = "Cancel";
 
-"firebase.checkerService.alert.accountExists.message" = "Wrong login or password";
-"firebase.checkerService.alert.accountDoesNotExist.message" = "Account with such data does not exist";
-"firebase.checkerService.alert.cellEmpty.message" = "Fill in all the fields";
-
 "loginVC.passwordTextField.placeholder" = "Password";
 "loginVC.logInButton.setTitle" = "Log In";
 "loginVC.alert.message" = "User saved";
@@ -61,6 +57,10 @@
 "loginVC.modalPresent.logInButton.title" = "Save";
 "loginVC.modalPresent.passwordTextField.placeholder" = "Password at least 6 characters";
 "loginVC.modalPresent.loginTextField.placeholder" = "Your e-mail";
+"loginVC.checkerService.alert.accountExists.message" = "Wrong login or password";
+"loginVC.checkerService.alert.accountDoesNotExist.message" = "Account with such data does not exist";
+"loginVC.checkerService.alert.cellEmpty.message" = "Fill in all the fields";
+"loginVC.alert.failedFaceIdAuthentication.message" = "Failed Face ID Authentication";
 
 "photosVC.navigationController.title" = "Photo Gallery";
 

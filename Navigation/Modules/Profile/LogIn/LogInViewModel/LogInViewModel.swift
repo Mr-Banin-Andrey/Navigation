@@ -16,6 +16,7 @@ class LogInViewModel: LogInViewModelProtocol {
         case incorrectPassword
         case userDoesNotExist
         case error(Error)
+        case failedFaceIdAuthentication
         
         static func == (lhs: LogInViewModel.State, rhs: LogInViewModel.State) -> Bool {
             switch (lhs, rhs) {
@@ -36,11 +37,13 @@ class LogInViewModel: LogInViewModelProtocol {
         case showWindowRegistration
         case willNewUserRegistration(user: LogInUser)
         case didNewUserRegistration
+        case registrationWithFaceId
     }
     
     var checkerService: CheckerServiceProtocol = CheckerService()
-    private let dataBaseRealmService: RealmServiceProtocol = RealmService()
-
+    private let realmService: RealmServiceProtocol = RealmService()
+    private let localAuthorizationService: LocalAuthorizationServiceProtocol = LocalAuthorizationService()
+    
     var coordinator: ProfileCoordinator?
     
     var onStateDidChange: ((State) -> Void)?
@@ -52,7 +55,7 @@ class LogInViewModel: LogInViewModelProtocol {
     }
     
     private func createUserRealm(user: LogInUser) {
-        let success = dataBaseRealmService.createUser(user: user)
+        let success = realmService.createUser(user: user)
         if success {
             print("пользователь добавлен в базу Realm")
         } else {
@@ -108,6 +111,14 @@ class LogInViewModel: LogInViewModelProtocol {
             }
         case .didNewUserRegistration:
             self.coordinator?.showProfileVC()
+        case .registrationWithFaceId:
+            self.localAuthorizationService.authorizeIfPossible { result in
+                if result {
+                    self.coordinator?.showProfileVC()
+                } else {
+                    self.state = .failedFaceIdAuthentication
+                }
+            }
         }
     }
 }

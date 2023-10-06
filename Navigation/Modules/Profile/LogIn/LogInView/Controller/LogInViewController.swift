@@ -91,6 +91,8 @@ class LogInViewController: UIViewController {
         }
     }
     
+    let showAlert = ShowAlert()
+    
     private func bindViewModel() {
         self.viewModel.onStateDidChange = { [weak self] state in
             guard let self = self else { return }
@@ -103,26 +105,31 @@ class LogInViewController: UIViewController {
                 self.showAlertDidNewUserRegistration()
             case .incorrectPassword:
                 print("state- incorrectPassword")
-                let showAlert = ShowAlert()
                 showAlert.showAlert(
                     vc: self,
                     title: "universalMeaning.alert.title".localized,
-                    message: "firebase.checkerService.alert.accountExists.message".localized,
+                    message: "loginVC.checkerService.alert.accountExists.message".localized,
                     titleButton: "universalMeaning.Button.tryAgain".localized
                 )
             case .userDoesNotExist:
                 print("state- userDoesNotExist")
-                let showAlert = ShowAlert()
+                
                 showAlert.showAlert(
                     vc: self,
                     title: "universalMeaning.alert.title".localized,
-                    message: "firebase.checkerService.alert.accountDoesNotExist.message".localized,
+                    message: "loginVC.checkerService.alert.accountDoesNotExist.message".localized,
                     titleButton: "universalMeaning.Button.tryAgain".localized
                 )
                 
             case let .error(error):
                 print("Error state: \(error)")
-                
+            case .failedFaceIdAuthentication:
+                showAlert.showAlert(
+                    vc: self,
+                    title: "universalMeaning.alert.title".localized,
+                    message: "loginVC.alert.failedFaceIdAuthentication.message".localized,
+                    titleButton: "universalMeaning.Button.tryAgain".localized
+                )
             }
         }
     }
@@ -203,5 +210,9 @@ extension LogInViewController: LogInViewDelegate {
     
     func showRegistration() {
         viewModel.updateState(viewInput: .showWindowRegistration)
+    }
+    
+    func showProfileViewControllerWithFaceIdButton() {
+        viewModel.updateState(viewInput: .registrationWithFaceId)
     }
 }
