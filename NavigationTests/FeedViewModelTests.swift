@@ -21,7 +21,7 @@ final class FeedViewModelTests: XCTestCase {
     func testStateCheckedSuccess() {
         let value = Value(text: " \("feedModel.isCheckResult.true".localized) ", color: "green")
                 
-        viewModel.delegate = feedViewModelProtocolMock
+        viewModel.feedModelDelegate = feedViewModelProtocolMock
         feedViewModelProtocolMock.fakeResult = .success(value)
         viewModel.updateState(viewInput: .guessWord(word: ""))
 
@@ -31,7 +31,7 @@ final class FeedViewModelTests: XCTestCase {
     func testStateErrorFailure() {
         let value = Value(text: " \("feedModel.isCheckResult.false".localized) ", color: "red")
         
-        viewModel.delegate = feedViewModelProtocolMock
+        viewModel.feedModelDelegate = feedViewModelProtocolMock
         feedViewModelProtocolMock.fakeResult = .failure(.wrong(value: value))
         viewModel.updateState(viewInput: .guessWord(word: ""))
                 
@@ -41,7 +41,7 @@ final class FeedViewModelTests: XCTestCase {
     func testStateErrorFailureEmptyField() {
         let value = Value(text: " \("feedModel.isCheckResult.false".localized) ", color: "red")
         
-        viewModel.delegate = feedViewModelProtocolMock
+        viewModel.feedModelDelegate = feedViewModelProtocolMock
         feedViewModelProtocolMock.fakeResult = .failure(.emptyValue(value: value))
         viewModel.updateState(viewInput: .guessWord(word: ""))
                 
