@@ -6,7 +6,11 @@ class InfoViewController: UIViewController {
     
     //MARK: - 1. Properties
     private lazy var button: CustomButton = {
-        let button = CustomButton(title: "click", bgColor: .blue) { [unowned self] in
+        let button = CustomButton(
+            title: "infoVC.button.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: .blue
+        ) { [unowned self] in
             self.present(alertController, animated: true, completion: nil)
         }
         return button
@@ -15,12 +19,14 @@ class InfoViewController: UIViewController {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .createColor(lightMode: .white, darkMode: .black)
         return label
     }()
     
     lazy var orbitalPeriodLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .createColor(lightMode: .white, darkMode: .black)
         return label
     }()
     
@@ -35,7 +41,11 @@ class InfoViewController: UIViewController {
         return table
     }()
     
-    let alertController = UIAlertController(title: "Question", message: "red or blue", preferredStyle: .alert)
+    let alertController = UIAlertController(
+        title: "infoVC.alert.title".localized,
+        message: "infoVC.alert.message".localized,
+        preferredStyle: .alert
+    )
     
     weak var coordinator: FeedCoordinator?
     
@@ -49,7 +59,7 @@ class InfoViewController: UIViewController {
         
         self.loadJson()
         
-        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        view.backgroundColor = UIColor.appTintColorOrange
         
         setupConstraints()
         setupAlertController()
@@ -74,7 +84,7 @@ class InfoViewController: UIViewController {
         TitleJsonSerialization.shared.loadJson { [weak self] value in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.titleLabel.text = "Title: \(value)"
+                self.titleLabel.text = "\("infoVC.titleLabel.text".localized) \(value)"
                 print(value, "TitleJsonSerialization")
             }
         }
@@ -82,7 +92,7 @@ class InfoViewController: UIViewController {
         OrbitalPeriodJsonSingleton.shared.loadJson { [weak self] value in
             guard let self else { return }
             DispatchQueue.main.async {
-                self.orbitalPeriodLabel.text = "Период обращения планеты: \(value)"
+                self.orbitalPeriodLabel.text = "\("infoVC.orbitalPeriodLabel.text".localized) \(value)"
                 print(value, "OrbitalPeriodJsonSingleton")
             }
         }
@@ -104,7 +114,7 @@ class InfoViewController: UIViewController {
             }
         }
     }
-            
+    
     func setupConstraints() {
         view.addSubview(button)
         view.addSubview(self.titleLabel)
@@ -129,12 +139,20 @@ class InfoViewController: UIViewController {
     }
     
     func setupAlertController() {
-        alertController.addAction(UIAlertAction(title: "red", style: .default, handler: { _ in
-            print("left button")
-        }))
-        alertController.addAction(UIAlertAction(title: "blue", style: .default, handler: { _ in
-            print("right button")
-        }))
+        alertController.addAction(UIAlertAction(
+            title: "infoVC.alert.action.leftButton.title".localized,
+            style: .default,
+            handler: { _ in
+                print("left button")
+            })
+        )
+        alertController.addAction(UIAlertAction(
+            title: "infoVC.alert.action.rightButton.title".localized,
+            style: .default,
+            handler: { _ in
+                print("right button")
+            })
+        )
     }
     
     private func timerStart() {
@@ -167,7 +185,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultId", for: indexPath)
         
         if namesOfResidentsArray.isEmpty == true {
-            cell.textLabel?.text = "empty"
+            cell.textLabel?.text = "infoVC.cell.textLabel.text".localized
         } else {
             cell.textLabel?.text = namesOfResidentsArray[indexPath.row]
         }

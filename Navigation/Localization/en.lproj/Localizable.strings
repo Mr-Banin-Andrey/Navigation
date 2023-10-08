@@ -1,0 +1,71 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Андрей Банин on 29.6.23..
+  
+*/
+"universalMeaning.Button.tryAgain" = "Try again";
+"universalMeaning.alert.title" = "Error";
+
+"viewController.title.feed" = "Feed";
+"tabBarItem.title.profile" = "Profile";
+"tabBarItem.title.audioPlayer" = "Music";
+"viewController.title.likePosts" = "Like posts";
+"viewController.title.maps" = "Maps";
+
+"feedModel.isCheckResult.true" = "CORRECTLY ✔️";
+"feedModel.isCheckResult.false" = "INCORRECTLY ✖️";
+
+"feedVC.button.firstButton.showPost.title" = "Show Post";
+"feedVC.button.secondButton.showPost.title" = "Show Info";
+"feedVC.textCheckField.placeholder" = " Enter the word to check ";
+"feedVC.checkGuessButton.title" = "Check word";
+"feedVC.registerNotificationButton.title" = "Allow notifications";
+"feedVC.registerNotificationLabel.text" = "Once clicked, the button will disappear";
+
+"infoVC.button.title" = "click";
+"infoVC.alert.title" = "Question";
+"infoVC.alert.message" = "red or blue";
+"infoVC.titleLabel.text" = "Title:";
+"infoVC.orbitalPeriodLabel.text" = "The orbital period of the planet:";
+"infoVC.alert.action.leftButton.title" = "red";
+"infoVC.alert.action.rightButton.title" = "blue";
+"infoVC.cell.textLabel.text" = "empty";
+
+"postVC.titleView.PostTitle.title" = "Post";
+
+"mapKitVC.navigationController.title" = "Map";
+"mapKitVC.pin.title" = "Old Town Budva";
+"mapKitVC.pinTitle.title.latitude" = "˚N";
+"mapKitVC.pinTitle.title.longitude" = "˚E";
+"mapKitVC.alertAction.addPin.title" = "Add pin";
+"mapKitVC.alertAction.createRoute.title" = "Create route";
+"mapKitVC.alertAction.cancelAction.title" = "Delete pin";
+
+"likePostsVC.tableView.swipe.action.title" = "Delete";
+"likePostsVC.alertController.title" = "Filter by author";
+"likePostsVC.action.createAction.title" = "Apply";
+
+"likePostsView.alert.placeholder" = "Enter Author";
+"likePostsView.alert.action.title" = "Cancel";
+
+"loginVC.passwordTextField.placeholder" = "Password";
+"loginVC.logInButton.setTitle" = "Log In";
+"loginVC.alert.message" = "User saved";
+"loginVC.singUpButton.title" = "Registration";
+"loginVC.modalPresent.logInButton.title" = "Save";
+"loginVC.modalPresent.passwordTextField.placeholder" = "Password at least 6 characters";
+"loginVC.modalPresent.loginTextField.placeholder" = "Your e-mail";
+"loginVC.checkerService.alert.accountExists.message" = "Wrong login or password";
+"loginVC.checkerService.alert.accountDoesNotExist.message" = "Account with such data does not exist";
+"loginVC.checkerService.alert.cellEmpty.message" = "Fill in all the fields";
+"loginVC.alert.failedFaceIdAuthentication.message" = "Failed Face ID Authentication";
+
+"photosVC.navigationController.title" = "Photo Gallery";
+
+"profileHV.showStatusButton.setTitle" = "Show status";
+"profileHV.alert.message.long" = "status too long";
+"profileHV.alert.message.short" = "status is too short";
+
+"profileVC.tapLikePost.alert.message" = "The post is in your favorites folder. Choose another post";

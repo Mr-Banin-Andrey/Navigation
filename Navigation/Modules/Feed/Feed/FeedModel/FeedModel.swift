@@ -1,32 +1,45 @@
 
 
 import Foundation
-import UIKit
 
-final class FeedModel {
+struct Value {
+    let text: String
+    let color: String
     
-    struct Value {
-        let text: String
-        let color: UIColor
+    static func == (lhs: Value, rhs: Value) -> Bool {
+        return lhs.text == rhs.text && lhs.color == rhs.color
     }
+}
+
+enum CheckError: Error {
+    case wrong(value: Value)
+    case emptyValue(value: Value)
     
-    let secretWord: String = "word"
-    let emptyValue: String = ""
     
-    public let arrayValue: [Value] = [
-        Value(text: "  ВЕРНО ✔️ ", color: UIColor.systemGreen),
-        Value(text: "  НЕВЕРНО ✖️ ", color: UIColor.systemRed)
+}
+
+
+protocol FeedModelProtocol {
+    func isCheck(word: String, completion: @escaping ((Result<Value, CheckError>) -> Void))
+}
+
+final class FeedModel: FeedModelProtocol {
+    
+    private let secretWord: String = "word"
+    private let emptyValue: String = ""
+    
+    private let arrayValue: [Value] = [
+        Value(text: " \("feedModel.isCheckResult.true".localized) ", color: "green"),
+        Value(text: "  \("feedModel.isCheckResult.false".localized) ", color: "red")
     ]
-    
-    public func isCheck(word: String, completion: @escaping ((Result<[Value], Error>) -> Void)) -> Value {
         
-        completion(.success(arrayValue))
-        
+    public func isCheck(word: String, completion: @escaping ((Result<Value, CheckError>) -> Void)) {
         if secretWord == word {
-            return arrayValue[0]
+            completion(.success(arrayValue[0]))
         } else if emptyValue == word {
-            return arrayValue[1]
+            completion(.failure(.emptyValue(value: arrayValue[1])))
+        } else {
+            completion(.failure(.wrong(value: arrayValue[1])))
         }
-        return arrayValue[1]
     }
 }

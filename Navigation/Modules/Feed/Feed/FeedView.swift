@@ -8,6 +8,7 @@ protocol FeedViewDelegate: AnyObject {
     func showPostVCon()
     func showInfoVCon()
     func guessWord()
+    func registerNotification()
 }
 
 
@@ -19,8 +20,8 @@ class FeedView: UIView {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Feed"
-        label.textColor = .black
+        label.text = "viewController.title.feed".localized
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +35,11 @@ class FeedView: UIView {
     }()
     
     private lazy var firstButton: CustomButton = {
-        let button = CustomButton(title: "Show Post", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(
+            title: "feedVC.button.firstButton.showPost.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
+        ) { [unowned self] in
             delegate?.showPostVCon()
             tapAction?()
         }
@@ -42,7 +47,11 @@ class FeedView: UIView {
     }()
     
     private lazy var secondButton: CustomButton = {
-        let button = CustomButton(title: "Show Info", bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)) { [unowned self] in
+        let button = CustomButton(
+            title: "feedVC.button.secondButton.showPost.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: #colorLiteral(red: 0.042927064, green: 0.5177074075, blue: 1, alpha: 1)
+        ) { [unowned self] in
             delegate?.showInfoVCon()
             tapAction?()
         }
@@ -51,15 +60,19 @@ class FeedView: UIView {
     
     lazy var textCheck: UITextField = {
         let textStatus = UITextField()
-        textStatus.placeholder = " Text Check "
+        textStatus.placeholder = "feedVC.textCheckField.placeholder".localized
         textStatus.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textStatus.backgroundColor = .white
+        textStatus.backgroundColor = .tertiarySystemBackground
         textStatus.translatesAutoresizingMaskIntoConstraints = false
         return textStatus
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "Check guess", bgColor: .blue) { [unowned self] in
+        let button = CustomButton(
+            title: "feedVC.checkGuessButton.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: .blue
+        ) { [unowned self] in
             delegate?.guessWord()
             tapAction?()
         }
@@ -69,6 +82,26 @@ class FeedView: UIView {
     lazy var checkLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        return label
+    }()
+    
+    lazy var registerNotificationButton: CustomButton = {
+        let button = CustomButton(
+            title: "feedVC.registerNotificationButton.title".localized,
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            bgColor: .blue
+        ) { [unowned self] in
+            delegate?.registerNotification()
+        }
+        return button
+    }()
+    
+    lazy var registerNotificationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.createColor(lightMode: .lightGray, darkMode: .lightGray)
+        label.text = "feedVC.registerNotificationLabel.text".localized
         return label
     }()
     
@@ -76,8 +109,15 @@ class FeedView: UIView {
         self.delegate = delegate
         super.init(frame: .zero)
         
-        self.backgroundColor = .lightGray
-        setupConstraints()
+        self.backgroundColor = .secondarySystemBackground
+        self.setupConstraints()
+        if UserDefaults.standard.bool(forKey: "requestAuthorization") {
+            registerNotificationButton.isHidden = true
+            registerNotificationLabel.isHidden = true
+        } else {
+            registerNotificationButton.isHidden = false
+            registerNotificationLabel.isHidden = false
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -93,6 +133,8 @@ class FeedView: UIView {
         self.addSubview(self.textCheck)
         self.addSubview(self.checkGuessButton)
         self.addSubview(self.checkLabel)
+        self.addSubview(self.registerNotificationButton)
+        self.addSubview(self.registerNotificationLabel)
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: self.topAnchor, constant: 65),
@@ -103,7 +145,9 @@ class FeedView: UIView {
             
             textCheck.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             textCheck.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 200),
-            textCheck.widthAnchor.constraint(equalToConstant: 150),
+//            textCheck.widthAnchor.constraint(equalToConstant: 200),
+            textCheck.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
+            textCheck.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             textCheck.heightAnchor.constraint(equalToConstant: 30),
             
             checkGuessButton.topAnchor.constraint(equalTo: textCheck.bottomAnchor, constant: 25),
@@ -111,9 +155,14 @@ class FeedView: UIView {
             
             checkLabel.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 150),
             checkLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            checkLabel.heightAnchor.constraint(equalToConstant: 35)
+            checkLabel.heightAnchor.constraint(equalToConstant: 35),
+            
+            registerNotificationButton.topAnchor.constraint(equalTo: twoButtons.bottomAnchor, constant: 75),
+            registerNotificationButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            registerNotificationLabel.topAnchor.constraint(equalTo: registerNotificationButton.bottomAnchor, constant: 5),
+            registerNotificationLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
     }
 }
-
 

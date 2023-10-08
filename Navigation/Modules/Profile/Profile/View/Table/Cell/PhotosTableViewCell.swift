@@ -6,8 +6,8 @@ class PhotosTableViewCell: UITableViewCell {
     
     private lazy var photosLabel: UILabel = {
         let label = UILabel()
-        label.text = "Photos"
-        label.textColor = .black
+        label.text = "photosVC.navigationController.title".localized
+        label.textColor = .label
         label.font = .boldSystemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -16,7 +16,7 @@ class PhotosTableViewCell: UITableViewCell {
     private lazy var arrowLabel: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "arrow.right")
-        image.tintColor = .black
+        image.tintColor = .label
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -56,6 +56,7 @@ class PhotosTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = .secondarySystemBackground
         self.setupConstraints()
         
     }

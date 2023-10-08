@@ -29,6 +29,7 @@ class PhotosViewController: UIViewController {
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: "customCell")
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "defaultID")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .secondarySystemBackground
         return collectionView
     }()
     
@@ -42,26 +43,27 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.photoGalleryToImageArrive()
         
         self.navigationBarFunc()
+
+        self.photoGalleryToImageArrive()
+        
         self.setupConstraints()
     }
         
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
 
-        self.processImagesOnThread()
-    }
+//        self.processImagesOnThread()
+//    }
     
     //MARK: - 3. Methods
     private func navigationBarFunc() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.title = "Photo Gallery"
+        self.navigationItem.title = "photosVC.navigationController.title".localized
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.backgroundColor = .secondarySystemBackground
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
@@ -130,6 +132,10 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
         
         let wight = collectionView.frame.width - (Constants.numberOfItemsInLine - 1) * interItemSpacing - insert.left - insert.right
         let itemWight = floor(wight / Constants.numberOfItemsInLine)
+        print("🍉 1 insert", insert)
+        print("🍉 2 interItemSpacing", interItemSpacing)
+        print("🍉 3 wight", wight)
+        print("🍉 4 itemWight", itemWight)
         
         return CGSize(width: itemWight, height: itemWight)
     }
@@ -138,4 +144,3 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
 extension String {
     var stringToUiImage: UIImage? { get { return UIImage(named: self) } }
 }
-

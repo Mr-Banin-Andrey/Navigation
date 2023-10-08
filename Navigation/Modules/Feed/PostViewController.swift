@@ -9,7 +9,7 @@ class PostViewController: UIViewController {
     weak var coordinator: FeedCoordinator?
     
     //MARK: - 1. Properties
-    var titleView = PostTitle(title: "Post")
+    var titleView = PostTitle(title: "postVC.titleView.PostTitle.title".localized)
     
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -22,7 +22,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        view.backgroundColor = .cyan
+        view.backgroundColor = .appTintColorCyan
         setupConstraints()
         titleLabel.text = titleView.title
         

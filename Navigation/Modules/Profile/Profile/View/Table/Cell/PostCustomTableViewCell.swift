@@ -13,7 +13,7 @@ class PostCustomTableViewCell: UITableViewCell {
         let authorLabel = UILabel()
         authorLabel.font = .systemFont(ofSize: 20, weight: .bold)
         authorLabel.numberOfLines = 2
-        authorLabel.textColor = .black
+        authorLabel.textColor = .label
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorLabel
     }()
@@ -21,7 +21,7 @@ class PostCustomTableViewCell: UITableViewCell {
     private lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.textColor = .systemGray
+        descriptionLabel.textColor = .secondaryLabel
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = .systemFont(ofSize: 14, weight: .heavy)
         return descriptionLabel
@@ -31,7 +31,7 @@ class PostCustomTableViewCell: UITableViewCell {
         let imagePhotoView = UIImageView()
         imagePhotoView.contentMode = .scaleAspectFit
         imagePhotoView.translatesAutoresizingMaskIntoConstraints = false
-        imagePhotoView.backgroundColor = .black
+        imagePhotoView.backgroundColor = .tertiarySystemBackground
         return imagePhotoView
     }()
     
@@ -48,7 +48,7 @@ class PostCustomTableViewCell: UITableViewCell {
         let likesLabel = UILabel()
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
         likesLabel.text = "Likes:"
-        likesLabel.textColor = .black
+        likesLabel.textColor = .label
         likesLabel.font = .systemFont(ofSize: 16, weight: .medium)
         return likesLabel
     }()
@@ -56,7 +56,7 @@ class PostCustomTableViewCell: UITableViewCell {
     private lazy var likesAmountLabel: UILabel = {
         let likesAmountLabel = UILabel()
         likesAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        likesAmountLabel.textColor = .black
+        likesAmountLabel.textColor = .label
         likesAmountLabel.font = .systemFont(ofSize: 16, weight: .medium)
         return likesAmountLabel
     }()
@@ -74,7 +74,7 @@ class PostCustomTableViewCell: UITableViewCell {
         let viewsLabel = UILabel()
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsLabel.font = .systemFont(ofSize: 16, weight: .medium)
-        viewsLabel.textColor = .black
+        viewsLabel.textColor = .label
         viewsLabel.text = "Views:"
         return viewsLabel
     }()
@@ -82,7 +82,7 @@ class PostCustomTableViewCell: UITableViewCell {
     private lazy var viewsAmountLabel: UILabel = {
         let viewsAmountLabel = UILabel()
         viewsAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewsAmountLabel.textColor = .black
+        viewsAmountLabel.textColor = .label
         viewsAmountLabel.font = .systemFont(ofSize: 16, weight: .medium)
         return viewsAmountLabel
     }()
@@ -94,6 +94,8 @@ class PostCustomTableViewCell: UITableViewCell {
 //MARK: - Life cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.backgroundColor = .secondarySystemBackground
         
         self.tapGesture()
         
@@ -117,6 +119,8 @@ class PostCustomTableViewCell: UITableViewCell {
     
     func setup(with profilePost: ProfilePost) {
         
+        likesAmountLabel.isHidden = true
+        
         let viewsAmountText = String(profilePost.views)
         let likesAmountText = String(profilePost.likes)
         
@@ -129,9 +133,17 @@ class PostCustomTableViewCell: UITableViewCell {
         self.idPost = profilePost.idPost
         
         namePhoto = profilePost.photoPost
+        
+        let localizableLikes = NSLocalizedString("any.likes", comment: "")
+        let formattedLikes = String(format: localizableLikes, profilePost.likes)
+        
+        self.likesLabel.text = formattedLikes
+        
     }
     
     func setupModel(with likePostsCoreDataModel: LikePostCoreDataModel) {
+        
+//        likesAmountLabel.isHidden = true
         
         self.authorLabel.text = likePostsCoreDataModel.author
         self.descriptionLabel.text = likePostsCoreDataModel.descriptionPost
@@ -192,7 +204,6 @@ class PostCustomTableViewCell: UITableViewCell {
     }
     
     @objc func tapEdit(_ sender: UITapGestureRecognizer) {
-        
         guard
             let views = viewsAmountLabel.text,
             let likes = likesAmountLabel.text
