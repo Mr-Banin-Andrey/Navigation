@@ -67,9 +67,9 @@
 		9DB8172E29FB4F0100988937 /* Eminem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172A29FB4F0100988937 /* Eminem.mp3 */; };
 		9DB8172F29FB4F0100988937 /* Король и шут.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172B29FB4F0100988937 /* Король и шут.mp3 */; };
 		9DB8173029FB4F0100988937 /* Nirvana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8172C29FB4F0100988937 /* Nirvana.mp3 */; };
-		9DB8CCEE2ACEAC2F00BAD8D9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB8CCED2ACEAC2F00BAD8D9 /* Realm */; };
-		9DB8CCF02ACEAC2F00BAD8D9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB8CCEF2ACEAC2F00BAD8D9 /* RealmSwift */; };
 		9DB8CCF32ACF0F3400BAD8D9 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8CCF22ACF0F3400BAD8D9 /* LocalAuthorizationService.swift */; };
+		9DB8CCF62AD2C99900BAD8D9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB8CCF52AD2C99900BAD8D9 /* Realm */; };
+		9DB8CCF82AD2C99900BAD8D9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DB8CCF72AD2C99900BAD8D9 /* RealmSwift */; };
 		9DB90D0B2A4EF69500F57180 /* extensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0A2A4EF69500F57180 /* extensionString.swift */; };
 		9DB90D0D2A50339F00F57180 /* extensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D0C2A50339F00F57180 /* extensionUIColor.swift */; };
 		9DB90D272A52C9CE00F57180 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB90D262A52C9CE00F57180 /* LogInView.swift */; };
@@ -263,12 +263,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DB8CCF02ACEAC2F00BAD8D9 /* RealmSwift in Frameworks */,
+				9DB8CCF82AD2C99900BAD8D9 /* RealmSwift in Frameworks */,
 				9DB5FA2729A6A4D000A6D424 /* iOSIntPackage in Frameworks */,
 				9D0EC5332991117F00A98E06 /* SnapKit in Frameworks */,
 				9D0EC521298C1EC400A98E06 /* StorageService.framework in Frameworks */,
 				6BC015D5618EE86C0C0673AE /* Pods_Navigation.framework in Frameworks */,
-				9DB8CCEE2ACEAC2F00BAD8D9 /* Realm in Frameworks */,
+				9DB8CCF62AD2C99900BAD8D9 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,8 +959,8 @@
 			packageProductDependencies = (
 				9D0EC5322991117F00A98E06 /* SnapKit */,
 				9DB5FA2629A6A4D000A6D424 /* iOSIntPackage */,
-				9DB8CCED2ACEAC2F00BAD8D9 /* Realm */,
-				9DB8CCEF2ACEAC2F00BAD8D9 /* RealmSwift */,
+				9DB8CCF52AD2C99900BAD8D9 /* Realm */,
+				9DB8CCF72AD2C99900BAD8D9 /* RealmSwift */,
 			);
 			productName = Navigation;
 			productReference = 9DBD55B128FF1A1800454D01 /* Navigation.app */;
@@ -1001,7 +1001,7 @@
 			packageReferences = (
 				9D0EC5312991117F00A98E06 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				9DB5FA2529A6A4D000A6D424 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
-				9DB8CCEC2ACEAC2E00BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				9DB8CCF42AD2C99900BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 9DBD55B228FF1A1800454D01 /* Products */;
 			projectDirPath = "";
@@ -1612,7 +1612,7 @@
 				kind = branch;
 			};
 		};
-		9DB8CCEC2ACEAC2E00BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		9DB8CCF42AD2C99900BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
@@ -1633,14 +1633,14 @@
 			package = 9DB5FA2529A6A4D000A6D424 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
 		};
-		9DB8CCED2ACEAC2F00BAD8D9 /* Realm */ = {
+		9DB8CCF52AD2C99900BAD8D9 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9DB8CCEC2ACEAC2E00BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = 9DB8CCF42AD2C99900BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = Realm;
 		};
-		9DB8CCEF2ACEAC2F00BAD8D9 /* RealmSwift */ = {
+		9DB8CCF72AD2C99900BAD8D9 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9DB8CCEC2ACEAC2E00BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = 9DB8CCF42AD2C99900BAD8D9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
